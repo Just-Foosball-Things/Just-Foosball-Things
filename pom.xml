@@ -53,7 +53,7 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>default-check</id>
+                        <id>default-jacoco-check</id>
                         <goals>
                             <goal>check</goal>
                         </goals>
