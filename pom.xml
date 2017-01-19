@@ -44,7 +44,7 @@
                             <goal>prepare-agent</goal>
                         </goals>
                         <configuration>
-                            <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
+                            <destFile>${basedir}/target/jacoco.exec</destFile>
                         </configuration>
                     </execution>
                     <execution>
