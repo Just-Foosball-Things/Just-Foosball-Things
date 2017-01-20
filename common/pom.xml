@@ -11,18 +11,10 @@
     </parent>
 
     <groupId>nl.jft</groupId>
-    <artifactId>logic</artifactId>
+    <artifactId>common</artifactId>
     <version>0.1</version>
 
-    <name>logic</name>
-
-    <dependencies>
-        <dependency>
-            <groupId>nl.jft</groupId>
-            <artifactId>common</artifactId>
-            <version>0.1</version>
-        </dependency>
-    </dependencies>
+    <name>common</name>
 
     <build>
         <sourceDirectory>src/main</sourceDirectory>

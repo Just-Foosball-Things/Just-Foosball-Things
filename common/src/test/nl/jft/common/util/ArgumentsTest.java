@@ -1,4 +1,4 @@
-package nl.jft.logic.util;
+package nl.jft.common.util;
 
 import org.junit.Test;
 
