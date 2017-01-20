@@ -12,12 +12,12 @@ public class UserTest {
 
     @Test(expected = NullPointerException.class)
     public void construct_nullUsername_throwsException() {
-        User user = new User(null);
+        User user = new User(-1, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void construct_emptyUsername_throwsException() {
-        User user = new User("");
+        User user = new User(-1, "");
     }
 
     @Test
@@ -26,6 +26,14 @@ public class UserTest {
         User user2 = LogicTestUtil.makeDefaultUser();
 
         assertTrue(user1.equals(user2));
+    }
+
+    @Test
+    public void equals_otherUser_returnsFalse() throws Exception {
+        User user1 = LogicTestUtil.makeDefaultUser();
+        User user2 = new User(-1, "Henk");
+
+        assertFalse(user1.equals(user2));
     }
 
     @Test
@@ -63,4 +71,13 @@ public class UserTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void getId_whenCalled_returnsId() throws Exception {
+        User user = LogicTestUtil.makeDefaultUser(); //Default id = -1.
+
+        int expected = -1;
+        int actual = user.getId();
+
+        assertEquals(expected, actual);
+    }
 }
