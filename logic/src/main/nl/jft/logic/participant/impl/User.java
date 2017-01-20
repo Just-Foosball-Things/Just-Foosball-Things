@@ -4,9 +4,11 @@ import nl.jft.common.util.Arguments;
 import nl.jft.logic.participant.Participant;
 
 /**
- * A {@code User} represents a person using/in the System.
+ * A {@code User} represents a registered user within this application.
+ * Implements the {@link Participant} interface because a {@code User} can partake in {@link nl.jft.logic.match.Match matches} and {@link nl.jft.logic.tournament.Tournament tournaments}.
  *
  * @author Lesley
+ * @author Oscar de Leeuw
  */
 public class User implements Participant {
 
@@ -28,7 +30,8 @@ public class User implements Participant {
      *
      * @return The {@code username} of this {@code User}.
      */
-    public String getUsername() {
+    @Override
+    public String getName() {
         return username;
     }
 
