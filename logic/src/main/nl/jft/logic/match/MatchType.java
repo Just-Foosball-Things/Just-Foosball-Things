@@ -8,13 +8,13 @@ package nl.jft.logic.match;
 public enum MatchType {
 
     /**
-     * A {@code RATED} {@code MatchType} indicates that a {@link nl.jft.logic.participant.impl.User}
+     * A {@code RATED} {@code MatchType} indicates that a {@link nl.jft.logic.participant.Participant}
      * should change its {@link nl.jft.logic.participant.Elo} after finishing a {@link Match}.
      */
     RATED,
 
     /**
-     * A {@code FRIENDLY} {@code MatchType} indicates that a {@link nl.jft.logic.participant.impl.User}
+     * A {@code FRIENDLY} {@code MatchType} indicates that a {@link nl.jft.logic.participant.Participant}
      * should not change its {@link nl.jft.logic.participant.Elo} after finishing a {@link Match}.
      */
     FRIENDLY
