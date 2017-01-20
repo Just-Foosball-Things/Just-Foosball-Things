@@ -2,6 +2,9 @@ package nl.jft.logic.participant.impl;
 
 import nl.jft.common.util.Arguments;
 import nl.jft.logic.participant.Participant;
+import nl.jft.logic.participant.Title;
+
+import java.util.Objects;
 
 /**
  * A {@code User} represents a registered user within this application.
@@ -14,18 +17,21 @@ public class User implements Participant {
 
     private final int id;
     private final String username;
+    private final Title title;
 
     /**
      * Initializes a new {@code User} using the given {@code username}.
      *
-     * @param id The {@code id} of this {@code User}.
+     * @param id       The {@code id} of this {@code User}.
      * @param username The {@code username} of this {@code User}. Should not be {@code null} or empty.
+     * @param title    The active {@code Title} of this {@code User}. Should not be {@code null}.
      * @throws NullPointerException     If the given {@code username} was null.
      * @throws IllegalArgumentException IF the given {@code username} was empty.
      */
-    public User(int id, String username) {
+    public User(int id, String username, Title title) {
         this.id = id;
         this.username = Arguments.requireNotEmpty(username);
+        this.title = Objects.requireNonNull(title);
     }
 
     @Override
@@ -53,5 +59,14 @@ public class User implements Participant {
     @Override
     public int getId() {
         return id;
+    }
+
+    /**
+     * Gets the active {@code Title} of this {@code User}.
+     *
+     * @return The active {@code Title} of this {@code User}.
+     */
+    public Title getActiveTitle() {
+        return title;
     }
 }
