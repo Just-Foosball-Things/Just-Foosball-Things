@@ -10,16 +10,16 @@ import nl.jft.common.util.Arguments;
  * @author Oscar de Leeuw
  */
 public class EloExpectation {
-    private double elo1;
-    private double elo2;
+    private final double elo1;
+    private final double elo2;
 
-    private int goals1;
-    private int goals2;
+    private final int goals1;
+    private final int goals2;
 
-    private int maxGoals;
+    private final int maxGoals;
 
-    private double delta1;
-    private double delta2;
+    private final double delta1;
+    private final double delta2;
 
     /**
      * Creates a new {@code EloExpectation} from a {@code String}.
