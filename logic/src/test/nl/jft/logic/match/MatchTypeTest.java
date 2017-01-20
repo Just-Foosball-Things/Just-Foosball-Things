@@ -18,7 +18,7 @@ public class MatchTypeTest {
     }
 
     @Test
-    public void friendly_whenCalled_returnsRated() {
+    public void friendly_whenCalled_returnsFriendly() {
         MatchType expected = MatchType.FRIENDLY;
         MatchType actual = MatchType.valueOf("FRIENDLY");
 
