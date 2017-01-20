@@ -1,5 +1,6 @@
 package nl.jft.logic.participant.impl;
 
+import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -21,16 +22,12 @@ public class UserTest {
 
     @Test
     public void getUsername_whenCalled_returnsUsername() {
-        User user = makeUser(); // Default username = "username".
+        User user = LogicTestUtil.makeDefaultUser(); // Default username = "username".
 
         String expected = "username";
         String actual = user.getName();
 
         assertEquals(expected, actual);
-    }
-
-    private User makeUser() {
-        return new User("username");
     }
 
 }

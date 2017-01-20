@@ -1,5 +1,6 @@
 package nl.jft.logic.participant.impl;
 
+import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class TeamTest {
 
     @Test
     public void getName_withDefaultName_returnsName() throws Exception {
-        Team team = makeTeam(); //default name is "team".
+        Team team = LogicTestUtil.makeDefaultTeam(); // default name is "team".
 
         String expected = "team";
         String actual = team.getName();
@@ -39,15 +40,11 @@ public class TeamTest {
 
     @Test
     public void getId_withDefaultId_returnsId() throws Exception {
-        Team team = makeTeam(); //default id is 1.
+        Team team = LogicTestUtil.makeDefaultTeam(); // default id is -1.
 
-        int expected = 1;
+        int expected = -1;
         int actual = team.getId();
 
         Assert.assertEquals(expected, actual);
-    }
-
-    private Team makeTeam() {
-        return new Team(1, "team");
     }
 }
