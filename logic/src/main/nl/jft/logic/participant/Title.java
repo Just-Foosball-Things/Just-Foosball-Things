@@ -13,6 +13,12 @@ public class Title implements Identifiable {
     private final int id;
     private final String description;
 
+    /**
+     * Initiates a new {@code Title} using the given {@code id} and {@code description}.
+     *
+     * @param id          The {@code id} of this {@code Title}, used by external layers.
+     * @param description The {@code description} of this {@code Title}, should not be {@code null} or empty.
+     */
     public Title(int id, String description) {
         this.id = id;
         this.description = Arguments.requireNotEmpty(description);
@@ -23,6 +29,11 @@ public class Title implements Identifiable {
         return id;
     }
 
+    /**
+     * Gets the {@code description} of this {@code Title}.
+     *
+     * @return The {@code description} of this {@code Title}.
+     */
     public String getDescription() {
         return description;
     }
