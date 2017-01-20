@@ -1,6 +1,7 @@
 package nl.jft.logic.util;
 
 import nl.jft.logic.match.Goal;
+import nl.jft.logic.match.Rule;
 import nl.jft.logic.participant.impl.Team;
 import nl.jft.logic.participant.impl.User;
 
@@ -111,4 +112,19 @@ public final class LogicTestUtil {
         return new Goal(-1, makeDefaultTeam(), makeDefaultLocalDateTime());
     }
 
+    /**
+     * Makes a {@code Rule} with the following properties:
+     * <li>
+     * <ul>Id: -1</ul>
+     * </li>
+     *
+     * @return
+     */
+    public static Rule makeDefaultRule() {
+        return makeRule(-1, "description");
+    }
+
+    public static Rule makeRule(int id, String description) {
+        return new Rule(id, description);
+    }
 }
