@@ -2,6 +2,7 @@ package nl.jft.logic.util;
 
 import nl.jft.logic.match.Goal;
 import nl.jft.logic.match.Rule;
+import nl.jft.logic.participant.Title;
 import nl.jft.logic.participant.impl.Team;
 import nl.jft.logic.participant.impl.User;
 
@@ -116,6 +117,7 @@ public final class LogicTestUtil {
      * Makes a {@code Rule} with the following properties:
      * <li>
      * <ul>Id: -1</ul>
+     * <ul>Description: "description"</ul>
      * </li>
      *
      * @return
@@ -126,5 +128,22 @@ public final class LogicTestUtil {
 
     public static Rule makeRule(int id, String description) {
         return new Rule(id, description);
+    }
+
+    /**
+     * Makes a {@code Title} with the following properties:
+     * <li>
+     * <ul>Id: -1</ul>
+     * <ul>Description: "description"</ul>
+     * </li>
+     *
+     * @return
+     */
+    public static Title makeDefaultTitle() {
+        return makeTitle(-1, "description");
+    }
+
+    public static Title makeTitle(int id, String description) {
+        return new Title(id, description);
     }
 }
