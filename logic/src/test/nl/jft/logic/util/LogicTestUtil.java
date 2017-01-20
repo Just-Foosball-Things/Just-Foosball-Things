@@ -48,6 +48,10 @@ public final class LogicTestUtil {
         return new Team(-1, "team");
     }
 
+    public static Team makeTeam(int id, String teamName) {
+        return new Team(id, teamName);
+    }
+
     /**
      * Makes a {@code LocalDateTime} with the following properties:
      * <li>
