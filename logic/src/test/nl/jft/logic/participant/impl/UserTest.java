@@ -24,7 +24,7 @@ public class UserTest {
         User user = makeUser(); // Default username = "username".
 
         String expected = "username";
-        String actual = user.getUsername();
+        String actual = user.getName();
 
         assertEquals(expected, actual);
     }
