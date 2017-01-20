@@ -5,6 +5,7 @@ package nl.jft.common;
  *
  * @author Lesley Vente
  */
+@FunctionalInterface
 public interface Identifiable {
 
     /**
