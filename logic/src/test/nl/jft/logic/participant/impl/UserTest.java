@@ -1,7 +1,9 @@
 package nl.jft.logic.participant.impl;
 
 import nl.jft.logic.util.LogicTestUtil;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.*;
 
@@ -10,14 +12,21 @@ import static org.junit.Assert.*;
  */
 public class UserTest {
 
-    @Test(expected = NullPointerException.class)
+    @Rule
+    public final ExpectedException expectedException = ExpectedException.none();
+
+    @Test
     public void construct_nullUsername_throwsException() {
-        User user = new User(-1, null);
+        expectedException.expect(NullPointerException.class);
+
+        User user = LogicTestUtil.makeUser(-1, null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void construct_emptyUsername_throwsException() {
-        User user = new User(-1, "");
+        expectedException.expect(IllegalArgumentException.class);
+
+        User user = LogicTestUtil.makeUser(-1, "");
     }
 
     @Test
@@ -31,7 +40,7 @@ public class UserTest {
     @Test
     public void equals_otherUser_returnsFalse() throws Exception {
         User user1 = LogicTestUtil.makeDefaultUser();
-        User user2 = new User(-1, "Henk");
+        User user2 = LogicTestUtil.makeUser(-1, "Henk");
 
         assertFalse(user1.equals(user2));
     }

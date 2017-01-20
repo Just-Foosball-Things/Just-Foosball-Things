@@ -28,11 +28,11 @@ public final class LogicTestUtil {
      * @return A {@code User} object.
      */
     public static User makeDefaultUser() {
-        return new User("username");
+        return new User(-1, "username");
     }
 
-    public static User makeUser(String username) {
-        return new User(username);
+    public static User makeUser(int id, String username) {
+        return new User(id, username);
     }
 
     /**
