@@ -23,7 +23,7 @@ public class Goal implements Identifiable {
      *
      * @param id          The {@code id} (dependant on an external system such as a database) of this {@code Goal}.
      * @param participant The {@code participant} who scored this {@code Goal}. Can be {@code null} to indicate the scorer is unknown.
-     * @param time        The {@code time} at which {@code Goal} was scored, should not be null.
+     * @param time        The {@code time} at which this {@code Goal} was scored, should not be null.
      */
     public Goal(int id, Participant participant, LocalDateTime time) {
         this.id = id;
@@ -36,10 +36,20 @@ public class Goal implements Identifiable {
         return id;
     }
 
+    /**
+     * Gets the {@link Participant} who scored this {@code Goal}. May be {@code null} if it is unknown who scored this {@code Goal}.
+     *
+     * @return The {@code Participant} who scored this {@code Goal}.
+     */
     public Participant getParticipant() {
         return participant;
     }
 
+    /**
+     * Gets the {@code time} at which this {@code Goal} was scored.
+     *
+     * @return The {@code time} at which this {@code Goal} was scored.
+     */
     public LocalDateTime getTime() {
         return time;
     }
