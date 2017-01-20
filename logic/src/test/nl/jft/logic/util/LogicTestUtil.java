@@ -48,6 +48,10 @@ public final class LogicTestUtil {
         return new Team(-1, "team");
     }
 
+    public static Team makeTeam(int id, String teamName) {
+        return new Team(id, teamName);
+    }
+
     /**
      * Makes a {@code LocalDateTime} with the following properties:
      * <li>
@@ -91,6 +95,20 @@ public final class LogicTestUtil {
      */
     public static Goal makeGoalWithUser() {
         return new Goal(-1, makeDefaultUser(), makeDefaultLocalDateTime());
+    }
+
+    /**
+     * Makes a {@code Goal} with the following properties:
+     * <li>
+     * <ul>Id: -1</ul>
+     * <ul>Participant: {@link #makeDefaultTeam()} ()}</ul>
+     * <ul>Time: {@link #makeDefaultLocalDateTime()}</ul>
+     * </li>
+     *
+     * @return A {@code Goal} object.
+     */
+    public static Goal makeGoalWithTeam() {
+        return new Goal(-1, makeDefaultTeam(), makeDefaultLocalDateTime());
     }
 
 }

@@ -6,6 +6,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author Lesley
  * @author Oscar de Leeuw
@@ -26,6 +29,51 @@ public class TeamTest {
         expectedException.expect(IllegalArgumentException.class);
 
         Team team = new Team(-1, "");
+    }
+
+    @Test
+    public void equals_sameObjects_returnsTrue() {
+        Team team1 = LogicTestUtil.makeDefaultTeam();
+        Team team2 = LogicTestUtil.makeDefaultTeam();
+
+        boolean result = team1.equals(team2);
+        assertTrue(result);
+    }
+
+    @Test
+    public void equals_otherTeam_returnsFalse() throws Exception {
+        Team team1 = LogicTestUtil.makeDefaultTeam();
+        Team team2 = LogicTestUtil.makeTeam(-1, "Henk");
+
+        boolean result = team1.equals(team2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_otherObject_returnsFalse() {
+        Team team1 = LogicTestUtil.makeDefaultTeam();
+        String team2 = "user2";
+
+        boolean result = team1.equals(team2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_nullObject_returnsFalse() {
+        Team team1 = LogicTestUtil.makeDefaultTeam();
+        Team team2 = null;
+
+        boolean result = team1.equals(team2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void hashCode_whenCalled_returnsHashCode() {
+        Team team1 = LogicTestUtil.makeDefaultTeam();
+        Team team2 = LogicTestUtil.makeDefaultTeam();
+
+        boolean result = team1.hashCode() == team2.hashCode();
+        assertTrue(result);
     }
 
     @Test

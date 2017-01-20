@@ -34,7 +34,8 @@ public class UserTest {
         User user1 = LogicTestUtil.makeDefaultUser();
         User user2 = LogicTestUtil.makeDefaultUser();
 
-        assertTrue(user1.equals(user2));
+        boolean result = user1.equals(user2);
+        assertTrue(result);
     }
 
     @Test
@@ -42,7 +43,8 @@ public class UserTest {
         User user1 = LogicTestUtil.makeDefaultUser();
         User user2 = LogicTestUtil.makeUser(-1, "Henk");
 
-        assertFalse(user1.equals(user2));
+        boolean result = user1.equals(user2);
+        assertFalse(result);
     }
 
     @Test
@@ -50,7 +52,8 @@ public class UserTest {
         User user1 = LogicTestUtil.makeDefaultUser();
         String user2 = "user2";
 
-        assertFalse(user1.equals(user2));
+        boolean result = user1.equals(user2);
+        assertFalse(result);
     }
 
     @Test
@@ -58,7 +61,8 @@ public class UserTest {
         User user1 = LogicTestUtil.makeDefaultUser();
         User user2 = null;
 
-        assertFalse(user1.equals(user2));
+        boolean result = user1.equals(user2);
+        assertFalse(result);
     }
 
     @Test
@@ -89,4 +93,5 @@ public class UserTest {
 
         assertEquals(expected, actual);
     }
+
 }

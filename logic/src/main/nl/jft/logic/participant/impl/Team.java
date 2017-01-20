@@ -28,6 +28,24 @@ public class Team implements Participant {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Team)) {
+            return false;
+        }
+
+        Team o = (Team) other;
+        return o.id == id && o.teamName.equals(teamName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + id;
+        result = 31 * result + teamName.hashCode();
+        return result;
+    }
+
+    @Override
     public int getId() {
         return id;
     }

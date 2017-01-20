@@ -6,6 +6,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.time.LocalDateTime;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -50,6 +52,26 @@ public class GoalTest {
 
         Participant expected = LogicTestUtil.makeDefaultUser();
         Participant actual = goal.getParticipant();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getParticipant_teamParticipant_returnsTeam() {
+        Goal goal = LogicTestUtil.makeGoalWithTeam();
+
+        Participant expected = LogicTestUtil.makeDefaultTeam();
+        Participant actual = goal.getParticipant();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getTime_whenCalled_returnsTime() {
+        Goal goal = LogicTestUtil.makeGoalNoParticipant();
+
+        LocalDateTime expected = LogicTestUtil.makeDefaultLocalDateTime();
+        LocalDateTime actual = goal.getTime();
 
         assertEquals(expected, actual);
     }

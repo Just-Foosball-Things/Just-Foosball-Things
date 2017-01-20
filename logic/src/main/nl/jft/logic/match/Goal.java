@@ -40,4 +40,7 @@ public class Goal implements Identifiable {
         return participant;
     }
 
+    public LocalDateTime getTime() {
+        return time;
+    }
 }
