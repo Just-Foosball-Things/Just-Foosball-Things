@@ -10,7 +10,6 @@
         <version>0.1</version>
     </parent>
 
-    <groupId>nl.jft</groupId>
     <artifactId>logic</artifactId>
     <version>0.1</version>
 
