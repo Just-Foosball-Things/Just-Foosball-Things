@@ -25,6 +25,23 @@ public class User implements Participant {
         this.username = Arguments.requireNotEmpty(username);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof User)) {
+            return false;
+        }
+
+        User o = (User) other;
+        return o.username.equals(username);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + username.hashCode();
+        return result;
+    }
+
     /**
      * Gets the {@code username} of this {@code User}.
      *
