@@ -5,6 +5,7 @@ package nl.jft.common.util.elo;
  *
  * @author Oscar de Leeuw
  */
+@FunctionalInterface
 public interface EloCalculationStrategy {
     /**
      * Calculates a new Elo-rating with the given parameters.
