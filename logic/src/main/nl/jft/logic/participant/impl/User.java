@@ -1,7 +1,7 @@
 package nl.jft.logic.participant.impl;
 
+import nl.jft.common.util.Arguments;
 import nl.jft.logic.participant.Participant;
-import nl.jft.logic.util.Arguments;
 
 /**
  * A {@code User} represents a registered user within this application.
