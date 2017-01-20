@@ -2,6 +2,7 @@ package nl.jft.logic.util;
 
 import nl.jft.logic.match.Goal;
 import nl.jft.logic.match.Rule;
+import nl.jft.logic.participant.Title;
 import nl.jft.logic.participant.impl.Team;
 import nl.jft.logic.participant.impl.User;
 
@@ -23,17 +24,19 @@ public final class LogicTestUtil {
     /**
      * Makes a {@code User} with the following properties:
      * <li>
+     * <ul>Id: -1</ul>
      * <ul>Username: "username"</ul>
+     * <ul>Title: {@link #makeDefaultTitle()}</ul>
      * </li>
      *
      * @return A {@code User} object.
      */
     public static User makeDefaultUser() {
-        return new User(-1, "username");
+        return makeUser(-1, "username", makeDefaultTitle());
     }
 
-    public static User makeUser(int id, String username) {
-        return new User(id, username);
+    public static User makeUser(int id, String username, Title title) {
+        return new User(id, username, title);
     }
 
     /**
@@ -116,6 +119,7 @@ public final class LogicTestUtil {
      * Makes a {@code Rule} with the following properties:
      * <li>
      * <ul>Id: -1</ul>
+     * <ul>Description: "description"</ul>
      * </li>
      *
      * @return
@@ -127,4 +131,22 @@ public final class LogicTestUtil {
     public static Rule makeRule(int id, String description) {
         return new Rule(id, description);
     }
+
+    /**
+     * Makes a {@code Title} with the following properties:
+     * <li>
+     * <ul>Id: -1</ul>
+     * <ul>Description: "description"</ul>
+     * </li>
+     *
+     * @return
+     */
+    public static Title makeDefaultTitle() {
+        return makeTitle(-1, "description");
+    }
+
+    public static Title makeTitle(int id, String description) {
+        return new Title(id, description);
+    }
+
 }
