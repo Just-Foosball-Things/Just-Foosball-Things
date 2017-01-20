@@ -1,5 +1,6 @@
-package nl.jft.logic;
+package nl.jft.logic.participant.impl;
 
+import nl.jft.logic.participant.Participant;
 import nl.jft.logic.util.Arguments;
 
 /**
@@ -7,7 +8,7 @@ import nl.jft.logic.util.Arguments;
  *
  * @author Lesley
  */
-public class User {
+public class User implements Participant {
 
     private final String username;
 
