@@ -24,17 +24,19 @@ public final class LogicTestUtil {
     /**
      * Makes a {@code User} with the following properties:
      * <li>
+     * <ul>Id: -1</ul>
      * <ul>Username: "username"</ul>
+     * <ul>Title: {@link #makeDefaultTitle()}</ul>
      * </li>
      *
      * @return A {@code User} object.
      */
     public static User makeDefaultUser() {
-        return new User(-1, "username");
+        return makeUser(-1, "username", makeDefaultTitle());
     }
 
-    public static User makeUser(int id, String username) {
-        return new User(id, username);
+    public static User makeUser(int id, String username, Title title) {
+        return new User(id, username, title);
     }
 
     /**
@@ -146,4 +148,5 @@ public final class LogicTestUtil {
     public static Title makeTitle(int id, String description) {
         return new Title(id, description);
     }
+
 }

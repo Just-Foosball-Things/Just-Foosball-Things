@@ -5,7 +5,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * @author Lesley
@@ -27,6 +27,51 @@ public class TitleTest {
         expectedException.expect(IllegalArgumentException.class);
 
         Title title = LogicTestUtil.makeTitle(-1, "");
+    }
+
+    @Test
+    public void equals_sameObjects_returnsTrue() {
+        Title title1 = LogicTestUtil.makeDefaultTitle();
+        Title title2 = LogicTestUtil.makeDefaultTitle();
+
+        boolean result = title1.equals(title2);
+        assertTrue(result);
+    }
+
+    @Test
+    public void equals_otherTitle_returnsFalse() throws Exception {
+        Title title1 = LogicTestUtil.makeDefaultTitle();
+        Title title2 = LogicTestUtil.makeTitle(-1, "othertitle");
+
+        boolean result = title1.equals(title2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_otherObject_returnsFalse() {
+        Title title1 = LogicTestUtil.makeDefaultTitle();
+        String title2 = "title2";
+
+        boolean result = title1.equals(title2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_nullObject_returnsFalse() {
+        Title title1 = LogicTestUtil.makeDefaultTitle();
+        Title title2 = null;
+
+        boolean result = title1.equals(title2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void hashCode_whenCalled_returnsHashCode() {
+        Title title1 = LogicTestUtil.makeDefaultTitle();
+        Title title2 = LogicTestUtil.makeDefaultTitle();
+
+        boolean result = title1.hashCode() == title2.hashCode();
+        assertTrue(result);
     }
 
     @Test

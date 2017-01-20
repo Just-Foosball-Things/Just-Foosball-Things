@@ -25,6 +25,24 @@ public class Title implements Identifiable {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Title)) {
+            return false;
+        }
+
+        Title o = (Title) other;
+        return o.id == id && o.description.equals(description);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + id;
+        result = 31 * result + description.hashCode();
+        return result;
+    }
+
+    @Override
     public int getId() {
         return id;
     }
