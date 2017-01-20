@@ -1,5 +1,6 @@
 package nl.jft.logic.participant.impl;
 
+import nl.jft.logic.participant.Title;
 import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,14 +20,21 @@ public class UserTest {
     public void construct_nullUsername_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        User user = LogicTestUtil.makeUser(-1, null);
+        User user = LogicTestUtil.makeUser(-1, null, LogicTestUtil.makeDefaultTitle());
     }
 
     @Test
     public void construct_emptyUsername_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
-        User user = LogicTestUtil.makeUser(-1, "");
+        User user = LogicTestUtil.makeUser(-1, "", LogicTestUtil.makeDefaultTitle());
+    }
+
+    @Test
+    public void construct_nullTitle_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        User user = LogicTestUtil.makeUser(-1, "username", null);
     }
 
     @Test
@@ -41,7 +49,7 @@ public class UserTest {
     @Test
     public void equals_otherUser_returnsFalse() throws Exception {
         User user1 = LogicTestUtil.makeDefaultUser();
-        User user2 = LogicTestUtil.makeUser(-1, "Henk");
+        User user2 = LogicTestUtil.makeUser(-1, "Henk", LogicTestUtil.makeDefaultTitle());
 
         boolean result = user1.equals(user2);
         assertFalse(result);
@@ -75,6 +83,16 @@ public class UserTest {
     }
 
     @Test
+    public void getId_whenCalled_returnsId() throws Exception {
+        User user = LogicTestUtil.makeDefaultUser(); //Default id = -1.
+
+        int expected = -1;
+        int actual = user.getId();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void getUsername_whenCalled_returnsUsername() {
         User user = LogicTestUtil.makeDefaultUser(); // Default username = "username".
 
@@ -85,13 +103,12 @@ public class UserTest {
     }
 
     @Test
-    public void getId_whenCalled_returnsId() throws Exception {
-        User user = LogicTestUtil.makeDefaultUser(); //Default id = -1.
+    public void getTitle_whenCalled_returnsTitle() {
+        User user = LogicTestUtil.makeDefaultUser();
 
-        int expected = -1;
-        int actual = user.getId();
+        Title expected = LogicTestUtil.makeDefaultTitle();
+        Title actual = user.getActiveTitle();
 
         assertEquals(expected, actual);
     }
-
 }
