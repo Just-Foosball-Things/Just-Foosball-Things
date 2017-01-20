@@ -97,4 +97,18 @@ public final class LogicTestUtil {
         return new Goal(-1, makeDefaultUser(), makeDefaultLocalDateTime());
     }
 
+    /**
+     * Makes a {@code Goal} with the following properties:
+     * <li>
+     * <ul>Id: -1</ul>
+     * <ul>Participant: {@link #makeDefaultTeam()} ()}</ul>
+     * <ul>Time: {@link #makeDefaultLocalDateTime()}</ul>
+     * </li>
+     *
+     * @return A {@code Goal} object.
+     */
+    public static Goal makeGoalWithTeam() {
+        return new Goal(-1, makeDefaultTeam(), makeDefaultLocalDateTime());
+    }
+
 }
