@@ -6,7 +6,7 @@ import nl.jft.logic.participant.Participant;
 /**
  * A {@code Team} represents a group of {@link Participant Participants} that form a team.
  * Implements the {@code Participant} interface as a {@code Team} can partake in {@link nl.jft.logic.match.Match Matches} and {@link nl.jft.logic.tournament.Tournament Tournaments}.
- * A {@code Team} is stored in the database and is thus //TODO add identifiable link.
+ * A {@code Team} is stored in the database and is thus {@link nl.jft.common.Identifiable Identifiable}.
  *
  * @author Lesley
  * @author Oscar de Leeuw
@@ -27,9 +27,7 @@ public class Team implements Participant {
         this.teamName = Arguments.requireNotEmpty(teamName);
     }
 
-    /**
-     * @return
-     */
+    @Override
     public int getId() {
         return id;
     }
