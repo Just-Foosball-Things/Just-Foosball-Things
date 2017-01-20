@@ -30,6 +30,7 @@ public class User implements Participant {
      *
      * @return The {@code username} of this {@code User}.
      */
+    @Override
     public String getName() {
         return username;
     }
