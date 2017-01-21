@@ -3,108 +3,109 @@ package nl.jft.common.util.elo;
 import nl.jft.common.util.Arguments;
 
 /**
- * An {@code EloExpectation} represents a hypothetical match and the expected Elo rating difference resulting from said match.
- * This class is used in order to test Elo-rating systems.
+ * An {@code EloExpectation} represents a hypothetical match and the expected Elo-rating difference
+ * resulting from a certain game. This class is used in order to test Elo-rating systems.
  *
  * @author Lesley
  * @author Oscar de Leeuw
  */
 public class EloExpectation {
-    private final double elo1;
-    private final double elo2;
 
-    private final int goals1;
-    private final int goals2;
+    private final double firstElo;
+    private final double secondElo;
+
+    private final int firstGoalsScored;
+    private final int secondGoalsScored;
 
     private final int maxGoals;
 
-    private final double delta1;
-    private final double delta2;
+    private final double firstDelta;
+    private final double secondDelta;
 
     /**
-     * Creates a new {@code EloExpectation} from a {@code String}.
-     * The {@code String} will require the following format: elo1,elo2,goals1,goals2,maxGoals,delta1,delta2
-     * Will throw an {@link IllegalArgumentException} when the provided {@code String} is not of the proper format.
-     * Will throw an {@link NumberFormatException} when a number could not be parsed.
+     * Creates a new {@code EloExpectation} from a given {@link String}.
+     * The {@code String} will require the following format: firstElo,secondElo,firstGoalsScored,secondGoalsScored,maxGoals,firstDelta,secondDelta
      *
      * @param expectation A {@code String} of the proper format.
+     * @throws IllegalArgumentException when the provided {@code String} is not of the proper format.
+     * @throws NumberFormatException    when a number could not be parsed to a {@code double}.
      */
     public EloExpectation(String expectation) {
         String[] arguments = Arguments.requireNotEmpty(expectation).split(",");
-
         if (arguments.length != 7) {
             throw new IllegalArgumentException("Invalid String format.");
         }
 
-        elo1 = Double.parseDouble(arguments[0]);
-        elo2 = Double.parseDouble(arguments[1]);
-        goals1 = Integer.parseInt(arguments[2]);
-        goals2 = Integer.parseInt(arguments[3]);
+        firstElo = Double.parseDouble(arguments[0]);
+        secondElo = Double.parseDouble(arguments[1]);
+        firstGoalsScored = Integer.parseInt(arguments[2]);
+        secondGoalsScored = Integer.parseInt(arguments[3]);
         maxGoals = Integer.parseInt(arguments[4]);
-        delta1 = Double.parseDouble(arguments[5]);
-        delta2 = Double.parseDouble(arguments[6]);
+        firstDelta = Double.parseDouble(arguments[5]);
+        secondDelta = Double.parseDouble(arguments[6]);
     }
 
     /**
-     * Gets the Elo rating of player one.
+     * Gets the Elo-rating of player one.
      *
-     * @return A double that represents the Elo rating of player one.
+     * @return A {@code double} that represents the Elo rating of the first player.
      */
-    public double getElo1() {
-        return elo1;
+    public double getFirstElo() {
+        return firstElo;
     }
 
     /**
-     * Gets the Elo rating of player two.
+     * Gets the Elo-rating of player two.
      *
-     * @return A double that represents the Elo rating of player two.
+     * @return A {@ocde double} that represents the Elo-rating of the second player.
      */
-    public double getElo2() {
-        return elo2;
+    public double getSecondElo() {
+        return secondElo;
     }
 
     /**
-     * Gets the goals made by player one.
+     * Gets the amount of goals made by the first player.
      *
-     * @return An int that represents the goals made by player one.
+     * @return An {@code int} that represents the amount goals made by the first player.
      */
-    public int getGoals1() {
-        return goals1;
+    public int getFirstGoalsScored() {
+        return firstGoalsScored;
     }
 
     /**
-     * Gets the goals made by player two.
+     * Gets the amount of goals made the second player.
      *
-     * @return An int that represents the goals made by player two.
+     * @return An {@code int} that represents the amount goals made by the second player.
      */
-    public int getGoals2() {
-        return goals2;
+    public int getSecondGoalsScored() {
+        return secondGoalsScored;
     }
 
     /**
-     * Gets the goal maximum for this game.
+     * Gets the amount of goals that leads to a win of a game.
      *
-     * @return An int that represents the goal maximum of this game.
+     * @return An {@code int} that represents the amount of goals that leads to a win of a game.
      */
     public int getMaxGoals() {
         return maxGoals;
     }
 
     /**
-     * Gets the difference in Elo rating for player one.
+     * Gets the difference in Elo-rating for the first player.
      *
-     * @return A double that represents the difference in Elo rating for player one.
+     * @return A {@code double} that represents the difference in Elo-rating for the first player.
      */
-    public double getDelta1() {
-        return delta1;
+    public double getFirstDelta() {
+        return firstDelta;
     }
 
     /**
-     * Gets the difference in Elo rating for player two.
+     * Gets the difference in Elo-rating for player two.
      *
-     * @return A double that represents the difference in Elo rating for player two.
+     * @return A {@code double} that represents the difference in Elo-rating for the second player.
      */
-    public double getDelta2() {
-        return delta2;
+    public double getSecondDelta() {
+        return secondDelta;
     }
+
 }

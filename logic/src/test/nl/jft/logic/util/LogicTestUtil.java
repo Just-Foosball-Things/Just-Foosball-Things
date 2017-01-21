@@ -1,7 +1,9 @@
 package nl.jft.logic.util;
 
 import nl.jft.logic.match.Goal;
+import nl.jft.logic.match.Match;
 import nl.jft.logic.match.Rule;
+import nl.jft.logic.participant.Participant;
 import nl.jft.logic.participant.Title;
 import nl.jft.logic.participant.impl.Team;
 import nl.jft.logic.participant.impl.User;
@@ -122,7 +124,7 @@ public final class LogicTestUtil {
      * <ul>Description: "description"</ul>
      * </li>
      *
-     * @return
+     * @return A {@code Rule} object.
      */
     public static Rule makeDefaultRule() {
         return makeRule(-1, "description");
@@ -139,7 +141,7 @@ public final class LogicTestUtil {
      * <ul>Description: "description"</ul>
      * </li>
      *
-     * @return
+     * @return A {@code Title} object.
      */
     public static Title makeDefaultTitle() {
         return makeTitle(-1, "description");
@@ -149,4 +151,20 @@ public final class LogicTestUtil {
         return new Title(id, description);
     }
 
+    /**
+     * Makes a {@code Match} with the following properties:
+     * <li>
+     * <ul>First Participant: {@link #makeDefaultUser()}</ul>
+     * <ul>Second Participant: {@link #makeDefaultUser()}</ul>
+     * </li>
+     *
+     * @return A {@code Match} object.
+     */
+    public static Match makeDefaultMatch() {
+        return makeMatch(makeDefaultUser(), makeDefaultUser());
+    }
+
+    public static Match makeMatch(Participant firstParticipant, Participant secondParticipant) {
+        return new Match(firstParticipant, secondParticipant);
+    }
 }

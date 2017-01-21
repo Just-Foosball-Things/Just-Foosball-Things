@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * The {@code EloExpectationLoader} is an interface that is used by the {@link EloExpectationCalculator} in order to load
- * a dataset of {@link EloExpectation EloExpectations}.
+ * a data-set of {@link EloExpectation EloExpectations}.
  *
  * @author Lesley
  * @author Oscar de Leeuw
@@ -13,9 +13,9 @@ import java.util.List;
 public interface EloExpectationLoader {
 
     /**
-     * Loads a list of {@code EloExpectations}.
+     * Loads a {@code List} of {@code EloExpectations}.
      *
-     * @return A List of {@code EloExpectations}.
+     * @return A {@code List} of {@code EloExpectations}.
      */
     List<EloExpectation> load();
 

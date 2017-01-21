@@ -25,7 +25,7 @@ public class EloExpectationResultTest {
         EloExpectationResult result = CommonTestUtil.getDefaultExpectationResult(); //newRating1 = 3010
 
         double expected = 3010d;
-        double actual = result.getNewRating1();
+        double actual = result.getNewFirstRating();
     }
 
     @Test
@@ -33,7 +33,7 @@ public class EloExpectationResultTest {
         EloExpectationResult result = CommonTestUtil.getDefaultExpectationResult(); //newRating2 = 2498
 
         double expected = 2498d;
-        double actual = result.getNewRating2();
+        double actual = result.getNewSecondRating();
     }
 
     @Test
@@ -41,7 +41,7 @@ public class EloExpectationResultTest {
         EloExpectationResult result = CommonTestUtil.getDefaultExpectationResult(); //error1 = 0
 
         double expected = 0d;
-        double actual = result.getError1();
+        double actual = result.getFirstError();
     }
 
     @Test
@@ -49,7 +49,7 @@ public class EloExpectationResultTest {
         EloExpectationResult result = CommonTestUtil.getDefaultExpectationResult(); //error2 = 0
 
         double expected = 0d;
-        double actual = result.getError2();
+        double actual = result.getSecondError();
     }
 
     //TODO make a test for the EloExpectation property.
