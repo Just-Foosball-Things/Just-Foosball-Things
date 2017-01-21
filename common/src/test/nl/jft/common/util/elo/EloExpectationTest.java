@@ -48,7 +48,7 @@ public class EloExpectationTest {
         EloExpectation expectation = CommonTestUtil.getDefaultExpectation(); //Elo1 = 3000.
 
         double expected = 3000d;
-        double actual = expectation.getElo1();
+        double actual = expectation.getFirstElo();
 
         assertEquals(expected, actual, 0.01d);
     }
@@ -58,7 +58,7 @@ public class EloExpectationTest {
         EloExpectation expectation = CommonTestUtil.getDefaultExpectation(); //Elo2 = 2500.
 
         double expected = 2500d;
-        double actual = expectation.getElo2();
+        double actual = expectation.getSecondElo();
 
         assertEquals(expected, actual, 0.01d);
     }
@@ -68,7 +68,7 @@ public class EloExpectationTest {
         EloExpectation expectation = CommonTestUtil.getDefaultExpectation(); //Delta1 = 10.
 
         double expected = 10d;
-        double actual = expectation.getDelta1();
+        double actual = expectation.getFirstDelta();
 
         assertEquals(expected, actual, 0.01d);
     }
@@ -78,7 +78,7 @@ public class EloExpectationTest {
         EloExpectation expectation = CommonTestUtil.getDefaultExpectation(); //Delta2 = -2.
 
         double expected = -2d;
-        double actual = expectation.getDelta2();
+        double actual = expectation.getSecondDelta();
 
         assertEquals(expected, actual, 0.01d);
     }
@@ -88,7 +88,7 @@ public class EloExpectationTest {
         EloExpectation expectation = CommonTestUtil.getDefaultExpectation(); //Goals1 = 10.
 
         int expected = 10;
-        int actual = expectation.getGoals1();
+        int actual = expectation.getFirstGoalsScored();
 
         assertEquals(expected, actual);
     }
@@ -98,7 +98,7 @@ public class EloExpectationTest {
         EloExpectation expectation = CommonTestUtil.getDefaultExpectation(); //Goals1 = 5.
 
         int expected = 5;
-        int actual = expectation.getGoals2();
+        int actual = expectation.getSecondGoalsScored();
 
         assertEquals(expected, actual);
     }
@@ -112,4 +112,5 @@ public class EloExpectationTest {
 
         assertEquals(expected, actual);
     }
+
 }

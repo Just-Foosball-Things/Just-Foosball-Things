@@ -16,4 +16,5 @@ public interface Participant extends Identifiable {
      * @return A {@code String} that represents the name of the {@code Participant}.
      */
     String getName();
+
 }

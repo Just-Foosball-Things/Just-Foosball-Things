@@ -7,6 +7,7 @@ import nl.jft.common.util.elo.EloExpectationResult;
  * @author Oscar de Leeuw
  */
 public class CommonTestUtil {
+
     /**
      * Creates an {@code EloExpectation} with the following properties:
      * <li>
@@ -40,4 +41,5 @@ public class CommonTestUtil {
     public static EloExpectationResult getDefaultExpectationResult() {
         return new EloExpectationResult(getDefaultExpectation(), 3010d, 2498d, 0d, 0d);
     }
+
 }

@@ -4,37 +4,38 @@ import java.util.Objects;
 
 /**
  * The {@code EloExpectationResult} represents the result of a calculation of {@link EloExpectationCalculator}.
- * This class stores the used {@link EloExpectation} and the new ratings and errors of the expected new ratings.
+ * This class stores the used {@link EloExpectation} and the new Elo-ratings and errors of the expected new Elo-ratings.
  *
  * @author Oscar de Leeuw
+ * @author Lesley
  */
 public class EloExpectationResult {
 
     private final EloExpectation expectation;
 
-    private final double newRating1;
-    private final double newRating2;
+    private final double newFirstRating;
+    private final double newSecondRating;
 
-    private final double error1;
-    private final double error2;
+    private final double firstError;
+    private final double secondError;
 
     /**
-     * Creates a new {@code EloExpectationResult}.
+     * Creates a new {@code EloExpectationResult} using the given parameters.
      *
-     * @param exp        The {@code EloExpectation} that was used to calculate these results.
-     * @param newRating1 The new rating of player one.
-     * @param newRating2 The new rating of player two.
-     * @param error1     The error between the calculated rating and the desired rating for player one.
-     * @param error2     The error between the calculated rating and the desired rating for player two.
+     * @param expectation     The {@code EloExpectation} that was used to calculate these results.
+     * @param newFirstRating  The new Elo-rating of the first player.
+     * @param newSecondRating The new Elo-rating of the second player.
+     * @param firstError      The error between the calculated Elo-rating and the desired rating for the first player.
+     * @param secondError     The error between the calculated Elo-rating and the desired rating for the second player.
      */
-    public EloExpectationResult(EloExpectation exp, double newRating1, double newRating2, double error1, double error2) {
-        Objects.requireNonNull(exp, "Expectation cannot be null.");
+    public EloExpectationResult(EloExpectation expectation, double newFirstRating, double newSecondRating, double firstError, double secondError) {
+        Objects.requireNonNull(expectation);
 
-        this.expectation = exp;
-        this.newRating1 = newRating1;
-        this.newRating2 = newRating2;
-        this.error1 = error1;
-        this.error2 = error2;
+        this.expectation = expectation;
+        this.newFirstRating = newFirstRating;
+        this.newSecondRating = newSecondRating;
+        this.firstError = firstError;
+        this.secondError = secondError;
     }
 
     /**
@@ -47,38 +48,39 @@ public class EloExpectationResult {
     }
 
     /**
-     * The new Elo-rating of player one.
+     * The new Elo-rating of the first player.
      *
-     * @return A double that represents the new Elo-rating of player one.
+     * @return A {@code double} that represents the new Elo-rating of the first player.
      */
-    public double getNewRating1() {
-        return newRating1;
+    public double getNewFirstRating() {
+        return newFirstRating;
     }
 
     /**
-     * The new Elo-rating of player two.
+     * The new Elo-rating of the second player.
      *
-     * @return A double that represents the new Elo-rating of player two.
+     * @return A {@code double} that represents the new Elo-rating of the second player.
      */
-    public double getNewRating2() {
-        return newRating2;
+    public double getNewSecondRating() {
+        return newSecondRating;
     }
 
     /**
-     * The difference between the calculated Elo-rating and the desired Elo-rating of player one.
+     * The difference between the calculated Elo-rating and the desired Elo-rating of the first player.
      *
-     * @return A double that represents the error.
+     * @return A {@code double} that represents the error of the first player.
      */
-    public double getError1() {
-        return error1;
+    public double getFirstError() {
+        return firstError;
     }
 
     /**
-     * The difference between the calculated Elo-rating and the desired Elo-rating of player two.
+     * The difference between the calculated Elo-rating and the desired Elo-rating of the first player.
      *
-     * @return A double that represents the error.
+     * @return A {@code double} that represents the error of the first player.
      */
-    public double getError2() {
-        return error2;
+    public double getSecondError() {
+        return secondError;
     }
+
 }
