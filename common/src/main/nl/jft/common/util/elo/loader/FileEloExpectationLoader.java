@@ -40,7 +40,8 @@ public class FileEloExpectationLoader implements EloExpectationLoader {
     public List<EloExpectation> load() {
         List<EloExpectation> list = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(path.toFile())))) {
+        try (FileInputStream in = new FileInputStream(path.toFile());
+             BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 list.add(new EloExpectation(line));

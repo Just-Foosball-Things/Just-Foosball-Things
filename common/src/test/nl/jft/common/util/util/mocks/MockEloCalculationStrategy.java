@@ -14,4 +14,5 @@ public class MockEloCalculationStrategy implements EloCalculationStrategy {
         hasBeenCalled = true;
         return 0;
     }
+
 }

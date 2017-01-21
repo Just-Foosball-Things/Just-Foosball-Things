@@ -21,4 +21,5 @@ public class MockEloExpectationLoader implements EloExpectationLoader {
             add(CommonTestUtil.getDefaultExpectation());
         }};
     }
+
 }
