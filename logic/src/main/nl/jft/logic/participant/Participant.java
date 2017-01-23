@@ -10,6 +10,7 @@ import nl.jft.common.Identifiable;
  * @author Oscar de Leeuw
  */
 public interface Participant extends Identifiable {
+
     /**
      * Gets the name of the {@code Participant}.
      *
