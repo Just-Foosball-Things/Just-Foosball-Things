@@ -5,6 +5,9 @@ import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -27,6 +30,96 @@ public class MatchTest {
         expectedException.expect(NullPointerException.class);
 
         Match match = LogicTestUtil.makeMatch(LogicTestUtil.makeDefaultUser(), null);
+    }
+
+    @Test
+    public void addGoal_nullGoal_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Match match = LogicTestUtil.makeDefaultMatch();
+        match.addGoal(null);
+    }
+
+    @Test
+    public void addGoal_whenCalled_addsGoal() {
+        Match match = LogicTestUtil.makeDefaultMatch();
+        Goal goal = LogicTestUtil.makeGoalWithUser();
+
+        match.addGoal(goal);
+
+        List<Goal> expected = new ArrayList<Goal>() {{
+            add(goal);
+        }};
+        List<Goal> actual = match.getGoals();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void removeGoal_nullGoal_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Match match = LogicTestUtil.makeDefaultMatch();
+        match.removeGoal(null);
+    }
+
+    @Test
+    public void removeGoal_whenCalled_removesGoal() {
+        Match match = LogicTestUtil.makeDefaultMatch();
+        Goal goal = LogicTestUtil.makeGoalWithUser();
+
+        match.addGoal(goal);
+        match.removeGoal(goal);
+
+        List<Goal> expected = new ArrayList<>();
+        List<Goal> actual = match.getGoals();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void addRule_nullRule_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Match match = LogicTestUtil.makeDefaultMatch();
+        match.addRule(null);
+    }
+
+    @Test
+    public void addRule_whenCalled_addsRule() {
+        Match match = LogicTestUtil.makeDefaultMatch();
+        Rule rule = LogicTestUtil.makeDefaultRule();
+
+        match.addRule(rule);
+
+        List<Rule> expected = new ArrayList<Rule>() {{
+            add(rule);
+        }};
+        List<Rule> actual = match.getRules();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void removeRule_nullRule_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Match match = LogicTestUtil.makeDefaultMatch();
+        match.removeRule(null);
+    }
+
+    @Test
+    public void removeRule_whenCalled_removesRule() {
+        Match match = LogicTestUtil.makeDefaultMatch();
+        Rule rule = LogicTestUtil.makeDefaultRule();
+
+        match.addRule(rule);
+        match.removeRule(rule);
+
+        List<Rule> expected = new ArrayList<>();
+        List<Rule> actual = match.getRules();
+
+        assertEquals(expected, actual);
     }
 
     @Test

@@ -16,14 +16,14 @@ public class TitleTest {
     public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
-    public void construct_nullDescription_throwsException() {
+    public void construct_nullName_throwsException() {
         expectedException.expect(NullPointerException.class);
 
         Title title = LogicTestUtil.makeTitle(-1, null);
     }
 
     @Test
-    public void construct_emptyDescription_throwsException() {
+    public void construct_emptyName_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
         Title title = LogicTestUtil.makeTitle(-1, "");
@@ -85,11 +85,11 @@ public class TitleTest {
     }
 
     @Test
-    public void getDescription_whenCalled_returnsDescription() {
+    public void getName_whenCalled_returnsName() {
         Title title = LogicTestUtil.makeDefaultTitle();
 
-        String expected = "description";
-        String actual = title.getDescription();
+        String expected = "name";
+        String actual = title.getName();
 
         assertEquals(expected, actual);
     }
