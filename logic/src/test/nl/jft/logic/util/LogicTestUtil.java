@@ -138,17 +138,17 @@ public final class LogicTestUtil {
      * Makes a {@code Title} with the following properties:
      * <li>
      * <ul>Id: -1</ul>
-     * <ul>Description: "description"</ul>
+     * <ul>Name: "name"</ul>
      * </li>
      *
      * @return A {@code Title} object.
      */
     public static Title makeDefaultTitle() {
-        return makeTitle(-1, "description");
+        return makeTitle(-1, "name");
     }
 
-    public static Title makeTitle(int id, String description) {
-        return new Title(id, description);
+    public static Title makeTitle(int id, String name) {
+        return new Title(id, name);
     }
 
     /**

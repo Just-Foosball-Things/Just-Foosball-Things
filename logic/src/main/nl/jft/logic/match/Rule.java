@@ -26,6 +26,24 @@ public class Rule implements Identifiable {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Rule)) {
+            return false;
+        }
+
+        Rule o = (Rule) other;
+        return o.id == id && o.description.equals(description);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + id;
+        result = 31 * result + description.hashCode();
+        return result;
+    }
+
+    @Override
     public int getId() {
         return id;
     }

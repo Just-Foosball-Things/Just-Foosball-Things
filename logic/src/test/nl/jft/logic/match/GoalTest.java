@@ -1,6 +1,7 @@
 package nl.jft.logic.match;
 
 import nl.jft.logic.participant.Participant;
+import nl.jft.logic.participant.impl.User;
 import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Rule;
 import org.junit.Test;
@@ -8,7 +9,7 @@ import org.junit.rules.ExpectedException;
 
 import java.time.LocalDateTime;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * @author Lesley
@@ -24,6 +25,51 @@ public class GoalTest {
 
         Participant participant = LogicTestUtil.makeDefaultUser();
         Goal goal = new Goal(0, participant, null);
+    }
+
+    @Test
+    public void equals_sameObjects_returnsTrue() {
+        Goal goal1 = LogicTestUtil.makeGoalWithUser();
+        Goal goal2 = LogicTestUtil.makeGoalWithUser();
+
+        boolean result = goal1.equals(goal2);
+        assertTrue(result);
+    }
+
+    @Test
+    public void equals_otherGoal_returnsFalse() throws Exception {
+        Goal goal1 = LogicTestUtil.makeGoalWithUser();
+        Goal goal2 = LogicTestUtil.makeGoalWithTeam();
+
+        boolean result = goal1.equals(goal2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_otherObject_returnsFalse() {
+        Goal goal1 = LogicTestUtil.makeGoalWithUser();
+        String goal2 = "goal2";
+
+        boolean result = goal1.equals(goal2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_nullObject_returnsFalse() {
+        Goal goal1 = LogicTestUtil.makeGoalWithUser();
+        Goal goal2 = null;
+
+        boolean result = goal1.equals(goal2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void hashCode_whenCalled_returnsHashCode() {
+        User user1 = LogicTestUtil.makeDefaultUser();
+        User user2 = LogicTestUtil.makeDefaultUser();
+
+        boolean result = user1.hashCode() == user2.hashCode();
+        assertTrue(result);
     }
 
     @Test
