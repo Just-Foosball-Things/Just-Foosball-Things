@@ -78,6 +78,51 @@ public class MatchTest {
     }
 
     @Test
+    public void addRule_nullRule_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Match match = LogicTestUtil.makeDefaultMatch();
+        match.addRule(null);
+    }
+
+    @Test
+    public void addRule_whenCalled_addsRule() {
+        Match match = LogicTestUtil.makeDefaultMatch();
+        Rule rule = LogicTestUtil.makeDefaultRule();
+
+        match.addRule(rule);
+
+        List<Rule> expected = new ArrayList<Rule>() {{
+            add(rule);
+        }};
+        List<Rule> actual = match.getRules();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void removeRule_nullRule_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Match match = LogicTestUtil.makeDefaultMatch();
+        match.removeRule(null);
+    }
+
+    @Test
+    public void removeRule_whenCalled_removesRule() {
+        Match match = LogicTestUtil.makeDefaultMatch();
+        Rule rule = LogicTestUtil.makeDefaultRule();
+
+        match.addRule(rule);
+        match.removeRule(rule);
+
+        List<Rule> expected = new ArrayList<>();
+        List<Rule> actual = match.getRules();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void getFirstParticipant_whenCalled_returnsFirstParticipant() {
         Match match = LogicTestUtil.makeDefaultMatch();
 

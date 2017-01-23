@@ -15,10 +15,11 @@ import java.util.Objects;
  */
 public class Match {
 
+    private final List<Goal> goals = new ArrayList<>();
+    private final List<Rule> rules = new ArrayList<>();
+
     private final Participant firstParticipant;
     private final Participant secondParticipant;
-
-    private final List<Goal> goals = new ArrayList<>();
 
     public Match(Participant firstParticipant, Participant secondParticipant) {
         this.firstParticipant = Objects.requireNonNull(firstParticipant);
@@ -26,15 +27,39 @@ public class Match {
     }
 
     public void addGoal(Goal goal) {
-        goals.add(Objects.requireNonNull(goal));
+        synchronized (goals) {
+            goals.add(Objects.requireNonNull(goal));
+        }
     }
 
     public void removeGoal(Goal goal) {
-        goals.remove(Objects.requireNonNull(goal));
+        synchronized (goals) {
+            goals.remove(Objects.requireNonNull(goal));
+        }
+    }
+
+    public void addRule(Rule rule) {
+        synchronized (rules) {
+            rules.add(Objects.requireNonNull(rule));
+        }
+    }
+
+    public void removeRule(Rule rule) {
+        synchronized (rules) {
+            rules.remove(Objects.requireNonNull(rule));
+        }
     }
 
     public List<Goal> getGoals() {
-        return Collections.unmodifiableList(goals);
+        synchronized (goals) {
+            return Collections.unmodifiableList(goals);
+        }
+    }
+
+    public List<Rule> getRules() {
+        synchronized (rules) {
+            return Collections.unmodifiableList(rules);
+        }
     }
 
     public Participant getFirstParticipant() {
