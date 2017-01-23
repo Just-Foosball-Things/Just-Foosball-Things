@@ -4,7 +4,7 @@ import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * @author Lesley
@@ -19,6 +19,51 @@ public class RuleTest {
         expectedException.expect(NullPointerException.class);
 
         Rule rule = LogicTestUtil.makeRule(-1, null);
+    }
+
+    @Test
+    public void equals_sameObjects_returnsTrue() {
+        Rule rule1 = LogicTestUtil.makeDefaultRule();
+        Rule rule2 = LogicTestUtil.makeDefaultRule();
+
+        boolean result = rule1.equals(rule2);
+        assertTrue(result);
+    }
+
+    @Test
+    public void equals_otherRule_returnsFalse() throws Exception {
+        Rule rule1 = LogicTestUtil.makeDefaultRule();
+        Rule rule2 = LogicTestUtil.makeRule(-1, "other rule");
+
+        boolean result = rule1.equals(rule2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_otherObject_returnsFalse() {
+        Rule rule1 = LogicTestUtil.makeDefaultRule();
+        String rule2 = "rule2";
+
+        boolean result = rule1.equals(rule2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_nullObject_returnsFalse() {
+        Rule rule1 = LogicTestUtil.makeDefaultRule();
+        Rule rule2 = null;
+
+        boolean result = rule1.equals(rule2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void hashCode_whenCalled_returnsHashCode() {
+        Rule rule1 = LogicTestUtil.makeDefaultRule();
+        Rule rule2 = LogicTestUtil.makeDefaultRule();
+
+        boolean result = rule1.hashCode() == rule2.hashCode();
+        assertTrue(result);
     }
 
     @Test

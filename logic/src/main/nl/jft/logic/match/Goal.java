@@ -32,6 +32,33 @@ public class Goal implements Identifiable {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Goal)) {
+            return false;
+        }
+
+        Goal o = (Goal) other;
+        if ((participant == null && o.participant != null) || (participant != null && o.participant == null)) {
+            return false;
+        }
+
+        return o.id == id && o.participant.equals(participant) && o.time.equals(time);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + id;
+
+        if (participant != null) {
+            result = 31 * result + participant.hashCode();
+        }
+
+        result = 31 * result + time.hashCode();
+        return result;
+    }
+
+    @Override
     public int getId() {
         return id;
     }
