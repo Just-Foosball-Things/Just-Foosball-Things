@@ -11,17 +11,17 @@ import nl.jft.common.util.Arguments;
 public class Title implements Identifiable {
 
     private final int id;
-    private final String description;
+    private final String name;
 
     /**
-     * Initiates a new {@code Title} using the given {@code id} and {@code description}.
+     * Initiates a new {@code Title} using the given {@code id} and {@code name}.
      *
      * @param id          The {@code id} of this {@code Title}, used by external layers.
-     * @param description The {@code description} of this {@code Title}, should not be {@code null} or empty.
+     * @param name The {@code name} of this {@code Title}, should not be {@code null} or empty.
      */
-    public Title(int id, String description) {
+    public Title(int id, String name) {
         this.id = id;
-        this.description = Arguments.requireNotEmpty(description);
+        this.name = Arguments.requireNotEmpty(name);
     }
 
     @Override
@@ -31,14 +31,14 @@ public class Title implements Identifiable {
         }
 
         Title o = (Title) other;
-        return o.id == id && o.description.equals(description);
+        return o.id == id && o.name.equals(name);
     }
 
     @Override
     public int hashCode() {
         int result = 17;
         result = 31 * result + id;
-        result = 31 * result + description.hashCode();
+        result = 31 * result + name.hashCode();
         return result;
     }
 
@@ -48,12 +48,12 @@ public class Title implements Identifiable {
     }
 
     /**
-     * Gets the {@code description} of this {@code Title}.
+     * Gets the {@code name} of this {@code Title}.
      *
-     * @return The {@code description} of this {@code Title}.
+     * @return The {@code name} of this {@code Title}.
      */
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
 }
