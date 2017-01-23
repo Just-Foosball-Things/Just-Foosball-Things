@@ -108,4 +108,34 @@ public class EloExpectation {
         return secondDelta;
     }
 
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + Double.hashCode(firstElo);
+        result = 31 * result + Double.hashCode(secondElo);
+        result = 31 * result + firstGoalsScored;
+        result = 31 * result + secondGoalsScored;
+        result = 31 * result + maxGoals;
+        result = 31 * result + Double.hashCode(firstDelta);
+        result = 31 * result + Double.hashCode(secondDelta);
+
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof EloExpectation)) {
+            return false;
+        } else {
+            EloExpectation other = (EloExpectation) obj;
+
+            return firstElo == other.firstElo &&
+                    secondElo == other.secondElo &&
+                    firstGoalsScored == other.firstGoalsScored &&
+                    secondGoalsScored == other.secondGoalsScored &&
+                    maxGoals == other.maxGoals &&
+                    firstDelta == other.firstDelta &&
+                    secondDelta == other.secondDelta;
+        }
+    }
 }
