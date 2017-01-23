@@ -32,12 +32,7 @@ public class Match {
         this.secondParticipant = Objects.requireNonNull(secondParticipant);
     }
 
-    /**
-     * Adds a {@link Goal} to this {@code Match}.
-     *
-     * @param goal The {@code Goal} to add to this {@code Match}, should not be {@code null}.
-     * @throws NullPointerException If the specified {@code Goal} is {@code null}.
-     */
+
     public void addGoal(Goal goal) {
         synchronized (goals) {
             goals.add(Objects.requireNonNull(goal));
@@ -111,6 +106,11 @@ public class Match {
         return firstParticipant;
     }
 
+    /**
+     * Gets the second {@link Participant} competing in this {@code Match}.
+     *
+     * @return The second {@code Participant} competing in this {@code Match}.
+     */
     public Participant getSecondParticipant() {
         return secondParticipant;
     }
