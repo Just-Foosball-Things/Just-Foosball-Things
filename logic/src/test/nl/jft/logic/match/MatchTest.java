@@ -5,6 +5,9 @@ import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -27,6 +30,51 @@ public class MatchTest {
         expectedException.expect(NullPointerException.class);
 
         Match match = LogicTestUtil.makeMatch(LogicTestUtil.makeDefaultUser(), null);
+    }
+
+    @Test
+    public void addGoal_nullGoal_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Match match = LogicTestUtil.makeDefaultMatch();
+        match.addGoal(null);
+    }
+
+    @Test
+    public void addGoal_whenCalled_addsGoal() {
+        Match match = LogicTestUtil.makeDefaultMatch();
+        Goal goal = LogicTestUtil.makeGoalWithUser();
+
+        match.addGoal(goal);
+
+        List<Goal> expected = new ArrayList<Goal>() {{
+            add(goal);
+        }};
+        List<Goal> actual = match.getGoals();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void removeGoal_nullGoal_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Match match = LogicTestUtil.makeDefaultMatch();
+        match.removeGoal(null);
+    }
+
+    @Test
+    public void removeGoal_whenCalled_removesGoal() {
+        Match match = LogicTestUtil.makeDefaultMatch();
+        Goal goal = LogicTestUtil.makeGoalWithUser();
+
+        match.addGoal(goal);
+        match.removeGoal(goal);
+
+        List<Goal> expected = new ArrayList<>();
+        List<Goal> actual = match.getGoals();
+
+        assertEquals(expected, actual);
     }
 
     @Test

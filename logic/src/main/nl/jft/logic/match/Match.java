@@ -2,6 +2,9 @@ package nl.jft.logic.match;
 
 import nl.jft.logic.participant.Participant;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -15,9 +18,23 @@ public class Match {
     private final Participant firstParticipant;
     private final Participant secondParticipant;
 
+    private final List<Goal> goals = new ArrayList<>();
+
     public Match(Participant firstParticipant, Participant secondParticipant) {
         this.firstParticipant = Objects.requireNonNull(firstParticipant);
         this.secondParticipant = Objects.requireNonNull(secondParticipant);
+    }
+
+    public void addGoal(Goal goal) {
+        goals.add(Objects.requireNonNull(goal));
+    }
+
+    public void removeGoal(Goal goal) {
+        goals.remove(Objects.requireNonNull(goal));
+    }
+
+    public List<Goal> getGoals() {
+        return Collections.unmodifiableList(goals);
     }
 
     public Participant getFirstParticipant() {
@@ -27,4 +44,5 @@ public class Match {
     public Participant getSecondParticipant() {
         return secondParticipant;
     }
+
 }
