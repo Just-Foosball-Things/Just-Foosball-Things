@@ -141,6 +141,10 @@ public final class LogicTestUtil {
         return new Rule(id, description);
     }
 
+    public static Rule makeRule(String description) {
+        return new Rule(description);
+    }
+
     /**
      * Makes a {@code Title} with the following properties:
      * <li>
@@ -156,6 +160,10 @@ public final class LogicTestUtil {
 
     public static Title makeTitle(int id, String name) {
         return new Title(id, name);
+    }
+
+    public static Title makeTitle(String name) {
+        return new Title(name);
     }
 
     public static TitleStatistic makeDefaultTitleStatistic() {

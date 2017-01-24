@@ -1,5 +1,6 @@
 package nl.jft.logic.match;
 
+import nl.jft.logic.LogicConstants;
 import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -15,10 +16,31 @@ public class RuleTest {
     public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
+    public void construct_nullDescriptionOnly_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Rule rule = LogicTestUtil.makeRule(null);
+    }
+
+    @Test
+    public void construct_emptyDescriptionOnly_throwsException() {
+        expectedException.expect(IllegalArgumentException.class);
+
+        Rule rule = LogicTestUtil.makeRule("");
+    }
+
+    @Test
     public void construct_nullDescription_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Rule rule = LogicTestUtil.makeRule(-1, null);
+        Rule rule = LogicTestUtil.makeRule(LogicConstants.INTERNAL_ID, null);
+    }
+
+    @Test
+    public void construct_emptyDescription_throwsException() {
+        expectedException.expect(IllegalArgumentException.class);
+
+        Rule rule = LogicTestUtil.makeRule(LogicConstants.INTERNAL_ID, "");
     }
 
     @Test
@@ -33,7 +55,7 @@ public class RuleTest {
     @Test
     public void equals_otherRule_returnsFalse() throws Exception {
         Rule rule1 = LogicTestUtil.makeDefaultRule();
-        Rule rule2 = LogicTestUtil.makeRule(-1, "other rule");
+        Rule rule2 = LogicTestUtil.makeRule(LogicConstants.INTERNAL_ID, "other rule");
 
         boolean result = rule1.equals(rule2);
         assertFalse(result);
@@ -67,17 +89,10 @@ public class RuleTest {
     }
 
     @Test
-    public void construct_emptyDescription_throwsException() {
-        expectedException.expect(IllegalArgumentException.class);
-
-        Rule rule = LogicTestUtil.makeRule(-1, "");
-    }
-
-    @Test
     public void getId_whenCalled_returnsId() {
         Rule rule = LogicTestUtil.makeDefaultRule();
 
-        int expected = -1;
+        int expected = LogicConstants.INTERNAL_ID;
         int actual = rule.getId();
 
         assertEquals(expected, actual);

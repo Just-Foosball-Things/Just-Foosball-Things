@@ -15,7 +15,7 @@ public class Title implements Identifiable {
     private final String name;
 
     /**
-     * Initializes a new Title by invoking an other constructor ({@link #Title(int, String)}. The {@code id} used is {@link LogicConstants#INTERNAL_ID}.
+     * Initializes a new {@code Title} by invoking an other constructor ({@link #Title(int, String)}. The {@code id} used is {@link LogicConstants#INTERNAL_ID}.
      *
      * @param name The {@code name} of this {@code Title}, should not be {@code null} or empty.
      * @throws NullPointerException     If {@code name} is {@code null}.
