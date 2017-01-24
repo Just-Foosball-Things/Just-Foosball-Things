@@ -64,7 +64,8 @@ public class Team implements Participant {
         }
 
         Team o = (Team) other;
-        return o.id == id && o.teamName.equals(teamName);
+        return o.id == id && o.teamName.equals(teamName)
+                && o.firstUser.equals(firstUser) && o.secondUser.equals(secondUser);
     }
 
     @Override
@@ -72,6 +73,8 @@ public class Team implements Participant {
         int result = 17;
         result = 31 * result + id;
         result = 31 * result + teamName.hashCode();
+        result = 31 * result + firstUser.hashCode();
+        result = 31 * result + secondUser.hashCode();
         return result;
     }
 

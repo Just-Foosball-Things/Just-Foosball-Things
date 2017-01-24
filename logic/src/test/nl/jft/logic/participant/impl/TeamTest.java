@@ -66,27 +66,45 @@ public class TeamTest {
     }
 
     @Test
-    public void equals_otherTeam_returnsFalse() {
-        Team team1 = LogicTestUtil.makeDefaultTeam();
-        Team team2 = LogicTestUtil.makeTeam(LogicConstants.INTERNAL_ID, "Henk", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
-
-        boolean result = team1.equals(team2);
-        assertFalse(result);
-    }
-
-    @Test
-    public void equals_otherObject_returnsFalse() {
-        Team team1 = LogicTestUtil.makeDefaultTeam();
-        String team2 = "user2";
-
-        boolean result = team1.equals(team2);
-        assertFalse(result);
-    }
-
-    @Test
-    public void equals_nullObject_returnsFalse() {
+    public void equals_otherInstance_returnsFalse() {
         Team team1 = LogicTestUtil.makeDefaultTeam();
         Team team2 = null;
+
+        boolean result = team1.equals(team2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_differentIds_returnsFalse() {
+        Team team1 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
+        Team team2 = LogicTestUtil.makeTeam(2, "team", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
+
+        boolean result = team1.equals(team2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_differentTeamNames_returnsFalse() {
+        Team team1 = LogicTestUtil.makeTeam(1, "team1", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
+        Team team2 = LogicTestUtil.makeTeam(1, "team2s", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
+
+        boolean result = team1.equals(team2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_differentFirstUser_returnsFalse() {
+        Team team1 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser3());
+        Team team2 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultUser2(), LogicTestUtil.makeDefaultUser3());
+
+        boolean result = team1.equals(team2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_differentSecondUser_returnsFalse() {
+        Team team1 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
+        Team team2 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser3());
 
         boolean result = team1.equals(team2);
         assertFalse(result);
