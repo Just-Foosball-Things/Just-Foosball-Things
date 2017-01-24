@@ -16,7 +16,7 @@ public class Title implements Identifiable {
     /**
      * Initiates a new {@code Title} using the given {@code id} and {@code name}.
      *
-     * @param id          The {@code id} of this {@code Title}, used by external layers.
+     * @param id   The {@code id} of this {@code Title}, used by external layers.
      * @param name The {@code name} of this {@code Title}, should not be {@code null} or empty.
      */
     public Title(int id, String name) {

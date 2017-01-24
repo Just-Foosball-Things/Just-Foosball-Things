@@ -2,11 +2,17 @@ package nl.jft.logic.util;
 
 import nl.jft.logic.match.Goal;
 import nl.jft.logic.match.Match;
+import nl.jft.logic.match.MatchResult;
 import nl.jft.logic.match.Rule;
+import nl.jft.logic.participant.Elo;
 import nl.jft.logic.participant.Participant;
 import nl.jft.logic.participant.Title;
 import nl.jft.logic.participant.impl.Team;
 import nl.jft.logic.participant.impl.User;
+import nl.jft.logic.statistic.StatisticCollection;
+import nl.jft.logic.statistic.impl.EloStatistic;
+import nl.jft.logic.statistic.impl.MatchStatistic;
+import nl.jft.logic.statistic.impl.TitleStatistic;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -151,6 +157,18 @@ public final class LogicTestUtil {
         return new Title(id, name);
     }
 
+    public static TitleStatistic makeDefaultTitleStatistic() {
+        return new TitleStatistic();
+    }
+
+    public static MatchStatistic makeDefaultMatchStatistic() {
+        return new MatchStatistic();
+    }
+
+    public static EloStatistic makeDefaultEloStatistic() {
+        return new EloStatistic();
+    }
+
     /**
      * Makes a {@code Match} with the following properties:
      * <li>
@@ -167,4 +185,17 @@ public final class LogicTestUtil {
     public static Match makeMatch(Participant firstParticipant, Participant secondParticipant) {
         return new Match(firstParticipant, secondParticipant);
     }
+
+    public static MatchResult makeDefaultMatchResult() {
+        return new MatchResult();
+    }
+
+    public static Elo makeDefaultElo() {
+        return new Elo();
+    }
+
+    public static StatisticCollection makeDefaultStatisticCollection() {
+        return new StatisticCollection();
+    }
+
 }
