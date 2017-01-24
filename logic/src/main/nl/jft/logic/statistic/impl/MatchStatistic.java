@@ -4,7 +4,6 @@ import nl.jft.logic.match.MatchResult;
 import nl.jft.logic.statistic.AbstractStatistic;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,9 +44,13 @@ public class MatchStatistic extends AbstractStatistic<MatchResult> {
 
     @Override
     public List<MatchResult> getValues() {
+        List<MatchResult> list = new ArrayList<>();
+
         synchronized (results) {
-            return Collections.unmodifiableList(results);
+            list.addAll(results);
         }
+
+        return list;
     }
 
 }

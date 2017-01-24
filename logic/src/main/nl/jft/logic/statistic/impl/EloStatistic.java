@@ -4,7 +4,6 @@ import nl.jft.logic.participant.Elo;
 import nl.jft.logic.statistic.AbstractStatistic;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,9 +44,13 @@ public class EloStatistic extends AbstractStatistic<Elo> {
 
     @Override
     public List<Elo> getValues() {
+        List<Elo> list = new ArrayList<>();
+
         synchronized (elos) {
-            return Collections.unmodifiableList(elos);
+            list.addAll(elos);
         }
+
+        return list;
     }
 
 }
