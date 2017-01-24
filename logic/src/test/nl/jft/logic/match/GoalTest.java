@@ -2,7 +2,6 @@ package nl.jft.logic.match;
 
 import nl.jft.logic.LogicConstants;
 import nl.jft.logic.participant.Participant;
-import nl.jft.logic.participant.impl.User;
 import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Rule;
 import org.junit.Test;
@@ -38,34 +37,16 @@ public class GoalTest {
 
     @Test
     public void equals_sameObjects_returnsTrue() {
-        Goal goal1 = LogicTestUtil.makeGoalWithUser();
-        Goal goal2 = LogicTestUtil.makeGoalWithUser();
+        Goal goal1 = LogicTestUtil.makeGoalWithTeam();
+        Goal goal2 = LogicTestUtil.makeGoalWithTeam();
 
         boolean result = goal1.equals(goal2);
         assertTrue(result);
     }
 
     @Test
-    public void equals_otherGoal_returnsFalse() throws Exception {
-        Goal goal1 = LogicTestUtil.makeGoalWithUser();
-        Goal goal2 = LogicTestUtil.makeGoalWithTeam();
-
-        boolean result = goal1.equals(goal2);
-        assertFalse(result);
-    }
-
-    @Test
-    public void equals_otherObject_returnsFalse() {
-        Goal goal1 = LogicTestUtil.makeGoalWithUser();
-        String goal2 = "goal2";
-
-        boolean result = goal1.equals(goal2);
-        assertFalse(result);
-    }
-
-    @Test
-    public void equals_nullObject_returnsFalse() {
-        Goal goal1 = LogicTestUtil.makeGoalWithUser();
+    public void equals_otherInstance_returnsFalse() {
+        Goal goal1 = LogicTestUtil.makeGoalWithTeam();
         Goal goal2 = null;
 
         boolean result = goal1.equals(goal2);
@@ -73,11 +54,56 @@ public class GoalTest {
     }
 
     @Test
-    public void hashCode_whenCalled_returnsHashCode() {
-        User user1 = LogicTestUtil.makeDefaultUser();
-        User user2 = LogicTestUtil.makeDefaultUser();
+    public void equals_nullFirstParticipant_returnsFalse() {
+        Goal goal1 = LogicTestUtil.makeGoal(null, LogicTestUtil.makeDefaultLocalDateTime());
+        Goal goal2 = LogicTestUtil.makeGoalWithUser();
 
-        boolean result = user1.hashCode() == user2.hashCode();
+        boolean result = goal1.equals(goal2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_nullSecondParticipant_returnsFalse() {
+        Goal goal1 = LogicTestUtil.makeGoalWithUser();
+        Goal goal2 = LogicTestUtil.makeGoal(null, LogicTestUtil.makeDefaultLocalDateTime());
+
+        boolean result = goal1.equals(goal2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_differentIds_returnsFalse() {
+        Goal goal1 = LogicTestUtil.makeGoal(1, LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultLocalDateTime());
+        Goal goal2 = LogicTestUtil.makeGoal(2, LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultLocalDateTime());
+
+        boolean result = goal1.equals(goal2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_differentParticipants_returnsFalse() {
+        Goal goal1 = LogicTestUtil.makeGoal(LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultLocalDateTime());
+        Goal goal2 = LogicTestUtil.makeGoal(LogicTestUtil.makeDefaultUser2(), LogicTestUtil.makeDefaultLocalDateTime());
+
+        boolean result = goal1.equals(goal2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_differentTimes_returnsFalse() {
+        Goal goal1 = LogicTestUtil.makeGoal(LogicTestUtil.makeDefaultUser(), LocalDateTime.MIN);
+        Goal goal2 = LogicTestUtil.makeGoal(LogicTestUtil.makeDefaultUser(), LocalDateTime.MAX);
+
+        boolean result = goal1.equals(goal2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void hashCode_whenCalled_returnsHashCode() {
+        Goal goal1 = LogicTestUtil.makeGoalWithTeam();
+        Goal goal2 = LogicTestUtil.makeGoalWithTeam();
+
+        boolean result = goal1.hashCode() == goal2.hashCode();
         assertTrue(result);
     }
 
