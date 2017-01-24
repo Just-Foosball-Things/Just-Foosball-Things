@@ -1,6 +1,7 @@
 package nl.jft.common.glicko;
 
 import nl.jft.common.util.Arguments;
+import nl.jft.common.util.Numbers;
 
 /**
  * Holds a players Glicko-2 rating.
@@ -57,5 +58,26 @@ public class Rating {
      */
     public double getVolatility() {
         return volatility;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + Double.hashCode(rating);
+        result = 31 * result + Double.hashCode(deviation);
+        result = 31 * result + Double.hashCode(volatility);
+
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Rating)) {
+            return false;
+        }
+
+        Rating other = (Rating) obj;
+
+        return Numbers.checkEqual(rating, other.rating) && Numbers.checkEqual(deviation, other.deviation) && Numbers.checkEqual(volatility, other.volatility);
     }
 }

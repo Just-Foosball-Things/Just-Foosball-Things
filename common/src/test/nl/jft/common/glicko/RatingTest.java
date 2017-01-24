@@ -5,8 +5,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * @author Oscar de Leeuw
@@ -93,5 +92,56 @@ public class RatingTest {
         double actual = rating.getVolatility();
 
         assertEquals(expected, actual, 0.00001d);
+    }
+
+    @Test
+    public void hashcode_sameObjects_areEqual() throws Exception {
+        int expected = CommonTestUtil.getDefaultRating().hashCode();
+        int actual = CommonTestUtil.getDefaultRating().hashCode();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void hashcode_otherObjects_areNotEqual() throws Exception {
+        int expected = CommonTestUtil.getDefaultRating().hashCode();
+        int actual = "string".hashCode();
+
+        assertNotEquals(expected, actual);
+    }
+
+    @Test
+    public void hashcode_nullObjects_areNotEqual() throws Exception {
+        int expected = CommonTestUtil.getDefaultRating().hashCode();
+        int actual = 0;
+
+        assertNotEquals(expected, actual);
+    }
+
+    @Test
+    public void equals_sameObjects_returnsTrue() throws Exception {
+        Rating expected = CommonTestUtil.getDefaultRating();
+        Rating actual = CommonTestUtil.getDefaultRating();
+
+        boolean result = expected.equals(actual);
+        assertTrue(result);
+    }
+
+    @Test
+    public void equals_nullObjects_returnsFalse() throws Exception {
+        Rating expected = CommonTestUtil.getDefaultRating();
+        Rating actual = null;
+
+        boolean result = expected.equals(actual);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_otherObjects_returnsFalse() throws Exception {
+        Rating expected = CommonTestUtil.getDefaultRating();
+        String actual = "string";
+
+        boolean result = expected.equals(actual);
+        assertFalse(result);
     }
 }
