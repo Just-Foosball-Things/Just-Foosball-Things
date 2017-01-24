@@ -2,7 +2,6 @@ package nl.jft.logic.match;
 
 import nl.jft.logic.LogicConstants;
 import nl.jft.logic.participant.Participant;
-import nl.jft.logic.participant.impl.User;
 import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Rule;
 import org.junit.Test;
@@ -74,10 +73,10 @@ public class GoalTest {
 
     @Test
     public void hashCode_whenCalled_returnsHashCode() {
-        User user1 = LogicTestUtil.makeDefaultUser();
-        User user2 = LogicTestUtil.makeDefaultUser();
+        Goal goal1 = LogicTestUtil.makeGoalWithTeam();
+        Goal goal2 = LogicTestUtil.makeGoalWithTeam();
 
-        boolean result = user1.hashCode() == user2.hashCode();
+        boolean result = goal1.hashCode() == goal2.hashCode();
         assertTrue(result);
     }
 
