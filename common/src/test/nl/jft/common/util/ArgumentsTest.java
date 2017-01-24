@@ -84,4 +84,26 @@ public class ArgumentsTest {
         assertEquals(expected, actual, 0.0000001d);
     }
 
+    @Test
+    public void requirePositive_negativeDouble_throwsException() {
+        expectedException.expect(IllegalArgumentException.class);
+
+        Arguments.requirePositive(-1d);
+    }
+
+    @Test
+    public void requirePositive_zeroDouble_returnsDouble() {
+        expectedException.expect(IllegalArgumentException.class);
+
+        Arguments.requirePositive(0d);
+    }
+
+    @Test
+    public void requirePositive_positiveDouble_returnsDouble() {
+        double expected = 5.5d;
+        double actual = Arguments.requireNotNegative(5.5d);
+
+        assertEquals(expected, actual, 0.00000001d);
+    }
+
 }
