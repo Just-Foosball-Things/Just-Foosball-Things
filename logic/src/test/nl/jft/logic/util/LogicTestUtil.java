@@ -4,10 +4,12 @@ import nl.jft.logic.match.Goal;
 import nl.jft.logic.match.Match;
 import nl.jft.logic.match.MatchResult;
 import nl.jft.logic.match.Rule;
+import nl.jft.logic.participant.Elo;
 import nl.jft.logic.participant.Participant;
 import nl.jft.logic.participant.Title;
 import nl.jft.logic.participant.impl.Team;
 import nl.jft.logic.participant.impl.User;
+import nl.jft.logic.statistic.impl.EloStatistic;
 import nl.jft.logic.statistic.impl.MatchStatistic;
 import nl.jft.logic.statistic.impl.TitleStatistic;
 
@@ -162,6 +164,10 @@ public final class LogicTestUtil {
         return new MatchStatistic();
     }
 
+    public static EloStatistic makeDefaultEloStatistic() {
+        return new EloStatistic();
+    }
+
     /**
      * Makes a {@code Match} with the following properties:
      * <li>
@@ -182,4 +188,9 @@ public final class LogicTestUtil {
     public static MatchResult makeDefaultMatchResult() {
         return new MatchResult();
     }
+
+    public static Elo makeDefaultElo() {
+        return new Elo();
+    }
+
 }
