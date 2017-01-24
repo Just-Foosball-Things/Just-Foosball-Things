@@ -1,5 +1,6 @@
 package nl.jft.logic.match;
 
+import nl.jft.logic.LogicConstants;
 import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -18,7 +19,7 @@ public class MatchResultTest {
     public void construct_nullMatch_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        MatchResult result = LogicTestUtil.makeMatchResult(-1, null);
+        MatchResult result = LogicTestUtil.makeMatchResult(LogicConstants.INTERNAL_ID, null);
     }
 
     @Test
@@ -33,7 +34,7 @@ public class MatchResultTest {
     @Test
     public void equals_otherMatchResult_returnsFalse() throws Exception {
         MatchResult matchResult1 = LogicTestUtil.makeDefaultMatchResult();
-        MatchResult matchResult2 = LogicTestUtil.makeMatchResult(-1, LogicTestUtil.makeMatch(LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultTeam()));
+        MatchResult matchResult2 = LogicTestUtil.makeMatchResult(LogicConstants.INTERNAL_ID, LogicTestUtil.makeMatch(LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultTeam()));
 
         boolean result = matchResult1.equals(matchResult2);
         assertFalse(result);
@@ -70,7 +71,7 @@ public class MatchResultTest {
     public void getId_whenCalled_returnsId() {
         MatchResult result = LogicTestUtil.makeDefaultMatchResult();
 
-        int expected = -1;
+        int expected = LogicConstants.INTERNAL_ID;
         int actual = result.getId();
 
         assertEquals(expected, actual);

@@ -1,5 +1,6 @@
 package nl.jft.logic.participant;
 
+import nl.jft.logic.LogicConstants;
 import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,14 +34,14 @@ public class TitleTest {
     public void construct_nullName_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Title title = LogicTestUtil.makeTitle(-1, null);
+        Title title = LogicTestUtil.makeTitle(LogicConstants.INTERNAL_ID, null);
     }
 
     @Test
     public void construct_emptyName_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
-        Title title = LogicTestUtil.makeTitle(-1, "");
+        Title title = LogicTestUtil.makeTitle(LogicConstants.INTERNAL_ID, "");
     }
 
     @Test
@@ -55,7 +56,7 @@ public class TitleTest {
     @Test
     public void equals_otherTitle_returnsFalse() throws Exception {
         Title title1 = LogicTestUtil.makeDefaultTitle();
-        Title title2 = LogicTestUtil.makeTitle(-1, "othertitle");
+        Title title2 = LogicTestUtil.makeTitle(LogicConstants.INTERNAL_ID, "othertitle");
 
         boolean result = title1.equals(title2);
         assertFalse(result);
@@ -92,7 +93,7 @@ public class TitleTest {
     public void getId_whenCalled_returnsId() {
         Title title = LogicTestUtil.makeDefaultTitle();
 
-        int expected = -1;
+        int expected = LogicConstants.INTERNAL_ID;
         int actual = title.getId();
 
         assertEquals(expected, actual);
