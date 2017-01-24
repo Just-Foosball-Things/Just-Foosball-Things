@@ -43,8 +43,8 @@ public class EloExpectationCalculator {
             double newRating1 = strategy.calculateNewRating(exp.getFirstElo(), exp.getSecondElo(), exp.getFirstGoalsScored(), exp.getSecondGoalsScored(), exp.getMaxGoals());
             double newRating2 = strategy.calculateNewRating(exp.getSecondElo(), exp.getFirstElo(), exp.getSecondGoalsScored(), exp.getFirstGoalsScored(), exp.getMaxGoals());
 
-            double error1 = Math.abs(newRating1 - exp.getFirstDelta());
-            double error2 = Math.abs(newRating2 - exp.getSecondDelta());
+            double error1 = newRating1 - exp.getFirstElo() - exp.getFirstDelta();
+            double error2 = newRating2 - exp.getSecondElo() - exp.getSecondDelta();
 
             results.add(new EloExpectationResult(exp, newRating1, newRating2, error1, error2));
         }
