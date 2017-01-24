@@ -7,6 +7,7 @@ import nl.jft.logic.participant.Participant;
 import nl.jft.logic.participant.Title;
 import nl.jft.logic.participant.impl.Team;
 import nl.jft.logic.participant.impl.User;
+import nl.jft.logic.statistic.impl.TitleStatistic;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -151,6 +152,10 @@ public final class LogicTestUtil {
         return new Title(id, name);
     }
 
+    public static TitleStatistic makeDefaultTitleStatistic() {
+        return new TitleStatistic();
+    }
+
     /**
      * Makes a {@code Match} with the following properties:
      * <li>
@@ -167,4 +172,5 @@ public final class LogicTestUtil {
     public static Match makeMatch(Participant firstParticipant, Participant secondParticipant) {
         return new Match(firstParticipant, secondParticipant);
     }
+
 }
