@@ -1,7 +1,7 @@
 package nl.jft.common.util.util;
 
-import nl.jft.common.glicko.Rating;
-import nl.jft.common.glicko.Result;
+import nl.jft.common.glicko.GlickoRating;
+import nl.jft.common.glicko.GlickoResult;
 import nl.jft.common.util.elo.EloExpectation;
 import nl.jft.common.util.elo.EloExpectationResult;
 
@@ -45,21 +45,21 @@ public class CommonTestUtil {
     }
 
     /**
-     * Creates a new {@code Rating} with the following properties:
+     * Creates a new {@code GlickoRating} with the following properties:
      * <li>
-     * <ul>Rating:      1500</ul>
+     * <ul>GlickoRating:      1500</ul>
      * <ul>Deviation:   350</ul>
      * <ul>Volatility:  0.06</ul>
      * </li>
      *
-     * @return a default {@code Rating}.
+     * @return a default {@code GlickoRating}.
      */
-    public static Rating getDefaultRating() {
-        return new Rating(1500, 350, 0.06);
+    public static GlickoRating getDefaultRating() {
+        return new GlickoRating(1500, 350, 0.06);
     }
 
     /**
-     * Creates a new {@code Result} with the following properties:
+     * Creates a new {@code GlickoResult} with the following properties:
      * <li>
      * <ul>Winner:          DefaultRating</ul>
      * <ul>Loser:           DefaultRating</ul>
@@ -67,10 +67,10 @@ public class CommonTestUtil {
      * <ul>MaxGoals:        10</ul>
      * </li>
      *
-     * @return a default {@code Result}.
+     * @return a default {@code GlickoResult}.
      */
-    public static Result getDefaultResult() {
-        return new Result(getDefaultRating(), getDefaultRating(), 5, 10);
+    public static GlickoResult getDefaultResult() {
+        return new GlickoResult(getDefaultRating(), getDefaultRating(), 5, 10);
     }
 
 }

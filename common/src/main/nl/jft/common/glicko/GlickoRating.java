@@ -12,21 +12,21 @@ import nl.jft.common.util.Numbers;
  *
  * @author Oscar de Leeuw
  */
-public class Rating {
+public class GlickoRating {
 
     private final double rating;
     private final double deviation;
     private final double volatility;
 
     /**
-     * Creates a new {@code Rating}.
+     * Creates a new {@code GlickoRating}.
      * All values must be non-zero and not negative.
      *
      * @param rating     The rating of the player.
      * @param deviation  The rating deviation of the player.
      * @param volatility The volatility of the player.
      */
-    public Rating(double rating, double deviation, double volatility) {
+    public GlickoRating(double rating, double deviation, double volatility) {
         this.rating = Arguments.requirePositive(rating);
         this.deviation = Arguments.requirePositive(deviation);
         this.volatility = Arguments.requirePositive(volatility);
@@ -72,11 +72,11 @@ public class Rating {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Rating)) {
+        if (!(obj instanceof GlickoRating)) {
             return false;
         }
 
-        Rating other = (Rating) obj;
+        GlickoRating other = (GlickoRating) obj;
 
         return Numbers.checkEqual(rating, other.rating) && Numbers.checkEqual(deviation, other.deviation) && Numbers.checkEqual(volatility, other.volatility);
     }

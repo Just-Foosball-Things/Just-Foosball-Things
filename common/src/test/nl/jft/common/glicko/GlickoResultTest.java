@@ -11,7 +11,7 @@ import static org.junit.Assert.assertNotNull;
 /**
  * @author Oscar de Leeuw
  */
-public class ResultTest {
+public class GlickoResultTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -34,113 +34,113 @@ public class ResultTest {
     public void constructor_withSameArgument_throwsException() throws Exception {
         expectedException.expect(IllegalArgumentException.class);
 
-        Rating winner = CommonTestUtil.getDefaultRating();
-        Rating loser = winner;
+        GlickoRating winner = CommonTestUtil.getDefaultRating();
+        GlickoRating loser = winner;
 
         makeResult(winner, loser, 5, 10);
     }
 
     @Test
     public void constructor_withDifferentArgument_isNotNull() throws Exception {
-        Rating winner = CommonTestUtil.getDefaultRating();
-        Rating loser = CommonTestUtil.getDefaultRating();
+        GlickoRating winner = CommonTestUtil.getDefaultRating();
+        GlickoRating loser = CommonTestUtil.getDefaultRating();
 
-        Result result = makeResult(winner, loser, 5, 10);
+        GlickoResult glickoResult = makeResult(winner, loser, 5, 10);
 
-        assertNotNull(result);
+        assertNotNull(glickoResult);
     }
 
     @Test
     public void constructor_withTooLargeGoalDifference_throwsException() throws Exception {
         expectedException.expect(IllegalArgumentException.class);
 
-        Rating winner = CommonTestUtil.getDefaultRating();
-        Rating loser = CommonTestUtil.getDefaultRating();
+        GlickoRating winner = CommonTestUtil.getDefaultRating();
+        GlickoRating loser = CommonTestUtil.getDefaultRating();
 
-        Result result = makeResult(winner, loser, 11, 10);
+        GlickoResult glickoResult = makeResult(winner, loser, 11, 10);
     }
 
     @Test
     public void constructor_withNegativeGoalDifference_throwsException() throws Exception {
         expectedException.expect(IllegalArgumentException.class);
 
-        Rating winner = CommonTestUtil.getDefaultRating();
-        Rating loser = CommonTestUtil.getDefaultRating();
+        GlickoRating winner = CommonTestUtil.getDefaultRating();
+        GlickoRating loser = CommonTestUtil.getDefaultRating();
 
-        Result result = makeResult(winner, loser, -11, 10);
+        GlickoResult glickoResult = makeResult(winner, loser, -11, 10);
     }
 
     @Test
     public void constructor_withZeroGoalDifference_throwsException() throws Exception {
         expectedException.expect(IllegalArgumentException.class);
 
-        Rating winner = CommonTestUtil.getDefaultRating();
-        Rating loser = CommonTestUtil.getDefaultRating();
+        GlickoRating winner = CommonTestUtil.getDefaultRating();
+        GlickoRating loser = CommonTestUtil.getDefaultRating();
 
-        Result result = makeResult(winner, loser, 0, 10);
+        GlickoResult glickoResult = makeResult(winner, loser, 0, 10);
     }
 
     @Test
     public void constructor_withNegativeMaxGoal_throwsException() throws Exception {
         expectedException.expect(IllegalArgumentException.class);
 
-        Rating winner = CommonTestUtil.getDefaultRating();
-        Rating loser = CommonTestUtil.getDefaultRating();
+        GlickoRating winner = CommonTestUtil.getDefaultRating();
+        GlickoRating loser = CommonTestUtil.getDefaultRating();
 
-        Result result = makeResult(winner, loser, 5, -10);
+        GlickoResult glickoResult = makeResult(winner, loser, 5, -10);
     }
 
     @Test
     public void constructor_withZeroMaxGoal_throwsException() throws Exception {
         expectedException.expect(IllegalArgumentException.class);
 
-        Rating winner = CommonTestUtil.getDefaultRating();
-        Rating loser = CommonTestUtil.getDefaultRating();
+        GlickoRating winner = CommonTestUtil.getDefaultRating();
+        GlickoRating loser = CommonTestUtil.getDefaultRating();
 
-        Result result = makeResult(winner, loser, 5, 0);
+        GlickoResult glickoResult = makeResult(winner, loser, 5, 0);
     }
 
     @Test
     public void getWinner_withDefault_returnsRating() throws Exception {
-        Result result = CommonTestUtil.getDefaultResult();
+        GlickoResult glickoResult = CommonTestUtil.getDefaultResult();
 
-        Rating expected = CommonTestUtil.getDefaultRating();
-        Rating actual = result.getWinner();
+        GlickoRating expected = CommonTestUtil.getDefaultRating();
+        GlickoRating actual = glickoResult.getWinner();
 
         assertEquals(expected, actual);
     }
 
     @Test
     public void getLoser_withDefault_returnsRating() throws Exception {
-        Result result = CommonTestUtil.getDefaultResult();
+        GlickoResult glickoResult = CommonTestUtil.getDefaultResult();
 
-        Rating expected = CommonTestUtil.getDefaultRating();
-        Rating actual = result.getLoser();
+        GlickoRating expected = CommonTestUtil.getDefaultRating();
+        GlickoRating actual = glickoResult.getLoser();
 
         assertEquals(expected, actual);
     }
 
     @Test
     public void getGoalDifference_withDefault_returnsInt() throws Exception {
-        Result result = CommonTestUtil.getDefaultResult(); //GoalDifference = 5
+        GlickoResult glickoResult = CommonTestUtil.getDefaultResult(); //GoalDifference = 5
 
         int expected = 5;
-        int actual = result.getGoalDifference();
+        int actual = glickoResult.getGoalDifference();
 
         assertEquals(expected, actual);
     }
 
     @Test
     public void getMaximumGoal_withDefault_returnsInt() throws Exception {
-        Result result = CommonTestUtil.getDefaultResult(); //MaxGoals = 10
+        GlickoResult glickoResult = CommonTestUtil.getDefaultResult(); //MaxGoals = 10
 
         int expected = 10;
-        int actual = result.getMaxGoals();
+        int actual = glickoResult.getMaxGoals();
 
         assertEquals(expected, actual);
     }
 
-    private Result makeResult(Rating winner, Rating loser, int goalDif, int maxGoal) {
-        return new Result(winner, loser, goalDif, maxGoal);
+    private GlickoResult makeResult(GlickoRating winner, GlickoRating loser, int goalDif, int maxGoal) {
+        return new GlickoResult(winner, loser, goalDif, maxGoal);
     }
 }

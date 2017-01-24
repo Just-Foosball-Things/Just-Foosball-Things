@@ -3,24 +3,24 @@ package nl.jft.common.glicko;
 import nl.jft.common.util.Arguments;
 
 /**
- * The {@code Result} class represents the outcome of a match between two players.
- * {@code Result} holds a winner, loser and the difference in goals, as well as the goal limit for that game.
+ * The {@code GlickoResult} class represents the outcome of a match between two players.
+ * {@code GlickoResult} holds a winner, loser and the difference in goals, as well as the goal limit for that game.
  *
  * @author Oscar de Leeuw
  */
-public class Result {
+public class GlickoResult {
 
-    private final Rating winner;
-    private final Rating loser;
+    private final GlickoRating winner;
+    private final GlickoRating loser;
 
     private final int goalDifference;
     private final int maxGoals;
 
     /**
-     * Creates a new {@code Result}.
+     * Creates a new {@code GlickoResult}.
      *
-     * @param winner         The {@code Rating}-object that represents the winner of the match.
-     * @param loser          The {@code Rating}-object that represents the loser of the match.
+     * @param winner         The {@code GlickoRating}-object that represents the winner of the match.
+     * @param loser          The {@code GlickoRating}-object that represents the loser of the match.
      * @param goalDifference The difference in goals between the winner and loser.
      * @param maxGoals       The maximum amount of goals for this game.
      * @throws NullPointerException     When a given reference is {@code null}.
@@ -28,7 +28,7 @@ public class Result {
      * @throws IllegalArgumentException When the {@code goalDifference} is larger than the {@code maxGoals}.
      * @throws IllegalArgumentException When {@code goalDifference} or {@code maxGoals} is not positive.
      */
-    public Result(Rating winner, Rating loser, int goalDifference, int maxGoals) {
+    public GlickoResult(GlickoRating winner, GlickoRating loser, int goalDifference, int maxGoals) {
         this.winner = Arguments.requireNotSame(winner, loser);
         this.loser = Arguments.requireNotSame(loser, winner);
 
@@ -41,25 +41,25 @@ public class Result {
     }
 
     /**
-     * The {@code Rating}-object that represents the winner of this {@code Result}.
+     * The {@code GlickoRating}-object that represents the winner of this {@code GlickoResult}.
      *
-     * @return A {@code Rating}-object.
+     * @return A {@code GlickoRating}-object.
      */
-    public Rating getWinner() {
+    public GlickoRating getWinner() {
         return winner;
     }
 
     /**
-     * The {@code Rating}-object that represents the loser of this {@code Result}.
+     * The {@code GlickoRating}-object that represents the loser of this {@code GlickoResult}.
      *
-     * @return A {@code Rating}-object.
+     * @return A {@code GlickoRating}-object.
      */
-    public Rating getLoser() {
+    public GlickoRating getLoser() {
         return loser;
     }
 
     /**
-     * The goal difference between the winner and loser of this {@code Result}.
+     * The goal difference between the winner and loser of this {@code GlickoResult}.
      *
      * @return An {@code int}.
      */
@@ -68,7 +68,7 @@ public class Result {
     }
 
     /**
-     * The maximum amount of goals for a game in this {@code Result}.
+     * The maximum amount of goals for a game in this {@code GlickoResult}.
      *
      * @return An {@code int}.
      */
