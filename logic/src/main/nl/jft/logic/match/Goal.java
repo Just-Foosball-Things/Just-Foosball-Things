@@ -51,11 +51,12 @@ public class Goal implements Identifiable {
         }
 
         Goal o = (Goal) other;
-        if ((participant == null && o.participant != null) || (participant != null && o.participant == null)) {
+        if ((o.participant == null && participant != null) || (o.participant != null && participant == null)) {
             return false;
         }
 
-        return o.id == id && o.participant.equals(participant) && o.time.equals(time);
+        boolean sameParticipants = o.participant == null && participant == null || o.participant.equals(participant);
+        return o.id == id && sameParticipants && o.time.equals(time);
     }
 
     @Override
