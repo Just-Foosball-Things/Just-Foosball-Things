@@ -15,8 +15,12 @@ import java.util.logging.Logger;
 /**
  * @author Oscar de Leeuw
  */
-public class Main {
+public final class Main {
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+
+    private Main() {
+        throw new UnsupportedOperationException("Constructor should not be called.");
+    }
 
     public static void main(String[] args) {
         //InputStream is = Main.class.getResourceAsStream("resources/estimates.txt");
