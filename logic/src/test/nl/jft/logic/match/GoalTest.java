@@ -55,7 +55,7 @@ public class GoalTest {
 
     @Test
     public void equals_nullFirstParticipant_returnsFalse() {
-        Goal goal1 = LogicTestUtil.makeGoal(null, LogicTestUtil.makeDefaultLocalDateTime());
+        Goal goal1 = LogicTestUtil.makeGoalNoParticipant();
         Goal goal2 = LogicTestUtil.makeGoalWithUser();
 
         boolean result = goal1.equals(goal2);
@@ -65,10 +65,19 @@ public class GoalTest {
     @Test
     public void equals_nullSecondParticipant_returnsFalse() {
         Goal goal1 = LogicTestUtil.makeGoalWithUser();
-        Goal goal2 = LogicTestUtil.makeGoal(null, LogicTestUtil.makeDefaultLocalDateTime());
+        Goal goal2 = LogicTestUtil.makeGoalNoParticipant();
 
         boolean result = goal1.equals(goal2);
         assertFalse(result);
+    }
+
+    @Test
+    public void equals_nullBothParticipants_returnsTrue() {
+        Goal goal1 = LogicTestUtil.makeGoalNoParticipant();
+        Goal goal2 = LogicTestUtil.makeGoalNoParticipant();
+
+        boolean result = goal1.equals(goal2);
+        assertTrue(result);
     }
 
     @Test
