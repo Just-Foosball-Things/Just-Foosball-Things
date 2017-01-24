@@ -70,4 +70,26 @@ public final class Arguments {
         return value;
     }
 
+    /**
+     * Checks whether two given {@code objects} are not the same {@code object}.
+     * The two {@code objects} are considered the same if they are the same instance of an {@code object}.
+     *
+     * @param obj   The first {@code object}.
+     * @param other The other {@code object}, which should not be the same instance as the first parameter.
+     * @param <T>   The {@code type} for which to check sameness.
+     * @return The first parameter.
+     * @throws NullPointerException     When one the parameters is {@code null}.
+     * @throws IllegalArgumentException When the two parameters are the same instance.
+     */
+    public static <T> T requireNotSame(T obj, T other) {
+        Objects.requireNonNull(obj);
+        Objects.requireNonNull(other);
+
+        if (obj == other) {
+            throw new IllegalArgumentException("Arguments cannot be the same reference.");
+        }
+
+        return obj;
+    }
+
 }
