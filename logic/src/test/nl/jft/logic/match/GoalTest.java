@@ -1,5 +1,6 @@
 package nl.jft.logic.match;
 
+import nl.jft.logic.LogicConstants;
 import nl.jft.logic.participant.Participant;
 import nl.jft.logic.participant.impl.User;
 import nl.jft.logic.util.LogicTestUtil;
@@ -20,11 +21,19 @@ public class GoalTest {
     public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
+    public void construct_nullTimeOnly_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Participant participant = LogicTestUtil.makeDefaultUser();
+        Goal goal = LogicTestUtil.makeGoal(participant, null);
+    }
+
+    @Test
     public void construct_nullTime_throwsException() {
         expectedException.expect(NullPointerException.class);
 
         Participant participant = LogicTestUtil.makeDefaultUser();
-        Goal goal = new Goal(0, participant, null);
+        Goal goal = LogicTestUtil.makeGoal(LogicConstants.INTERNAL_ID, participant, null);
     }
 
     @Test
@@ -76,7 +85,7 @@ public class GoalTest {
     public void getId_whenCalled_returnsId() {
         Goal goal = LogicTestUtil.makeGoalWithUser(); // Default id = 0.
 
-        int expected = -1;
+        int expected = LogicConstants.INTERNAL_ID;
         int actual = goal.getId();
 
         assertEquals(expected, actual);

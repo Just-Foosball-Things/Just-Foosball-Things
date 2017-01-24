@@ -1,5 +1,6 @@
 package nl.jft.logic.util;
 
+import nl.jft.logic.LogicConstants;
 import nl.jft.logic.match.Goal;
 import nl.jft.logic.match.Match;
 import nl.jft.logic.match.MatchResult;
@@ -41,7 +42,7 @@ public final class LogicTestUtil {
      * @return A {@code User} object.
      */
     public static User makeDefaultUser() {
-        return makeUser(-1, "username", makeDefaultElo(), makeDefaultTitle());
+        return makeUser(LogicConstants.INTERNAL_ID, "username", makeDefaultElo(), makeDefaultTitle());
     }
 
     public static User makeUser(int id, String username, Elo elo, Title title) {
@@ -58,7 +59,7 @@ public final class LogicTestUtil {
      * @return A {@code Team} object.
      */
     public static Team makeDefaultTeam() {
-        return new Team(-1, "team");
+        return new Team(LogicConstants.INTERNAL_ID, "team");
     }
 
     public static Team makeTeam(int id, String teamName) {
@@ -93,7 +94,7 @@ public final class LogicTestUtil {
      * @return A {@code Goal} object.
      */
     public static Goal makeGoalNoParticipant() {
-        return new Goal(-1, null, makeDefaultLocalDateTime());
+        return makeGoal(null, makeDefaultLocalDateTime());
     }
 
     /**
@@ -107,7 +108,8 @@ public final class LogicTestUtil {
      * @return A {@code Goal} object.
      */
     public static Goal makeGoalWithUser() {
-        return new Goal(-1, makeDefaultUser(), makeDefaultLocalDateTime());
+        return makeGoal(makeDefaultUser(), makeDefaultLocalDateTime());
+
     }
 
     /**
@@ -121,7 +123,15 @@ public final class LogicTestUtil {
      * @return A {@code Goal} object.
      */
     public static Goal makeGoalWithTeam() {
-        return new Goal(-1, makeDefaultTeam(), makeDefaultLocalDateTime());
+        return makeGoal(makeDefaultTeam(), makeDefaultLocalDateTime());
+    }
+
+    public static Goal makeGoal(int id, Participant participant, LocalDateTime time) {
+        return new Goal(id, participant, time);
+    }
+
+    public static Goal makeGoal(Participant participant, LocalDateTime time) {
+        return new Goal(participant, time);
     }
 
     /**
@@ -134,7 +144,7 @@ public final class LogicTestUtil {
      * @return A {@code Rule} object.
      */
     public static Rule makeDefaultRule() {
-        return makeRule(-1, "description");
+        return makeRule("description");
     }
 
     public static Rule makeRule(int id, String description) {
@@ -155,7 +165,7 @@ public final class LogicTestUtil {
      * @return A {@code Title} object.
      */
     public static Title makeDefaultTitle() {
-        return makeTitle(-1, "name");
+        return makeTitle("name");
     }
 
     public static Title makeTitle(int id, String name) {
@@ -205,7 +215,7 @@ public final class LogicTestUtil {
      * @return A {@code MatchResult} object.
      */
     public static MatchResult makeDefaultMatchResult() {
-        return makeMatchResult(-1, makeDefaultMatch());
+        return makeMatchResult(LogicConstants.INTERNAL_ID, makeDefaultMatch());
     }
 
     public static MatchResult makeMatchResult(int id, Match match) {
@@ -223,7 +233,7 @@ public final class LogicTestUtil {
      * @return A {@code Elo} object.
      */
     public static Elo makeDefaultElo() {
-        return makeElo(-1, 1500d, makeDefaultLocalDateTime());
+        return makeElo(1500d);
     }
 
     public static Elo makeElo(double rating) {
