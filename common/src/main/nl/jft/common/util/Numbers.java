@@ -5,9 +5,13 @@ package nl.jft.common.util;
  *
  * @author Oscar de Leeuw
  */
-public class Numbers {
+public final class Numbers {
 
     private static final double DELTA = 0.000001d;
+
+    private Numbers() {
+        throw new UnsupportedOperationException("Constructor should not be called.");
+    }
 
     /**
      * Checks whether two given {@code doubles} are equal.
