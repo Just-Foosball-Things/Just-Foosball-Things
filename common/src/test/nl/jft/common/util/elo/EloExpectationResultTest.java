@@ -1,6 +1,7 @@
 package nl.jft.common.util.elo;
 
 import nl.jft.common.util.util.CommonTestUtil;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -26,6 +27,8 @@ public class EloExpectationResultTest {
 
         double expected = 3010d;
         double actual = result.getNewFirstRating();
+
+        Assert.assertEquals(expected, actual, 0.01d);
     }
 
     @Test
@@ -34,6 +37,8 @@ public class EloExpectationResultTest {
 
         double expected = 2498d;
         double actual = result.getNewSecondRating();
+
+        Assert.assertEquals(expected, actual, 0.01d);
     }
 
     @Test
@@ -42,6 +47,8 @@ public class EloExpectationResultTest {
 
         double expected = 0d;
         double actual = result.getFirstError();
+
+        Assert.assertEquals(expected, actual, 0.01d);
     }
 
     @Test
@@ -50,7 +57,17 @@ public class EloExpectationResultTest {
 
         double expected = 0d;
         double actual = result.getSecondError();
+
+        Assert.assertEquals(expected, actual, 0.01d);
     }
 
-    //TODO make a test for the EloExpectation property.
+    @Test
+    public void getEloExpectation_withDefault_returnsEloExpectation() throws Exception {
+        EloExpectationResult result = CommonTestUtil.getDefaultExpectationResult(); //eloExpectation = defaultEloExpectation
+
+        EloExpectation expected = CommonTestUtil.getDefaultExpectation();
+        EloExpectation actual = result.getExpectation();
+
+        Assert.assertEquals(expected, actual);
+    }
 }

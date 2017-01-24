@@ -5,7 +5,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * @author Oscar de Leeuw
@@ -113,4 +113,54 @@ public class EloExpectationTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void equals_sameObjects_returnsTrue() throws Exception {
+        EloExpectation expected = CommonTestUtil.getDefaultExpectation();
+        EloExpectation actual = CommonTestUtil.getDefaultExpectation();
+
+        boolean result = expected.equals(actual);
+        assertTrue(result);
+    }
+
+    @Test
+    public void equals_nullObjects_returnsFalse() throws Exception {
+        EloExpectation expected = CommonTestUtil.getDefaultExpectation();
+        EloExpectation actual = null;
+
+        boolean result = expected.equals(actual);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_otherObjects_returnsFalse() throws Exception {
+        EloExpectation expected = CommonTestUtil.getDefaultExpectation();
+        String actual = "string";
+
+        boolean result = expected.equals(actual);
+        assertFalse(result);
+    }
+
+    @Test
+    public void hashcode_sameObjects_areEqual() throws Exception {
+        int expected = CommonTestUtil.getDefaultExpectation().hashCode();
+        int actual = CommonTestUtil.getDefaultExpectation().hashCode();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void hashcode_otherObjects_areNotEqual() throws Exception {
+        int expected = CommonTestUtil.getDefaultExpectation().hashCode();
+        int actual = "string".hashCode();
+
+        assertNotEquals(expected, actual);
+    }
+
+    @Test
+    public void hashcode_nullObjects_areNotEqual() throws Exception {
+        int expected = CommonTestUtil.getDefaultExpectation().hashCode();
+        int actual = 0;
+
+        assertNotEquals(expected, actual);
+    }
 }
