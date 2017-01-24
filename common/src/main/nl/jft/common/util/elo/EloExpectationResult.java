@@ -83,4 +83,8 @@ public class EloExpectationResult {
         return secondError;
     }
 
+    @Override
+    public String toString() {
+        return String.format("First rating: %.0f | Second rating: %.0f%nFirst error: %.2f | Second error: %.2f%n", newFirstRating, newSecondRating, firstError, secondError);
+    }
 }

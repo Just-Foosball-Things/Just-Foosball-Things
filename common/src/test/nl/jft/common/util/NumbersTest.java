@@ -4,6 +4,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -14,6 +17,21 @@ public class NumbersTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
+
+    @Test
+    public void construct_whenCalled_throwsException() throws Throwable {
+        expectedException.expect(UnsupportedOperationException.class);
+
+        try {
+            Constructor<Numbers> constructor = Numbers.class.getDeclaredConstructor();
+            constructor.setAccessible(true);
+            constructor.newInstance();
+        } catch (InstantiationException | NoSuchMethodException | IllegalAccessException e) {
+            throw e;
+        } catch (InvocationTargetException e) {
+            throw e.getTargetException();
+        }
+    }
 
     @Test
     public void checkEqual_doublesInRangeOfDelta_returnsTrue() throws Exception {
