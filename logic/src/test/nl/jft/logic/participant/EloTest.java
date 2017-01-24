@@ -39,6 +39,7 @@ public class EloTest {
         Elo elo = LogicTestUtil.makeElo(LogicConstants.INTERNAL_ID, 1500, null);
     }
 
+
     @Test
     public void equals_sameObjects_returnsTrue() {
         Elo elo1 = LogicTestUtil.makeDefaultElo();
@@ -49,27 +50,36 @@ public class EloTest {
     }
 
     @Test
-    public void equals_otherElo_returnsFalse() throws Exception {
-        Elo elo1 = LogicTestUtil.makeDefaultElo();
-        Elo elo2 = LogicTestUtil.makeElo(LogicConstants.INTERNAL_ID, 2000, LogicTestUtil.makeDefaultLocalDateTime());
-
-        boolean result = elo1.equals(elo2);
-        assertFalse(result);
-    }
-
-    @Test
-    public void equals_otherObject_returnsFalse() {
-        Elo elo1 = LogicTestUtil.makeDefaultElo();
-        String elo2 = "elo2";
-
-        boolean result = elo1.equals(elo2);
-        assertFalse(result);
-    }
-
-    @Test
-    public void equals_nullObject_returnsFalse() {
+    public void equals_otherInstance_returnsFalse() {
         Elo elo1 = LogicTestUtil.makeDefaultElo();
         Elo elo2 = null;
+
+        boolean result = elo1.equals(elo2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_differentIds_returnsFalse() {
+        Elo elo1 = LogicTestUtil.makeElo(1, 1500, LogicTestUtil.makeDefaultLocalDateTime());
+        Elo elo2 = LogicTestUtil.makeElo(2, 1500, LogicTestUtil.makeDefaultLocalDateTime());
+
+        boolean result = elo1.equals(elo2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_differentRatings_returnsFalse() {
+        Elo elo1 = LogicTestUtil.makeElo(1, 1500, LogicTestUtil.makeDefaultLocalDateTime());
+        Elo elo2 = LogicTestUtil.makeElo(1, 1600, LogicTestUtil.makeDefaultLocalDateTime());
+
+        boolean result = elo1.equals(elo2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_differentTimes_returnsFalse() {
+        Elo elo1 = LogicTestUtil.makeElo(1, 1500, LocalDateTime.MIN);
+        Elo elo2 = LogicTestUtil.makeElo(1, 1500, LocalDateTime.MAX);
 
         boolean result = elo1.equals(elo2);
         assertFalse(result);
