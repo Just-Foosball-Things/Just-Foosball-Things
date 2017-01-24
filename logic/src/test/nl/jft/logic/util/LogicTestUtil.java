@@ -34,17 +34,18 @@ public final class LogicTestUtil {
      * <li>
      * <ul>Id: -1</ul>
      * <ul>Username: "username"</ul>
+     * <ul>Elo: {@link #makeDefaultElo()}</ul>
      * <ul>Title: {@link #makeDefaultTitle()}</ul>
      * </li>
      *
      * @return A {@code User} object.
      */
     public static User makeDefaultUser() {
-        return makeUser(-1, "username", makeDefaultTitle());
+        return makeUser(-1, "username", makeDefaultElo(), makeDefaultTitle());
     }
 
-    public static User makeUser(int id, String username, Title title) {
-        return new User(id, username, title);
+    public static User makeUser(int id, String username, Elo elo, Title title) {
+        return new User(id, username, elo, title);
     }
 
     /**
@@ -215,6 +216,10 @@ public final class LogicTestUtil {
      */
     public static Elo makeDefaultElo() {
         return makeElo(-1, 1500d, makeDefaultLocalDateTime());
+    }
+
+    public static Elo makeElo(double rating) {
+        return new Elo(rating);
     }
 
     public static Elo makeElo(int id, double rating, LocalDateTime time) {

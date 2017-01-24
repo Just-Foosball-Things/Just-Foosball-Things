@@ -18,6 +18,13 @@ public class EloTest {
     public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
+    public void construct_negativeRatingOnly_throwsException() {
+        expectedException.expect(IllegalArgumentException.class);
+
+        Elo elo = LogicTestUtil.makeElo(-1);
+    }
+
+    @Test
     public void construct_negativeRating_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
