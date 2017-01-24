@@ -15,6 +15,12 @@ public class MatchResultTest {
     @org.junit.Rule
     public final ExpectedException expectedException = ExpectedException.none();
 
+    public void construct_nullMatchOnly_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        MatchResult result = LogicTestUtil.makeMatchResult(null);
+    }
+
     @Test
     public void construct_nullMatch_throwsException() {
         expectedException.expect(NullPointerException.class);

@@ -222,6 +222,10 @@ public final class LogicTestUtil {
         return new MatchResult(id, match);
     }
 
+    public static MatchResult makeMatchResult(Match match) {
+        return new MatchResult(match);
+    }
+
     /**
      * Makes a {@code Elo} with the following properties:
      * <li>
