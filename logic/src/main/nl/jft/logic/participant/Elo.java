@@ -2,6 +2,7 @@ package nl.jft.logic.participant;
 
 import nl.jft.common.Identifiable;
 import nl.jft.common.util.Arguments;
+import nl.jft.common.util.Numbers;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -29,6 +30,25 @@ public class Elo implements Identifiable {
         this.id = id;
         this.rating = Arguments.requireNotNegative(rating);
         this.time = Objects.requireNonNull(time);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Elo)) {
+            return false;
+        }
+
+        Elo o = (Elo) other;
+        return o.id == id && Numbers.checkEqual(o.rating, rating) && o.time.equals(time);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + id;
+        result = 31 * result + Double.hashCode(rating);
+        result = 31 * result + time.hashCode();
+        return result;
     }
 
     @Override
