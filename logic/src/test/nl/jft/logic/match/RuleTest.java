@@ -53,27 +53,27 @@ public class RuleTest {
     }
 
     @Test
-    public void equals_otherRule_returnsFalse() throws Exception {
-        Rule rule1 = LogicTestUtil.makeDefaultRule();
-        Rule rule2 = LogicTestUtil.makeRule(LogicConstants.INTERNAL_ID, "other rule");
-
-        boolean result = rule1.equals(rule2);
-        assertFalse(result);
-    }
-
-    @Test
-    public void equals_otherObject_returnsFalse() {
-        Rule rule1 = LogicTestUtil.makeDefaultRule();
-        String rule2 = "rule2";
-
-        boolean result = rule1.equals(rule2);
-        assertFalse(result);
-    }
-
-    @Test
-    public void equals_nullObject_returnsFalse() {
+    public void equals_otherInstance_returnsFalse() {
         Rule rule1 = LogicTestUtil.makeDefaultRule();
         Rule rule2 = null;
+
+        boolean result = rule1.equals(rule2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_differentIds_returnsFalse() {
+        Rule rule1 = LogicTestUtil.makeRule(1, "description");
+        Rule rule2 = LogicTestUtil.makeRule(2, "description");
+
+        boolean result = rule1.equals(rule2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_differentDescriptions_returnsFalse() {
+        Rule rule1 = LogicTestUtil.makeRule(1, "description1");
+        Rule rule2 = LogicTestUtil.makeRule(1, "description2");
 
         boolean result = rule1.equals(rule2);
         assertFalse(result);
