@@ -40,8 +40,8 @@ public class EloExpectationCalculator {
         List<EloExpectationResult> results = new ArrayList<>();
 
         for (EloExpectation exp : expectations) {
-            double newRating1 = strategy.calculateNewRating(exp.getFirstElo(), exp.getFirstGoalsScored(), exp.getSecondGoalsScored(), exp.getMaxGoals());
-            double newRating2 = strategy.calculateNewRating(exp.getSecondElo(), exp.getSecondGoalsScored(), exp.getFirstGoalsScored(), exp.getMaxGoals());
+            double newRating1 = strategy.calculateNewRating(exp.getFirstElo(), exp.getSecondElo(), exp.getFirstGoalsScored(), exp.getSecondGoalsScored(), exp.getMaxGoals());
+            double newRating2 = strategy.calculateNewRating(exp.getSecondElo(), exp.getFirstElo(), exp.getSecondGoalsScored(), exp.getFirstGoalsScored(), exp.getMaxGoals());
 
             double error1 = Math.abs(newRating1 - exp.getFirstDelta());
             double error2 = Math.abs(newRating2 - exp.getSecondDelta());
