@@ -16,6 +16,20 @@ public class TitleTest {
     public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
+    public void construct_nullNameOnly_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Title title = LogicTestUtil.makeTitle(null);
+    }
+
+    @Test
+    public void construct_emptyNameOnly_throwsException() {
+        expectedException.expect(IllegalArgumentException.class);
+
+        Title title = LogicTestUtil.makeTitle("");
+    }
+
+    @Test
     public void construct_nullName_throwsException() {
         expectedException.expect(NullPointerException.class);
 
