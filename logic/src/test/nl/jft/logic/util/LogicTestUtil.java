@@ -9,6 +9,7 @@ import nl.jft.logic.participant.Participant;
 import nl.jft.logic.participant.Title;
 import nl.jft.logic.participant.impl.Team;
 import nl.jft.logic.participant.impl.User;
+import nl.jft.logic.statistic.StatisticCollection;
 import nl.jft.logic.statistic.impl.EloStatistic;
 import nl.jft.logic.statistic.impl.MatchStatistic;
 import nl.jft.logic.statistic.impl.TitleStatistic;
@@ -191,6 +192,10 @@ public final class LogicTestUtil {
 
     public static Elo makeDefaultElo() {
         return new Elo();
+    }
+
+    public static StatisticCollection makeDefaultStatisticCollection() {
+        return new StatisticCollection();
     }
 
 }
