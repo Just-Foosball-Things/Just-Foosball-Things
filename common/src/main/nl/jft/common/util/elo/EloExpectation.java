@@ -1,6 +1,7 @@
 package nl.jft.common.util.elo;
 
 import nl.jft.common.util.Arguments;
+import nl.jft.common.util.Numbers;
 
 /**
  * An {@code EloExpectation} represents a hypothetical match and the expected Elo-rating difference
@@ -126,16 +127,20 @@ public class EloExpectation {
     public boolean equals(Object obj) {
         if (!(obj instanceof EloExpectation)) {
             return false;
-        } else {
-            EloExpectation other = (EloExpectation) obj;
-
-            return firstElo == other.firstElo &&
-                    secondElo == other.secondElo &&
-                    firstGoalsScored == other.firstGoalsScored &&
-                    secondGoalsScored == other.secondGoalsScored &&
-                    maxGoals == other.maxGoals &&
-                    firstDelta == other.firstDelta &&
-                    secondDelta == other.secondDelta;
         }
+
+        EloExpectation other = (EloExpectation) obj;
+
+        boolean eloEquality = Numbers.checkEqual(firstElo, other.firstElo) &&
+                Numbers.checkEqual(secondElo, other.secondElo);
+
+        boolean goalEquality = firstGoalsScored == other.firstGoalsScored &&
+                secondGoalsScored == other.secondGoalsScored &&
+                maxGoals == other.maxGoals;
+
+        boolean deltaEquality = Numbers.checkEqual(firstDelta, other.firstDelta) &&
+                Numbers.checkEqual(secondDelta, other.secondDelta);
+
+        return eloEquality && goalEquality && deltaEquality;
     }
 }
