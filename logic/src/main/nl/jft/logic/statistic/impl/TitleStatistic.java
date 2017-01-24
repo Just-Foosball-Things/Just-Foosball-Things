@@ -23,7 +23,11 @@ public class TitleStatistic extends AbstractStatistic<Title> {
      * @param title The {@code Title} to add, should not be {@code null}.
      */
     public void addTitle(Title title) {
-        titles.add(Objects.requireNonNull(title));
+        Objects.requireNonNull(title);
+
+        synchronized (titles) {
+            titles.add(title);
+        }
     }
 
     /**
@@ -32,7 +36,11 @@ public class TitleStatistic extends AbstractStatistic<Title> {
      * @param title The {@code Title} to remove, should not be {@code null}.
      */
     public void removeTitle(Title title) {
-        titles.remove(Objects.requireNonNull(title));
+        Objects.requireNonNull(title);
+
+        synchronized (titles) {
+            titles.remove(title);
+        }
     }
 
     @Override
