@@ -48,6 +48,10 @@ public final class LogicTestUtil {
         return makeUser("username2", makeDefaultElo(), makeDefaultTitle());
     }
 
+    public static User makeDefaultUser3() {
+        return makeUser("username3", makeDefaultElo(), makeDefaultTitle());
+    }
+
     public static User makeUser(int id, String username, Elo elo, Title title) {
         return new User(id, username, elo, title);
     }
