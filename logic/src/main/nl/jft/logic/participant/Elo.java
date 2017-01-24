@@ -26,6 +26,8 @@ public class Elo implements Identifiable {
      * {@code time} used is {@link LogicConstants#INTERNAL_DATETIME}.
      *
      * @param rating The actual {@code Rating} tied to this {@code Elo}, should not be negative.
+     * @throws NullPointerException     If {@code time} is {@code null}.
+     * @throws IllegalArgumentException If {@code rating} is negative.
      */
     public Elo(double rating) {
         this(LogicConstants.INTERNAL_ID, rating, LogicConstants.INTERNAL_DATETIME);
