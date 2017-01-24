@@ -1,6 +1,5 @@
 package nl.jft.logic.util;
 
-import nl.jft.logic.LogicConstants;
 import nl.jft.logic.match.Goal;
 import nl.jft.logic.match.Match;
 import nl.jft.logic.match.MatchResult;
@@ -42,11 +41,19 @@ public final class LogicTestUtil {
      * @return A {@code User} object.
      */
     public static User makeDefaultUser() {
-        return makeUser(LogicConstants.INTERNAL_ID, "username", makeDefaultElo(), makeDefaultTitle());
+        return makeUser("username", makeDefaultElo(), makeDefaultTitle());
+    }
+
+    public static User makeDefaultUser2() {
+        return makeUser("username2", makeDefaultElo(), makeDefaultTitle());
     }
 
     public static User makeUser(int id, String username, Elo elo, Title title) {
         return new User(id, username, elo, title);
+    }
+
+    public static User makeUser(String username, Elo elo, Title title) {
+        return new User(username, elo, title);
     }
 
     /**
@@ -59,11 +66,15 @@ public final class LogicTestUtil {
      * @return A {@code Team} object.
      */
     public static Team makeDefaultTeam() {
-        return new Team(LogicConstants.INTERNAL_ID, "team");
+        return makeTeam("team", makeDefaultUser(), makeDefaultUser2());
     }
 
-    public static Team makeTeam(int id, String teamName) {
-        return new Team(id, teamName);
+    public static Team makeTeam(int id, String teamName, User firstUser, User secondUser) {
+        return new Team(id, teamName, firstUser, secondUser);
+    }
+
+    public static Team makeTeam(String teamName, User firstUser, User secondUser) {
+        return new Team(teamName, firstUser, secondUser);
     }
 
     /**
@@ -215,7 +226,7 @@ public final class LogicTestUtil {
      * @return A {@code MatchResult} object.
      */
     public static MatchResult makeDefaultMatchResult() {
-        return makeMatchResult(LogicConstants.INTERNAL_ID, makeDefaultMatch());
+        return makeMatchResult(makeDefaultMatch());
     }
 
     public static MatchResult makeMatchResult(int id, Match match) {
