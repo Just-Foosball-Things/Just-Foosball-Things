@@ -33,46 +33,46 @@ public class EloTest {
 
     @Test
     public void equals_sameObjects_returnsTrue() {
-        Elo Elo1 = LogicTestUtil.makeDefaultElo();
-        Elo Elo2 = LogicTestUtil.makeDefaultElo();
+        Elo elo1 = LogicTestUtil.makeDefaultElo();
+        Elo elo2 = LogicTestUtil.makeDefaultElo();
 
-        boolean result = Elo1.equals(Elo2);
+        boolean result = elo1.equals(elo2);
         assertTrue(result);
     }
 
     @Test
     public void equals_otherElo_returnsFalse() throws Exception {
-        Elo Elo1 = LogicTestUtil.makeDefaultElo();
-        Elo Elo2 = LogicTestUtil.makeElo(-1, 2000, LogicTestUtil.makeDefaultLocalDateTime());
+        Elo elo1 = LogicTestUtil.makeDefaultElo();
+        Elo elo2 = LogicTestUtil.makeElo(-1, 2000, LogicTestUtil.makeDefaultLocalDateTime());
 
-        boolean result = Elo1.equals(Elo2);
+        boolean result = elo1.equals(elo2);
         assertFalse(result);
     }
 
     @Test
     public void equals_otherObject_returnsFalse() {
-        Elo Elo1 = LogicTestUtil.makeDefaultElo();
-        String Elo2 = "Elo2";
+        Elo elo1 = LogicTestUtil.makeDefaultElo();
+        String elo2 = "elo2";
 
-        boolean result = Elo1.equals(Elo2);
+        boolean result = elo1.equals(elo2);
         assertFalse(result);
     }
 
     @Test
     public void equals_nullObject_returnsFalse() {
-        Elo Elo1 = LogicTestUtil.makeDefaultElo();
-        Elo Elo2 = null;
+        Elo elo1 = LogicTestUtil.makeDefaultElo();
+        Elo elo2 = null;
 
-        boolean result = Elo1.equals(Elo2);
+        boolean result = elo1.equals(elo2);
         assertFalse(result);
     }
 
     @Test
     public void hashCode_whenCalled_returnsHashCode() {
-        Elo Elo1 = LogicTestUtil.makeDefaultElo();
-        Elo Elo2 = LogicTestUtil.makeDefaultElo();
+        Elo elo1 = LogicTestUtil.makeDefaultElo();
+        Elo elo2 = LogicTestUtil.makeDefaultElo();
 
-        boolean result = Elo1.hashCode() == Elo2.hashCode();
+        boolean result = elo1.hashCode() == elo2.hashCode();
         assertTrue(result);
     }
 
