@@ -4,7 +4,6 @@ import nl.jft.logic.participant.Title;
 import nl.jft.logic.statistic.AbstractStatistic;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,9 +44,13 @@ public class TitleStatistic extends AbstractStatistic<Title> {
 
     @Override
     public List<Title> getValues() {
+        List<Title> list = new ArrayList<>();
+
         synchronized (titles) {
-            return Collections.unmodifiableList(titles);
+            list.addAll(titles);
         }
+
+        return list;
     }
 
 }
