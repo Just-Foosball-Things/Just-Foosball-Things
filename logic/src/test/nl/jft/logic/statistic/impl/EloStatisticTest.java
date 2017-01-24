@@ -46,7 +46,7 @@ public class EloStatisticTest {
         statistic.addElo(elo);
 
         List<Elo> expected = new ArrayList<Elo>() {{
-            add(elo);
+            add(LogicTestUtil.makeDefaultElo());
         }};
         List<Elo> actual = statistic.getValues();
 

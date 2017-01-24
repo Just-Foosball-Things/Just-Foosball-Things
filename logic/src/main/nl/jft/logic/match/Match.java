@@ -80,6 +80,27 @@ public class Match {
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Match)) {
+            return false;
+        }
+
+        Match o = (Match) other;
+        return o.firstParticipant.equals(firstParticipant) && o.secondParticipant.equals(secondParticipant)
+                && o.goals.equals(goals) && o.rules.equals(rules);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + firstParticipant.hashCode();
+        result = 31 * result + secondParticipant.hashCode();
+        result = 31 * result + goals.hashCode();
+        result = 31 * result + rules.hashCode();
+        return result;
+    }
+
     /**
      * Gets all {@link Goal Goals} from this {@code Match}.
      *

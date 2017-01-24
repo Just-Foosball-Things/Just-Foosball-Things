@@ -8,7 +8,7 @@ import org.junit.rules.ExpectedException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * @author Lesley
@@ -120,6 +120,51 @@ public class MatchTest {
         List<Rule> actual = match.getRules();
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void equals_sameObjects_returnsTrue() {
+        Match match1 = LogicTestUtil.makeDefaultMatch();
+        Match match2 = LogicTestUtil.makeDefaultMatch();
+
+        boolean result = match1.equals(match2);
+        assertTrue(result);
+    }
+
+    @Test
+    public void equals_otherMatch_returnsFalse() throws Exception {
+        Match match1 = LogicTestUtil.makeDefaultMatch();
+        Match match2 = LogicTestUtil.makeMatch(LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultTeam());
+
+        boolean result = match1.equals(match2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_otherObject_returnsFalse() {
+        Match match1 = LogicTestUtil.makeDefaultMatch();
+        String match2 = "match2";
+
+        boolean result = match1.equals(match2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_nullObject_returnsFalse() {
+        Match match1 = LogicTestUtil.makeDefaultMatch();
+        Match match2 = null;
+
+        boolean result = match1.equals(match2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void hashCode_whenCalled_returnsHashCode() {
+        Match match1 = LogicTestUtil.makeDefaultMatch();
+        Match match2 = LogicTestUtil.makeDefaultMatch();
+
+        boolean result = match1.hashCode() == match2.hashCode();
+        assertTrue(result);
     }
 
     @Test

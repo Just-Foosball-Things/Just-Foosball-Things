@@ -186,12 +186,39 @@ public final class LogicTestUtil {
         return new Match(firstParticipant, secondParticipant);
     }
 
+    /**
+     * Makes a {@code MatchResult} with the following properties:
+     * <lu>
+     * <ul>Id: -1</ul>
+     * <ul>Match: {@link #makeDefaultMatch()}</ul>
+     * </lu>
+     *
+     * @return A {@code MatchResult} object.
+     */
     public static MatchResult makeDefaultMatchResult() {
-        return new MatchResult();
+        return makeMatchResult(-1, makeDefaultMatch());
     }
 
+    public static MatchResult makeMatchResult(int id, Match match) {
+        return new MatchResult(id, match);
+    }
+
+    /**
+     * Makes a {@code Elo} with the following properties:
+     * <li>
+     * <ul>Id: -1</ul>
+     * <ul>Rating: 1500</ul>
+     * <ul>Time: {@link #makeDefaultLocalDateTime()}</ul>
+     * </li>
+     *
+     * @return A {@code Elo} object.
+     */
     public static Elo makeDefaultElo() {
-        return new Elo();
+        return makeElo(-1, 1500d, makeDefaultLocalDateTime());
+    }
+
+    public static Elo makeElo(int id, double rating, LocalDateTime time) {
+        return new Elo(id, rating, time);
     }
 
     public static StatisticCollection makeDefaultStatisticCollection() {
