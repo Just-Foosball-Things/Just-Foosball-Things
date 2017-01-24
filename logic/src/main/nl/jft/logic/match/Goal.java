@@ -1,6 +1,7 @@
 package nl.jft.logic.match;
 
 import nl.jft.common.Identifiable;
+import nl.jft.logic.LogicConstants;
 import nl.jft.logic.participant.Participant;
 
 import java.time.LocalDateTime;
@@ -19,11 +20,23 @@ public class Goal implements Identifiable {
     private final LocalDateTime time;
 
     /**
+     * Initializes a new {@code Goal} by invoking an other constructor ({@link #Goal(int, Participant, LocalDateTime)}.
+     *
+     * @param participant The {@code participant} who scored this {@code Goal}. Can be {@code null} to indicate the scorer is unknown.
+     * @param time        The {@code time} at which this {@code Goal} was scored, should not be null.
+     * @throws NullPointerException If {@code time} is {@code null}.
+     */
+    public Goal(Participant participant, LocalDateTime time) {
+        this(LogicConstants.INTERNAL_ID, participant, time);
+    }
+
+    /**
      * Initializes a new Goal using the given id, participant and time.
      *
      * @param id          The {@code id} (dependant on an external system such as a database) of this {@code Goal}.
      * @param participant The {@code participant} who scored this {@code Goal}. Can be {@code null} to indicate the scorer is unknown.
      * @param time        The {@code time} at which this {@code Goal} was scored, should not be null.
+     * @throws NullPointerException If {@code time} is {@code null}.
      */
     public Goal(int id, Participant participant, LocalDateTime time) {
         this.id = id;

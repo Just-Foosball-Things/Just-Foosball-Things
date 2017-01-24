@@ -3,6 +3,7 @@ package nl.jft.logic.participant;
 import nl.jft.common.Identifiable;
 import nl.jft.common.util.Arguments;
 import nl.jft.common.util.Numbers;
+import nl.jft.logic.LogicConstants;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -20,11 +21,26 @@ public class Elo implements Identifiable {
     private final LocalDateTime time;
 
     /**
+     * Initializes a new {@code Elo} by invoking an other constructor ({@link #Elo(int, double, LocalDateTime)}.
+     * This constructor only uses a {@code rating}, the {@code id} used is {@link LogicConstants#INTERNAL_ID} and the
+     * {@code time} used is {@link LogicConstants#INTERNAL_DATETIME}.
+     *
+     * @param rating The actual {@code Rating} tied to this {@code Elo}, should not be negative.
+     * @throws NullPointerException     If {@code time} is {@code null}.
+     * @throws IllegalArgumentException If {@code rating} is negative.
+     */
+    public Elo(double rating) {
+        this(LogicConstants.INTERNAL_ID, rating, LogicConstants.INTERNAL_DATETIME);
+    }
+
+    /**
      * Initializes a new {@code Elo} using the given arguments.
      *
      * @param id     The {@code id} of this {@code Elo}, used by external parties to identify this {@code Elo}.
      * @param rating The actual {@code Rating} tied to this {@code Elo}, should not be negative.
      * @param time   The {@code Time} at which this {@code Elo}-rating was achieved, should not be {@code null}.
+     * @throws NullPointerException     If {@code time} is {@code null}.
+     * @throws IllegalArgumentException If {@code rating} is negative.
      */
     public Elo(int id, double rating, LocalDateTime time) {
         this.id = id;

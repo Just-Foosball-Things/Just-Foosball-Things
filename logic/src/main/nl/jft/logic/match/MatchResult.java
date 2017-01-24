@@ -1,6 +1,7 @@
 package nl.jft.logic.match;
 
 import nl.jft.common.Identifiable;
+import nl.jft.logic.LogicConstants;
 
 import java.util.Objects;
 
@@ -15,10 +16,21 @@ public class MatchResult implements Identifiable {
     private final Match match;
 
     /**
+     * Initializes a new {@code MatchResult} by invoking an other constructor ({@link #MatchResult(int, Match)}.
+     *
+     * @param match The {@link Match} that was played, should not be {@code null}.
+     * @throws NullPointerException If {@code Match} is {@code null}.
+     */
+    public MatchResult(Match match) {
+        this(LogicConstants.INTERNAL_ID, match);
+    }
+
+    /**
      * Initializes a new {@code MatchResult} using the given arguments.
      *
      * @param id    The id of this {@code MatchResult}, used by external parties to identify this {@code MatchResult}.
      * @param match The {@link Match} that was played, should not be {@code null}.
+     * @throws NullPointerException If {@code Match} is {@code null}.
      */
     public MatchResult(int id, Match match) {
         this.id = id;

@@ -18,4 +18,11 @@ public interface Participant extends Identifiable {
      */
     String getName();
 
+    /**
+     * Gets the {@code Elo}-rating of the {@code Participant}.
+     *
+     * @return A {@code Elo} containing the rating of the {@code Participant}.
+     */
+    Elo getElo();
+
 }
