@@ -1,6 +1,8 @@
 package nl.jft.logic.participant;
 
 import nl.jft.logic.LogicConstants;
+import nl.jft.logic.participant.impl.Team;
+import nl.jft.logic.participant.impl.User;
 import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Rule;
 import org.junit.Test;
@@ -45,6 +47,16 @@ public class TitleTest {
     }
 
     @Test
+    public void construct_sameUsers_throwsException() {
+        expectedException.expect(IllegalArgumentException.class);
+
+        User user1 = LogicTestUtil.makeDefaultUser();
+        User user2 = LogicTestUtil.makeDefaultUser();
+
+        Team team = LogicTestUtil.makeTeam("team", user1, user2);
+    }
+
+    @Test
     public void equals_sameObjects_returnsTrue() {
         Title title1 = LogicTestUtil.makeDefaultTitle();
         Title title2 = LogicTestUtil.makeDefaultTitle();
@@ -54,27 +66,27 @@ public class TitleTest {
     }
 
     @Test
-    public void equals_otherTitle_returnsFalse() throws Exception {
-        Title title1 = LogicTestUtil.makeDefaultTitle();
-        Title title2 = LogicTestUtil.makeTitle(LogicConstants.INTERNAL_ID, "othertitle");
-
-        boolean result = title1.equals(title2);
-        assertFalse(result);
-    }
-
-    @Test
-    public void equals_otherObject_returnsFalse() {
-        Title title1 = LogicTestUtil.makeDefaultTitle();
-        String title2 = "title2";
-
-        boolean result = title1.equals(title2);
-        assertFalse(result);
-    }
-
-    @Test
-    public void equals_nullObject_returnsFalse() {
+    public void equals_otherInstance_returnsFalse() {
         Title title1 = LogicTestUtil.makeDefaultTitle();
         Title title2 = null;
+
+        boolean result = title1.equals(title2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_differentIds_returnsFalse() {
+        Title title1 = LogicTestUtil.makeTitle(1, "title");
+        Title title2 = LogicTestUtil.makeTitle(2, "title");
+
+        boolean result = title1.equals(title2);
+        assertFalse(result);
+    }
+
+    @Test
+    public void equals_differentNames_returnsFalse() {
+        Title title1 = LogicTestUtil.makeTitle(1, "title1");
+        Title title2 = LogicTestUtil.makeTitle(1, "title2");
 
         boolean result = title1.equals(title2);
         assertFalse(result);
