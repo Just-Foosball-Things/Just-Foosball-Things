@@ -190,8 +190,22 @@ public final class LogicTestUtil {
         return new MatchResult();
     }
 
+    /**
+     * Makes a {@code Elo} with the following properties:
+     * <li>
+     * <ul>Id: -1</ul>
+     * <ul>Rating: 1500</ul>
+     * <ul>Time: {@link #makeDefaultLocalDateTime()}</ul>
+     * </li>
+     *
+     * @return A {@code Elo} object.
+     */
     public static Elo makeDefaultElo() {
-        return new Elo();
+        return makeElo(-1, 1500d, makeDefaultLocalDateTime());
+    }
+
+    public static Elo makeElo(int id, double rating, LocalDateTime time) {
+        return new Elo(id, rating, time);
     }
 
     public static StatisticCollection makeDefaultStatisticCollection() {
