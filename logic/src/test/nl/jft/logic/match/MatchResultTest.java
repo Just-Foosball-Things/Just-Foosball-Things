@@ -2,6 +2,7 @@ package nl.jft.logic.match;
 
 import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.*;
 
@@ -9,6 +10,16 @@ import static org.junit.Assert.*;
  * @author Lesley
  */
 public class MatchResultTest {
+
+    @org.junit.Rule
+    public final ExpectedException expectedException = ExpectedException.none();
+
+    @Test
+    public void construct_nullMatch_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        MatchResult result = LogicTestUtil.makeMatchResult(-1, null);
+    }
 
     @Test
     public void equals_sameObjects_returnsTrue() {
