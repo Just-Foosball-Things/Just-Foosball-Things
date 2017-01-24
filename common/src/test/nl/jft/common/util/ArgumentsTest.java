@@ -1,6 +1,8 @@
 package nl.jft.common.util;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -12,8 +14,13 @@ import static org.junit.Assert.assertEquals;
  */
 public class ArgumentsTest {
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Rule
+    public final ExpectedException expectedException = ExpectedException.none();
+
+    @Test
     public void construct_whenCalled_throwsException() throws Throwable {
+        expectedException.expect(UnsupportedOperationException.class);
+
         try {
             Constructor<Arguments> constructor = Arguments.class.getDeclaredConstructor();
             constructor.setAccessible(true);
@@ -25,18 +32,24 @@ public class ArgumentsTest {
         }
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void requireNotEmpty_nullString_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
         Arguments.requireNotEmpty(null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void requireNotEmpty_emptyString_throwsException() {
+        expectedException.expect(IllegalArgumentException.class);
+
         Arguments.requireNotEmpty("");
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void requireNotEmpty_stringWithSpacesOnly_throwsException() {
+        expectedException.expect(IllegalArgumentException.class);
+
         Arguments.requireNotEmpty("    ");
     }
 
@@ -46,6 +59,29 @@ public class ArgumentsTest {
         String actual = Arguments.requireNotEmpty("value");
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void requireNotNegative_negativeDouble_throwsException() {
+        expectedException.expect(IllegalArgumentException.class);
+
+        Arguments.requireNotNegative(-1);
+    }
+
+    @Test
+    public void requireNotNegative_zeroDouble_returnsDouble() {
+        double expected = 0;
+        double actual = Arguments.requireNotNegative(0);
+
+        assertEquals(expected, actual, 0.0000001d);
+    }
+
+    @Test
+    public void requireNotNegative_positiveDouble_returnsDouble() {
+        double expected = 5.5d;
+        double actual = Arguments.requireNotNegative(5.5d);
+
+        assertEquals(expected, actual, 0.0000001d);
     }
 
 }

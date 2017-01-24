@@ -37,4 +37,12 @@ public final class Arguments {
         return value;
     }
 
+    public static double requireNotNegative(double value) {
+        if (value < 0) {
+            throw new IllegalArgumentException("Argument must not be negative.");
+        }
+
+        return value;
+    }
+
 }
