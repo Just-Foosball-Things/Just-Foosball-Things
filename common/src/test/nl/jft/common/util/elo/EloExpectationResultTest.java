@@ -70,4 +70,11 @@ public class EloExpectationResultTest {
 
         Assert.assertEquals(expected, actual);
     }
+
+    @Test
+    public void toString_withDefault_shouldNotBeNull() throws Exception {
+        EloExpectationResult result = CommonTestUtil.getDefaultExpectationResult();
+
+        Assert.assertNotNull(result.toString());
+    }
 }
