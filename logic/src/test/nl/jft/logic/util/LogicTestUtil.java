@@ -34,17 +34,30 @@ public final class LogicTestUtil {
      * <li>
      * <ul>Id: -1</ul>
      * <ul>Username: "username"</ul>
+     * <ul>Elo: {@link #makeDefaultElo()}</ul>
      * <ul>Title: {@link #makeDefaultTitle()}</ul>
      * </li>
      *
      * @return A {@code User} object.
      */
     public static User makeDefaultUser() {
-        return makeUser(-1, "username", makeDefaultTitle());
+        return makeUser("username", makeDefaultElo(), makeDefaultTitle());
     }
 
-    public static User makeUser(int id, String username, Title title) {
-        return new User(id, username, title);
+    public static User makeDefaultUser2() {
+        return makeUser("username2", makeDefaultElo(), makeDefaultTitle());
+    }
+
+    public static User makeDefaultUser3() {
+        return makeUser("username3", makeDefaultElo(), makeDefaultTitle());
+    }
+
+    public static User makeUser(int id, String username, Elo elo, Title title) {
+        return new User(id, username, elo, title);
+    }
+
+    public static User makeUser(String username, Elo elo, Title title) {
+        return new User(username, elo, title);
     }
 
     /**
@@ -57,11 +70,15 @@ public final class LogicTestUtil {
      * @return A {@code Team} object.
      */
     public static Team makeDefaultTeam() {
-        return new Team(-1, "team");
+        return makeTeam("team", makeDefaultUser(), makeDefaultUser2());
     }
 
-    public static Team makeTeam(int id, String teamName) {
-        return new Team(id, teamName);
+    public static Team makeTeam(int id, String teamName, User firstUser, User secondUser) {
+        return new Team(id, teamName, firstUser, secondUser);
+    }
+
+    public static Team makeTeam(String teamName, User firstUser, User secondUser) {
+        return new Team(teamName, firstUser, secondUser);
     }
 
     /**
@@ -92,7 +109,7 @@ public final class LogicTestUtil {
      * @return A {@code Goal} object.
      */
     public static Goal makeGoalNoParticipant() {
-        return new Goal(-1, null, makeDefaultLocalDateTime());
+        return makeGoal(null, makeDefaultLocalDateTime());
     }
 
     /**
@@ -106,7 +123,8 @@ public final class LogicTestUtil {
      * @return A {@code Goal} object.
      */
     public static Goal makeGoalWithUser() {
-        return new Goal(-1, makeDefaultUser(), makeDefaultLocalDateTime());
+        return makeGoal(makeDefaultUser(), makeDefaultLocalDateTime());
+
     }
 
     /**
@@ -120,7 +138,15 @@ public final class LogicTestUtil {
      * @return A {@code Goal} object.
      */
     public static Goal makeGoalWithTeam() {
-        return new Goal(-1, makeDefaultTeam(), makeDefaultLocalDateTime());
+        return makeGoal(makeDefaultTeam(), makeDefaultLocalDateTime());
+    }
+
+    public static Goal makeGoal(int id, Participant participant, LocalDateTime time) {
+        return new Goal(id, participant, time);
+    }
+
+    public static Goal makeGoal(Participant participant, LocalDateTime time) {
+        return new Goal(participant, time);
     }
 
     /**
@@ -133,11 +159,15 @@ public final class LogicTestUtil {
      * @return A {@code Rule} object.
      */
     public static Rule makeDefaultRule() {
-        return makeRule(-1, "description");
+        return makeRule("description");
     }
 
     public static Rule makeRule(int id, String description) {
         return new Rule(id, description);
+    }
+
+    public static Rule makeRule(String description) {
+        return new Rule(description);
     }
 
     /**
@@ -150,11 +180,15 @@ public final class LogicTestUtil {
      * @return A {@code Title} object.
      */
     public static Title makeDefaultTitle() {
-        return makeTitle(-1, "name");
+        return makeTitle("name");
     }
 
     public static Title makeTitle(int id, String name) {
         return new Title(id, name);
+    }
+
+    public static Title makeTitle(String name) {
+        return new Title(name);
     }
 
     public static TitleStatistic makeDefaultTitleStatistic() {
@@ -196,11 +230,15 @@ public final class LogicTestUtil {
      * @return A {@code MatchResult} object.
      */
     public static MatchResult makeDefaultMatchResult() {
-        return makeMatchResult(-1, makeDefaultMatch());
+        return makeMatchResult(makeDefaultMatch());
     }
 
     public static MatchResult makeMatchResult(int id, Match match) {
         return new MatchResult(id, match);
+    }
+
+    public static MatchResult makeMatchResult(Match match) {
+        return new MatchResult(match);
     }
 
     /**
@@ -214,7 +252,11 @@ public final class LogicTestUtil {
      * @return A {@code Elo} object.
      */
     public static Elo makeDefaultElo() {
-        return makeElo(-1, 1500d, makeDefaultLocalDateTime());
+        return makeElo(1500d);
+    }
+
+    public static Elo makeElo(double rating) {
+        return new Elo(rating);
     }
 
     public static Elo makeElo(int id, double rating, LocalDateTime time) {
