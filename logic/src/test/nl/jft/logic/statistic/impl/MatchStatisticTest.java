@@ -46,7 +46,7 @@ public class MatchStatisticTest {
         statistic.addMatchResult(result);
 
         List<MatchResult> expected = new ArrayList<MatchResult>() {{
-            add(result);
+            add(LogicTestUtil.makeDefaultMatchResult());
         }};
         List<MatchResult> actual = statistic.getValues();
 

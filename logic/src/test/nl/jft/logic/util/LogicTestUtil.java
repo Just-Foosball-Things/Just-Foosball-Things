@@ -186,8 +186,21 @@ public final class LogicTestUtil {
         return new Match(firstParticipant, secondParticipant);
     }
 
+    /**
+     * Makes a {@code MatchResult} with the following properties:
+     * <lu>
+     * <ul>Id: -1</ul>
+     * <ul>Match: {@link #makeDefaultMatch()}</ul>
+     * </lu>
+     *
+     * @return A {@code MatchResult} object.
+     */
     public static MatchResult makeDefaultMatchResult() {
-        return new MatchResult();
+        return makeMatchResult(-1, makeDefaultMatch());
+    }
+
+    public static MatchResult makeMatchResult(int id, Match match) {
+        return new MatchResult(id, match);
     }
 
     /**
