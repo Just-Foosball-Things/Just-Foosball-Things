@@ -71,7 +71,7 @@ public class RuleTest {
     }
 
     @Test
-    public void equals_differentNames_returnsFalse() {
+    public void equals_differentDescriptions_returnsFalse() {
         Rule rule1 = LogicTestUtil.makeRule(1, "description1");
         Rule rule2 = LogicTestUtil.makeRule(1, "description2");
 
