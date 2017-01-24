@@ -1,5 +1,6 @@
 package nl.jft.common.util.util;
 
+import nl.jft.common.glicko.Rating;
 import nl.jft.common.util.elo.EloExpectation;
 import nl.jft.common.util.elo.EloExpectationResult;
 
@@ -40,6 +41,20 @@ public class CommonTestUtil {
      */
     public static EloExpectationResult getDefaultExpectationResult() {
         return new EloExpectationResult(getDefaultExpectation(), 3010d, 2498d, 0d, 0d);
+    }
+
+    /**
+     * Creates a new {@code Rating} with the following properties:
+     * <li>
+     * <ul>Rating:      1500</ul>
+     * <ul>Deviation:   350</ul>
+     * <ul>Volatility:  0.06</ul>
+     * </li>
+     *
+     * @return a default {@code Rating}.
+     */
+    public static Rating getDefaultRating() {
+        return new Rating(1500, 350, 0.06);
     }
 
 }
