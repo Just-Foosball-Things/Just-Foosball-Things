@@ -1,13 +1,14 @@
 package nl.jft.logic.participant.impl;
 
+import nl.jft.logic.LogicConstants;
+import nl.jft.logic.participant.Elo;
 import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * @author Lesley
@@ -18,17 +19,41 @@ public class TeamTest {
     public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
-    public void construct_nullTeamname_throwsException() throws Exception {
+    public void construct_nullTeamName_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Team team = new Team(-1, null);
+        Team team = LogicTestUtil.makeTeam(LogicConstants.INTERNAL_ID, null, LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser());
     }
 
     @Test
-    public void construct_emptyTeamname_throwsException() throws Exception {
+    public void construct_emptyTeamName_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
-        Team team = new Team(-1, "");
+        Team team = LogicTestUtil.makeTeam(LogicConstants.INTERNAL_ID, "", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser());
+    }
+
+    @Test
+    public void construct_nullFirstUser_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Team team = LogicTestUtil.makeTeam("team", null, LogicTestUtil.makeDefaultUser());
+    }
+
+    @Test
+    public void construct_nullSecondUser_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Team team = LogicTestUtil.makeTeam("team", LogicTestUtil.makeDefaultUser(), null);
+    }
+
+    @Test
+    public void construct_sameUsers_throwsException() {
+        expectedException.expect(IllegalArgumentException.class);
+
+        User user1 = LogicTestUtil.makeDefaultUser();
+        User user2 = LogicTestUtil.makeDefaultUser();
+
+        Team team = LogicTestUtil.makeTeam("team", user1, user2);
     }
 
     @Test
@@ -41,9 +66,9 @@ public class TeamTest {
     }
 
     @Test
-    public void equals_otherTeam_returnsFalse() throws Exception {
+    public void equals_otherTeam_returnsFalse() {
         Team team1 = LogicTestUtil.makeDefaultTeam();
-        Team team2 = LogicTestUtil.makeTeam(-1, "Henk");
+        Team team2 = LogicTestUtil.makeTeam(LogicConstants.INTERNAL_ID, "Henk", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
 
         boolean result = team1.equals(team2);
         assertFalse(result);
@@ -77,7 +102,7 @@ public class TeamTest {
     }
 
     @Test
-    public void getName_withDefaultName_returnsName() throws Exception {
+    public void getName_withDefaultName_returnsName() {
         Team team = LogicTestUtil.makeDefaultTeam(); // default name is "team".
 
         String expected = "team";
@@ -87,12 +112,28 @@ public class TeamTest {
     }
 
     @Test
-    public void getId_withDefaultId_returnsId() throws Exception {
+    public void getId_withDefaultId_returnsId() {
         Team team = LogicTestUtil.makeDefaultTeam(); // default id is -1.
 
-        int expected = -1;
+        int expected = LogicConstants.INTERNAL_ID;
         int actual = team.getId();
 
         Assert.assertEquals(expected, actual);
     }
+
+    @Test
+    public void getElo_whenCalled_returnsElo() {
+        Elo firstElo = LogicTestUtil.makeElo(1500);
+        Elo secondElo = LogicTestUtil.makeElo(2000);
+
+        User firstUser = LogicTestUtil.makeUser("user1", firstElo, LogicTestUtil.makeDefaultTitle());
+        User secondUser = LogicTestUtil.makeUser("user2", secondElo, LogicTestUtil.makeDefaultTitle());
+        Team team = LogicTestUtil.makeTeam("team", firstUser, secondUser);
+
+        Elo expected = LogicTestUtil.makeElo(1750);
+        Elo actual = team.getElo();
+
+        assertEquals(expected, actual);
+    }
+
 }
