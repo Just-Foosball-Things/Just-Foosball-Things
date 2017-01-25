@@ -6,6 +6,7 @@ import nl.jft.logic.match.MatchResult;
 import nl.jft.logic.match.Rule;
 import nl.jft.logic.participant.Elo;
 import nl.jft.logic.participant.Participant;
+import nl.jft.logic.participant.ParticipantType;
 import nl.jft.logic.participant.Title;
 import nl.jft.logic.participant.impl.Team;
 import nl.jft.logic.participant.impl.User;
@@ -13,6 +14,8 @@ import nl.jft.logic.statistic.StatisticCollection;
 import nl.jft.logic.statistic.impl.EloStatistic;
 import nl.jft.logic.statistic.impl.MatchStatistic;
 import nl.jft.logic.statistic.impl.TitleStatistic;
+import nl.jft.logic.tournament.Tournament;
+import nl.jft.logic.tournament.TournamentType;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -265,6 +268,23 @@ public final class LogicTestUtil {
 
     public static StatisticCollection makeDefaultStatisticCollection() {
         return new StatisticCollection();
+    }
+
+    /**
+     * Makes a {@code Tournaent} with the following properties:
+     * <li>
+     * <ul>TournamentType: {@link TournamentType#KNOCKOUT}</ul>
+     * <ul>ParticipantType: {@link ParticipantType#SOLO}</ul>
+     * </li>
+     *
+     * @return
+     */
+    public static Tournament makeDefaultTournament() {
+        return makeTournament(TournamentType.KNOCKOUT, ParticipantType.SOLO);
+    }
+
+    public static Tournament makeTournament(TournamentType tournamentType, ParticipantType participantType) {
+        return new Tournament(tournamentType, participantType);
     }
 
 }
