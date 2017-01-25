@@ -1,5 +1,6 @@
 package nl.jft.common.util.util;
 
+import nl.jft.common.glicko.GlickoCalculationResult;
 import nl.jft.common.glicko.GlickoRating;
 import nl.jft.common.glicko.GlickoResult;
 import nl.jft.common.util.elo.EloExpectation;
@@ -71,6 +72,19 @@ public class CommonTestUtil {
      */
     public static GlickoResult getDefaultResult() {
         return new GlickoResult(getDefaultRating(), getDefaultRating(), 5, 10);
+    }
+
+    /**
+     * Creates a new {@code GlickoCalculationResult} with the following properties:
+     * <li>
+     * <ul>Winner:      DefaultRating</ul>
+     * <ul>Loser:       DefaultRating</ul>
+     * </li>
+     *
+     * @return a default {@code GlickoCalculationResult}.
+     */
+    public static GlickoCalculationResult getDefaultCalculationResult() {
+        return new GlickoCalculationResult(getDefaultRating(), getDefaultRating());
     }
 
 }
