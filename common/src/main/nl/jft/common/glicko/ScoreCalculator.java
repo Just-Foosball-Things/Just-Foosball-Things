@@ -5,6 +5,14 @@ package nl.jft.common.glicko;
  *
  * @author Oscar de Leeuw
  */
+@FunctionalInterface
 public interface ScoreCalculator {
-    double getActualScore(int goalDifference);
+    /**
+     * Calculates the actual score from a game.
+     *
+     * @param goalDifference The difference in goals between the winner and the loser.
+     * @param maxGoals       The maximum amount of goals for that game.
+     * @return a {@code double} that is the actual score for the winner of the game.
+     */
+    double getActualScore(int goalDifference, int maxGoals);
 }
