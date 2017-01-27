@@ -1,12 +1,12 @@
 package nl.jft.common.glicko;
 
 import nl.jft.common.util.util.CommonTestUtil;
+import nl.jft.common.util.util.mocks.MockScoreCalculator;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * @author Oscar de Leeuw
@@ -20,14 +20,14 @@ public class GlickoResultTest {
     public void constructor_withNullFirstArgument_throwsException() throws Exception {
         expectedException.expect(NullPointerException.class);
 
-        makeResult(null, CommonTestUtil.getDefaultRating(), 5, 10);
+        makeResult(null, CommonTestUtil.getDefaultRating(), 5, 10, new MockScoreCalculator());
     }
 
     @Test
     public void constructor_withNullSecondArgument_throwsException() throws Exception {
         expectedException.expect(NullPointerException.class);
 
-        makeResult(CommonTestUtil.getDefaultRating(), null, 5, 10);
+        makeResult(CommonTestUtil.getDefaultRating(), null, 5, 10, new MockScoreCalculator());
     }
 
     @Test
@@ -37,7 +37,7 @@ public class GlickoResultTest {
         GlickoRating winner = CommonTestUtil.getDefaultRating();
         GlickoRating loser = winner;
 
-        makeResult(winner, loser, 5, 10);
+        makeResult(winner, loser, 5, 10, new MockScoreCalculator());
     }
 
     @Test
@@ -45,7 +45,7 @@ public class GlickoResultTest {
         GlickoRating winner = CommonTestUtil.getDefaultRating();
         GlickoRating loser = CommonTestUtil.getDefaultRating();
 
-        GlickoResult glickoResult = makeResult(winner, loser, 5, 10);
+        GlickoResult glickoResult = makeResult(winner, loser, 5, 10, new MockScoreCalculator());
 
         assertNotNull(glickoResult);
     }
@@ -57,7 +57,7 @@ public class GlickoResultTest {
         GlickoRating winner = CommonTestUtil.getDefaultRating();
         GlickoRating loser = CommonTestUtil.getDefaultRating();
 
-        GlickoResult glickoResult = makeResult(winner, loser, 11, 10);
+        GlickoResult glickoResult = makeResult(winner, loser, 11, 10, new MockScoreCalculator());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class GlickoResultTest {
         GlickoRating winner = CommonTestUtil.getDefaultRating();
         GlickoRating loser = CommonTestUtil.getDefaultRating();
 
-        GlickoResult glickoResult = makeResult(winner, loser, -11, 10);
+        GlickoResult glickoResult = makeResult(winner, loser, -11, 10, new MockScoreCalculator());
     }
 
     @Test
@@ -77,7 +77,7 @@ public class GlickoResultTest {
         GlickoRating winner = CommonTestUtil.getDefaultRating();
         GlickoRating loser = CommonTestUtil.getDefaultRating();
 
-        GlickoResult glickoResult = makeResult(winner, loser, 0, 10);
+        GlickoResult glickoResult = makeResult(winner, loser, 0, 10, new MockScoreCalculator());
     }
 
     @Test
@@ -87,7 +87,7 @@ public class GlickoResultTest {
         GlickoRating winner = CommonTestUtil.getDefaultRating();
         GlickoRating loser = CommonTestUtil.getDefaultRating();
 
-        GlickoResult glickoResult = makeResult(winner, loser, 5, -10);
+        GlickoResult glickoResult = makeResult(winner, loser, 5, -10, new MockScoreCalculator());
     }
 
     @Test
@@ -97,7 +97,17 @@ public class GlickoResultTest {
         GlickoRating winner = CommonTestUtil.getDefaultRating();
         GlickoRating loser = CommonTestUtil.getDefaultRating();
 
-        GlickoResult glickoResult = makeResult(winner, loser, 5, 0);
+        GlickoResult glickoResult = makeResult(winner, loser, 5, 0, new MockScoreCalculator());
+    }
+
+    @Test
+    public void constuctor_withNullCalculator_throwsException() throws Exception {
+        expectedException.expect(NullPointerException.class);
+
+        GlickoRating winner = CommonTestUtil.getDefaultRating();
+        GlickoRating loser = CommonTestUtil.getDefaultRating();
+
+        GlickoResult glickoResult = makeResult(winner, loser, 5, 10, null);
     }
 
     @Test
@@ -140,7 +150,42 @@ public class GlickoResultTest {
         assertEquals(expected, actual);
     }
 
-    private GlickoResult makeResult(GlickoRating winner, GlickoRating loser, int goalDif, int maxGoal) {
-        return new GlickoResult(winner, loser, goalDif, maxGoal);
+    @Test
+    public void getWinnerScore_withDefault_callsInjection() throws Exception {
+        MockScoreCalculator calculator = new MockScoreCalculator();
+        GlickoRating winner = CommonTestUtil.getDefaultRating();
+        GlickoRating loser = CommonTestUtil.getDefaultRating();
+
+        GlickoResult glickoResult = makeResult(winner, loser, 5, 10, calculator);
+        glickoResult.getWinnerScore();
+
+        assertTrue(calculator.hasBeenCalled);
+    }
+
+    @Test
+    public void getLoserScore_withDefault_callsInjection() throws Exception {
+        MockScoreCalculator calculator = new MockScoreCalculator();
+        GlickoRating winner = CommonTestUtil.getDefaultRating();
+        GlickoRating loser = CommonTestUtil.getDefaultRating();
+
+        GlickoResult glickoResult = makeResult(winner, loser, 5, 10, calculator);
+        glickoResult.getLoserScore();
+
+        assertTrue(calculator.hasBeenCalled);
+    }
+
+    @Test
+    public void getLoserScore_withDefault_returnsDouble() throws Exception {
+        GlickoResult result = CommonTestUtil.getDefaultResult();
+
+        double winnerScore = result.getWinnerScore(); //MockScoreCalculator will return 0.
+        double expected = 1;
+        double actual = result.getLoserScore();
+
+        assertEquals(expected, actual, 0.001d);
+    }
+
+    private GlickoResult makeResult(GlickoRating winner, GlickoRating loser, int goalDif, int maxGoal, ScoreCalculator calculator) {
+        return new GlickoResult(winner, loser, goalDif, maxGoal, calculator);
     }
 }
