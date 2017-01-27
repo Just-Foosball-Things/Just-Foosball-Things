@@ -163,6 +163,15 @@ public class GlickoRatingTest {
         assertFalse(result);
     }
 
+    @Test
+    public void equals_differentRating_returnsFalse() throws Exception {
+        GlickoRating expected = CommonTestUtil.getDefaultRating();
+        GlickoRating actual = makeRating(1400, 350, 0.06);
+
+        boolean result = expected.equals(actual);
+        assertFalse(result);
+    }
+
     private GlickoRating makeRating(double rating, double deviation, double volatility) {
         return new GlickoRating(rating, deviation, volatility);
     }

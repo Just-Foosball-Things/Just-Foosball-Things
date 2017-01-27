@@ -56,6 +56,28 @@ public class NumbersTest {
     }
 
     @Test
+    public void checkEqual_doublesDifferInRangeOfDelta_returnsFalse() throws Exception {
+        double x = 5.1d;
+        double y = 5.2d;
+        double delta = 0.2d;
+
+        boolean result = Numbers.checkEqual(x, y, delta);
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void checkEqual_doublesDifferOutOfRangeOfDelta_returnsFalse() throws Exception {
+        double x = 5.1d;
+        double y = 5.2d;
+        double delta = 0.001d;
+
+        boolean result = Numbers.checkEqual(x, y, delta);
+
+        assertFalse(result);
+    }
+
+    @Test
     public void checkEqual_doublesAreNaN_returnsTrue() throws Exception {
         double x = Double.NaN;
         double y = Double.NaN;
