@@ -9,7 +9,7 @@ public enum TournamentStatus {
 
     /**
      * The initial state of a {@link Tournament}, nothing has happened yet and {@link nl.jft.logic.participant.Participant participants}
-     * may be added or removed. A {@code Tournament} can be stopped from this state only.
+     * may be added or removed. A {@code Tournament} can be started from this state only.
      */
     SETUP,
 
