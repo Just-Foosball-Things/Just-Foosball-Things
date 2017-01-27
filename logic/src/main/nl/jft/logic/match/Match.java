@@ -41,6 +41,12 @@ public class Match {
         status = MatchStatus.SETUP;
     }
 
+    /**
+     * Starts this {@code Match}, given that it is still in the {@link MatchStatus#SETUP} state.
+     *
+     * @throws IllegalStateException If this {@code Match} is in the {@link MatchStatus#IN_PROGRESS} state.
+     * @throws IllegalStateException If this {@code Match} is in the {@link MatchStatus#FINISHED} state.
+     */
     public void start() {
         if (status == MatchStatus.IN_PROGRESS) {
             throw new IllegalStateException("This match has already been started.");

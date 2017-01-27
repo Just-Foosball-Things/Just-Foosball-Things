@@ -24,6 +24,16 @@ public class Team implements Participant {
     private final User firstUser;
     private final User secondUser;
 
+    /**
+     * Creates a new {@code Team} by invoking an other constructor ({@link #Team(int, String, User, User)}.
+     *
+     * @param teamName   The {@code name} of the {@code Team}. Cannot be {@code null} or an empty {@code String}.
+     * @param firstUser  The first {@link User} in this {@code Team}, should be {@code null}.
+     * @param secondUser The second {@code User} in this {@code Team}, should be {@code null}.
+     * @throws NullPointerException     If {@code firstUser} is {@code null}.
+     * @throws NullPointerException     If {@code secondUser} is {@code null}.
+     * @throws IllegalArgumentException If given {@code Users} are the same.
+     */
     public Team(String teamName, User firstUser, User secondUser) {
         this(LogicConstants.INTERNAL_ID, teamName, firstUser, secondUser);
     }
