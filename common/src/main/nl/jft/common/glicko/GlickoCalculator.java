@@ -1,7 +1,5 @@
 package nl.jft.common.glicko;
 
-import java.util.List;
-
 /**
  * The {@code GlickoCalculator} calculates new {@link GlickoRating GlickoRatings} based on a {@link GlickoResult}.
  * This interface describes the basic methods that such a calculator requires, but the implementation of these is trivial.
@@ -11,6 +9,7 @@ import java.util.List;
  *
  * @author Oscar de Leeuw
  */
+@FunctionalInterface
 public interface GlickoCalculator {
 
     /**
@@ -20,12 +19,4 @@ public interface GlickoCalculator {
      * @return A {@code GlickoCalculationResult}.
      */
     GlickoCalculationResult calculateNewRating(GlickoResult result);
-
-    /**
-     * Processes a {@code List} of {@code GlickoResults} and calculates the new {@link GlickoRating GlickoRatings}
-     *
-     * @param results A {@code List} of {@code GlickoCalculationResults} with the new {@code GlickoRatings}.
-     * @return A {@code List} of {@code GlickoCalculationResults}.
-     */
-    List<GlickoCalculationResult> calculateNewRatings(List<GlickoResult> results);
 }

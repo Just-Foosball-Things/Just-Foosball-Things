@@ -1,8 +1,12 @@
 package nl.jft.common.glicko;
 
-import java.util.List;
-
 /**
+ * The {@code StandardGlickoCalculator} is an implementation of the {@code GlickoCalculator}.
+ * It implements the Glicko rating system as described by Mark Glickman.
+ *
+ * The only difference between this implementation and the default implementation is that is does not support evaluating multiple
+ * results at the same time. Every result has to be evaluated after the completion of a match and a new rating has to be assigned.
+ *
  * @author Oscar de Leeuw
  */
 public class StandardGlickoCalculator implements GlickoCalculator {
@@ -256,13 +260,57 @@ public class StandardGlickoCalculator implements GlickoCalculator {
         return phi * MULTIPLIER;
     }
 
-    @Override
-    public GlickoCalculationResult calculateNewRating(GlickoResult result) {
-        return null;
+    /**
+     * Calculates a new {@code GlickoRating} for a player with the given score of a game.
+     *
+     * @param player      The current {@code GlickoRating} of a player.
+     * @param opponent    The current {@code GlickoRating} of the opposing player.
+     * @param actualScore The actual score of the match in respect to the player.
+     * @return a {@code GlickoRating} that represents the new rating of the player.
+     */
+    public GlickoRating getNewRating(GlickoRating player, GlickoRating opponent, double actualScore) {
+        double rating = player.getRating();
+        double deviation = player.getDeviation();
+        double ratingJ = opponent.getRating();
+        double deviationJ = opponent.getDeviation();
+        double volatility = player.getVolatility();
+        double s = actualScore;
+
+        //step 2
+        double mu = mu(rating);
+        double phi = phi(deviation);
+
+        //step 3
+        double v = v(rating, ratingJ, deviationJ);
+        double g = g(deviationJ);
+        double e = e(rating, ratingJ, deviationJ);
+
+        //step 4
+        double delta = delta(rating, ratingJ, deviationJ, s);
+
+        //step 5
+        double a = a(volatility);
+        double newSigma = newSigma(delta, phi, v, a, DEFAULT_TAU, CONVERGENCE_TOLERANCE);
+
+        //step 6
+        double phiStar = phiStar(phi, newSigma);
+
+        //step 7
+        double newPhi = newPhi(phiStar, v);
+        double newMu = newMu(mu, newPhi, g, s, e);
+
+        //step 8
+        double newRating = muToRating(newMu);
+        double newDeviation = phiToRating(newPhi);
+        double newVolatility = newSigma;
+
+        return new GlickoRating(newRating, newDeviation, newVolatility);
     }
 
     @Override
-    public List<GlickoCalculationResult> calculateNewRatings(List<GlickoResult> results) {
-        return null;
+    public GlickoCalculationResult calculateNewRating(GlickoResult result) {
+        GlickoRating winner = getNewRating(result.getWinner(), result.getLoser(), result.getWinnerScore());
+        GlickoRating loser = getNewRating(result.getLoser(), result.getWinner(), result.getLoserScore());
+        return new GlickoCalculationResult(winner, loser);
     }
 }

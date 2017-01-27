@@ -1,11 +1,13 @@
 package nl.jft.common.glicko;
 
+import nl.jft.common.util.util.CommonTestUtil;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Oscar de Leeuw
@@ -565,5 +567,63 @@ public class StandardGlickoCalculatorTest {
         double actual = calculator.phiToRating(2.87823124631);
 
         assertEquals(expected, actual, 0.00001d);
+    }
+
+    @Test
+    public void getNewRating_testOne_returnsGlickoRating() throws Exception {
+        GlickoRating winner = new GlickoRating(1400, 30, 0.06);
+        GlickoRating loser = new GlickoRating(1550, 100, 0.06);
+
+        GlickoRating rating = calculator.getNewRating(winner, loser, 1);
+
+        assertEquals(1403.8210, rating.getRating(), 0.001d);
+        assertEquals(31.657, rating.getDeviation(), 0.001d);
+        assertEquals(0.060007343, rating.getVolatility(), 0.00000001d);
+    }
+
+    @Test
+    public void getNewRating_testTwo_returnsGlickoRating() throws Exception {
+        GlickoRating winner = new GlickoRating(1400, 30, 0.06);
+        GlickoRating loser = new GlickoRating(1550, 100, 0.06);
+
+        GlickoRating rating = calculator.getNewRating(loser, winner, 0);
+
+        assertEquals(1511.9412, rating.getRating(), 0.001d);
+        assertEquals(97.2262, rating.getDeviation(), 0.001d);
+        assertEquals(0.06000711, rating.getVolatility(), 0.00000001d);
+    }
+
+    @Test
+    public void getNewRating_testThree_returnsGlickoRating() throws Exception {
+        GlickoRating winner = new GlickoRating(1545, 300, 0.06);
+        GlickoRating loser = new GlickoRating(1743, 200, 0.06);
+
+        GlickoRating rating = calculator.getNewRating(winner, loser, 0.6);
+
+        assertEquals(1644.3946, rating.getRating(), 0.001d);
+        assertEquals(251.4019, rating.getDeviation(), 0.001d);
+        assertEquals(0.059998, rating.getVolatility(), 0.000001d);
+    }
+
+    @Test
+    public void getNewRating_testFour_returnsGlickoRating() throws Exception {
+        GlickoRating winner = new GlickoRating(1545, 300, 0.06);
+        GlickoRating loser = new GlickoRating(1743, 200, 0.06);
+
+        GlickoRating rating = calculator.getNewRating(loser, winner, 0.4);
+
+        assertEquals(1699.9609, rating.getRating(), 0.001d);
+        assertEquals(186.9439, rating.getDeviation(), 0.001d);
+        assertEquals(0.059998, rating.getVolatility(), 0.000001d);
+    }
+
+    @Test
+    public void calculateNewRating_withDefault_returnsGlickoCalculationResult() throws Exception {
+        GlickoResult glickoResult = CommonTestUtil.getDefaultResult();
+
+        GlickoCalculationResult result = calculator.calculateNewRating(glickoResult);
+
+        assertNotNull(result.getWinner());
+        assertNotNull(result.getLoser());
     }
 }
