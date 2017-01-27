@@ -195,6 +195,67 @@ public class StandardGlickoCalculator implements GlickoCalculator {
         return Math.exp(bigA/2);
     }
 
+    /**
+     * Calculates the value of {@code phiStar} as described in step 6 of Glickman's paper: <br>
+     * {@code phiStar = sqrt(phi^2 + sigma'^2)}
+     *
+     * @param phi      The ration deviation of the player converted to GlickoScale.
+     * @param newSigma The sigma calculated in step 5 of Glickman's paper.
+     * @return a {@code double} that represents {@code phiStar}.
+     */
+    public double phiStar(double phi, double newSigma) {
+        return Math.sqrt(Math.pow(phi, 2) + Math.pow(newSigma, 2));
+    }
+
+    /**
+     * Calculates the new value of {@code phi} as described in step 7 of Glickman's paper: <br>
+     * {@code phi' = 1 / sqrt(1/phiStar^2 + 1/v)}
+     *
+     * @param phiStar The intermediate value of {@code phi} calculated in step 6 of Glickman's paper.
+     * @param v       The value of {@code v} calculated in step 3 of Glickman's paper.
+     * @return a {@code double} that represents the new value of {@code phi}.
+     */
+    public double newPhi(double phiStar, double v) {
+        return 1d / Math.sqrt(1d / Math.pow(phiStar, 2) + 1d / v);
+    }
+
+    /**
+     * Calculates the new value of {@code mu} as described in step 7 of Glickman's paper: <br>
+     * {@code mu' = mu + phi'^2 * g(phiJ) * (s - E(mu,muJ,phiJ))}
+     *
+     * @param mu      The rating of the player converted to the Glicko scale.
+     * @param newPhi  The new value of {@code phi} calculated in step 7 of Glickman's paper.
+     * @param gOfPhiJ The value of the {@code g} function with {@code phiJ} as argument.
+     * @param s       The actual score of the match.
+     * @param e       The value of the {@code E} function with {@code mu, muJ and phiJ} as arguments.
+     * @return a {@code double} that represents the new value of {@code mu}.
+     */
+    public double newMu(double mu, double newPhi, double gOfPhiJ, double s, double e) {
+        return mu + Math.pow(newPhi, 2) * gOfPhiJ * (s - e);
+    }
+
+    /**
+     * Converts the value of {@code mu} to a 'normal' rating as described in step 8 of Glickman's paper: <br>
+     * {@code rating = 173.7178 * mu + 1500}
+     *
+     * @param mu The value of the player's rating on the Glicko scale.
+     * @return a {@code double} that represents the rating of the player.
+     */
+    public double muToRating(double mu) {
+        return mu * MULTIPLIER + DEFAULT_RATING;
+    }
+
+    /**
+     * Converts the value of {@code phi} to a 'normal' deviation as described in step 8 of Glickman's paper: <br>
+     * {@code deviation = 173.7178 * phi}
+     *
+     * @param phi The value of the player's deviation on the Glicko scale.
+     * @return a {@code double} that represents the deviation of the player.
+     */
+    public double phiToRating(double phi) {
+        return phi * MULTIPLIER;
+    }
+
     @Override
     public GlickoCalculationResult calculateNewRating(GlickoResult result) {
         return null;

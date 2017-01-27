@@ -190,6 +190,14 @@ public class StandardGlickoCalculatorTest {
     }
 
     @Test
+    public void e_with1500Rating1500Rating200Deviation_returnsDouble() throws Exception {
+        double expected = 0.5;
+        double actual = calculator.e(1500, 1500, 200);
+
+        assertEquals(expected, actual, 0.0000001d);
+    }
+
+    @Test
     public void e_with1500Rating1500Rating250Deviation_returnsDouble() throws Exception {
         double expected = 0.5;
         double actual = calculator.e(1500, 1500, 250);
@@ -292,24 +300,24 @@ public class StandardGlickoCalculatorTest {
 
     @Test
     public void a_with006Volatility_returnsDouble() throws Exception {
-        double expected = -10.231991619;
-        double actual = calculator.a(0.006);
+        double expected = -5.626821433520073;
+        double actual = calculator.a(0.06);
 
         assertEquals(expected, actual, 0.0000001d);
     }
 
     @Test
     public void a_with007Volatility_returnsDouble() throws Exception {
-        double expected = -9.92369025985364;
-        double actual = calculator.a(0.007);
+        double expected = -5.318520073865556;
+        double actual = calculator.a(0.07);
 
         assertEquals(expected, actual, 0.0001d);
     }
 
     @Test
     public void a_with005Volatility_returnsDouble() throws Exception {
-        double expected = -10.59663473309607;
-        double actual = calculator.a(0.005);
+        double expected = -5.991464547107982;
+        double actual = calculator.a(0.05);
 
         assertEquals(expected, actual, 0.0000001d);
     }
@@ -394,5 +402,168 @@ public class StandardGlickoCalculatorTest {
         assertEquals(expected, actual, 0.00001d);
     }
 
+    @Test
+    public void phiStar_testOne_returnsDouble() throws Exception {
+        double expected = 2.01565505049;
+        double actual = calculator.phiStar(2.01476187242, 0.05999);
 
+        //phi = 2.01476187242 (350 deviation)
+        //sigma' = 0.05999
+
+        assertEquals(expected, actual, 0.0001d);
+    }
+
+    @Test
+    public void phiStar_testTwo_returnsDouble() throws Exception {
+        double expected = 2.87885656246;
+        double actual = calculator.phiStar(2.87823124631, 0.06);
+
+        //phi =  2.87823124631 (500 deviation)
+        //sigma' = 0.06
+
+        assertEquals(expected, actual, 0.0001d);
+    }
+
+    @Test
+    public void phiStar_testThree_returnsDouble() throws Exception {
+        double expected = 0.18634722965;
+        double actual = calculator.phiStar(0.1727, 0.07);
+
+        //phi =  0.1727 (30 deviation)
+        //sigma' = 0.07
+
+        assertEquals(expected, actual, 0.0001d);
+    }
+
+    @Test
+    public void newPhi_testOne_returnsDouble() throws Exception {
+        double expected = 1.83853950147;
+        double actual = calculator.newPhi(2.01565505049, 20.1181494346357595);
+
+        //phiStar = 2.01565505049 (350 deviation, 0.05999 vol)
+        //v = 20.1181494346357595 (1500 rating, 2000 opRating, 350 opDeviation)
+
+        assertEquals(expected, actual, 0.0001d);
+    }
+
+    @Test
+    public void newPhi_testTwo_returnsDouble() throws Exception {
+        double expected = 1.82921494119;
+        double actual = calculator.newPhi(2.87885656246, 5.611583641996955);
+
+        //phiStar = 2.87885656246 (500 deviation, 0.06 vol)
+        //v = 5.61158364199695 (1500 rating, 1500 opRating, 200 opDeviation)
+
+        assertEquals(expected, actual, 0.0001d);
+    }
+
+    @Test
+    public void newPhi_testThree_returnsDouble() throws Exception {
+        double expected = 0.1863465763;
+        double actual = calculator.newPhi(0.18634722965, 4952.18257166890839);
+
+        //phiStar = 0.18634722965 (30 deviation, 0.07 vol)
+        //v = 4952.18257166890839 (1000 rating, 3000 opRating, 350 opDeviation)
+
+        assertEquals(expected, actual, 0.0001d);
+    }
+
+    @Test
+    public void newMu_testOne_returnsDouble() throws Exception {
+        //1500/500 ratingA vs 1500/200 ratingB, A lost
+        //0.06 vol
+
+        double mu = 0;
+        double newPhi = 1.82921494119;
+        double g = 0.8442815045061;
+        double s = 0d;
+        double e = 0.5;
+
+        double expected = -1.41249448193;
+        double actual = calculator.newMu(mu, newPhi, g, s, e);
+
+        assertEquals(expected, actual, 0.0001d);
+    }
+
+    @Test
+    public void newMu_testTwo_returnsDouble() throws Exception {
+        //1000/30 ratingA vs 3000/350 ratingB, Draw
+        //0.07 vol
+
+        double mu = -2.87823124631;
+        double newPhi = 0.1863465763;
+        double g = 0.6690694125804828;
+        double s = 0.5;
+        double e = 0.00045129138;
+
+        double expected = -2.86662499814;
+        double actual = calculator.newMu(mu, newPhi, g, s, e);
+
+        assertEquals(expected, actual, 0.0001d);
+    }
+
+    @Test
+    public void newMu_testThree_returnsDouble() throws Exception {
+        //1500/350 ratingA vs 2000/350 ratingB, A won
+        //0.06 vol
+
+        double mu = 0d;
+        double newPhi = 1.83853950147;
+        double g = 0.6690694125804828;
+        double s = 1;
+        double e = 0.1272232377;
+
+        double expected = 1.97387788388;
+        double actual = calculator.newMu(mu, newPhi, g, s, e);
+
+        assertEquals(expected, actual, 0.0001d);
+    }
+
+    @Test
+    public void muToRating_testOne_returnsDouble() throws Exception {
+        double expected = 1500;
+        double actual = calculator.muToRating(0);
+
+        assertEquals(expected, actual, 0.00001d);
+    }
+
+    @Test
+    public void muToRating_testTwo_returnsDouble() throws Exception {
+        double expected = 2000;
+        double actual = calculator.muToRating(2.8782312);
+
+        assertEquals(expected, actual, 0.00001d);
+    }
+
+    @Test
+    public void muToRating_testThree_returnsDouble() throws Exception {
+        double expected = 1000;
+        double actual = calculator.muToRating(-2.87823124631);
+
+        assertEquals(expected, actual, 0.00001d);
+    }
+
+    @Test
+    public void phiToRating_testOne_returnsDouble() throws Exception {
+        double expected = 200;
+        double actual = calculator.phiToRating(1.1513);
+
+        assertEquals(expected, actual, 0.1d);
+    }
+
+    @Test
+    public void phiToRating_testTwo_returnsDouble() throws Exception {
+        double expected = 350;
+        double actual = calculator.phiToRating(2.01476187242);
+
+        assertEquals(expected, actual, 0.00001d);
+    }
+
+    @Test
+    public void phiToRating_testThree_returnsDouble() throws Exception {
+        double expected = 500;
+        double actual = calculator.phiToRating(2.87823124631);
+
+        assertEquals(expected, actual, 0.00001d);
+    }
 }
