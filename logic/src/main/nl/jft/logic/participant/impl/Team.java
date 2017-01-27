@@ -24,13 +24,6 @@ public class Team implements Participant {
     private final User firstUser;
     private final User secondUser;
 
-    /**
-     * Initializes a new {@code Team} by invoking an other constructor ({@link #Team(int, String, User, User)}.
-     *
-     * @param teamName
-     * @param firstUser
-     * @param secondUser
-     */
     public Team(String teamName, User firstUser, User secondUser) {
         this(LogicConstants.INTERNAL_ID, teamName, firstUser, secondUser);
     }
