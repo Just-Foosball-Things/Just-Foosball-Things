@@ -1,9 +1,11 @@
 package nl.jft.common.util.util;
 
+import nl.jft.common.glicko.GlickoCalculationResult;
 import nl.jft.common.glicko.GlickoRating;
 import nl.jft.common.glicko.GlickoResult;
 import nl.jft.common.util.elo.EloExpectation;
 import nl.jft.common.util.elo.EloExpectationResult;
+import nl.jft.common.util.util.mocks.MockScoreCalculator;
 
 /**
  * @author Oscar de Leeuw
@@ -70,7 +72,20 @@ public class CommonTestUtil {
      * @return a default {@code GlickoResult}.
      */
     public static GlickoResult getDefaultResult() {
-        return new GlickoResult(getDefaultRating(), getDefaultRating(), 5, 10);
+        return new GlickoResult(getDefaultRating(), getDefaultRating(), 5, 10, new MockScoreCalculator());
+    }
+
+    /**
+     * Creates a new {@code GlickoCalculationResult} with the following properties:
+     * <li>
+     * <ul>Winner:      DefaultRating</ul>
+     * <ul>Loser:       DefaultRating</ul>
+     * </li>
+     *
+     * @return a default {@code GlickoCalculationResult}.
+     */
+    public static GlickoCalculationResult getDefaultCalculationResult() {
+        return new GlickoCalculationResult(getDefaultRating(), getDefaultRating());
     }
 
 }
