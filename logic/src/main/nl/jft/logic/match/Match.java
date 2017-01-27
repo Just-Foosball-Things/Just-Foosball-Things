@@ -21,6 +21,8 @@ public class Match {
     private final Participant firstParticipant;
     private final Participant secondParticipant;
 
+    private MatchStatus status;
+
     /**
      * Initializes a new {@code Match} with the given {@link Participant participants}.
      *
@@ -30,6 +32,44 @@ public class Match {
     public Match(Participant firstParticipant, Participant secondParticipant) {
         this.firstParticipant = Objects.requireNonNull(firstParticipant);
         this.secondParticipant = Objects.requireNonNull(secondParticipant);
+
+        status = MatchStatus.SETUP;
+    }
+
+    /**
+     * Starts this {@code Match}, given that it is still in the {@link MatchStatus#SETUP} state.
+     *
+     * @throws IllegalStateException If this {@code Match} is in the {@link MatchStatus#IN_PROGRESS} state.
+     * @throws IllegalStateException If this {@code Match} is in the {@link MatchStatus#FINISHED} state.
+     */
+    public void start() {
+        if (status == MatchStatus.IN_PROGRESS) {
+            throw new IllegalStateException("This match has already been started.");
+        }
+
+        if (status == MatchStatus.FINISHED) {
+            throw new IllegalStateException("This match has already finished.");
+        }
+
+        status = MatchStatus.IN_PROGRESS;
+    }
+
+    /**
+     * Stops this {@code Match}, given that it is in the {@link MatchStatus#IN_PROGRESS} state.
+     *
+     * @throws IllegalStateException If this {@code Match} is in the {@link MatchStatus#SETUP} state.
+     * @throws IllegalStateException If this {@code Match} is in the {@link MatchStatus#FINISHED} state.
+     */
+    public void stop() {
+        if (status == MatchStatus.SETUP) {
+            throw new IllegalStateException("This match has not yet been started.");
+        }
+
+        if (status == MatchStatus.FINISHED) {
+            throw new IllegalStateException("This match has already finished.");
+        }
+
+        status = MatchStatus.FINISHED;
     }
 
     /**
@@ -99,6 +139,15 @@ public class Match {
         result = 31 * result + goals.hashCode();
         result = 31 * result + rules.hashCode();
         return result;
+    }
+
+    /**
+     * Gets the current {@link MatchStatus} of this {@code Match}.
+     *
+     * @return The {@code MatchStatus} of this {@code Match}.
+     */
+    public MatchStatus getStatus() {
+        return status;
     }
 
     /**
