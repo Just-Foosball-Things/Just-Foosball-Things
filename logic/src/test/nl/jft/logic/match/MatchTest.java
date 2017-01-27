@@ -33,6 +33,66 @@ public class MatchTest {
     }
 
     @Test
+    public void start_whenCalled_startsMatch() {
+        Match match = LogicTestUtil.makeDefaultMatch();
+        match.start();
+
+        MatchStatus expected = MatchStatus.IN_PROGRESS;
+        MatchStatus actual = match.getStatus();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void start_matchInProgress_throwsException() {
+        expectedException.expect(IllegalStateException.class);
+
+        Match match = LogicTestUtil.makeDefaultMatch();
+        match.start();
+        match.start();
+    }
+
+    @Test
+    public void start_matchFinished_throwsException() {
+        expectedException.expect(IllegalStateException.class);
+
+        Match match = LogicTestUtil.makeDefaultMatch();
+        match.start();
+        match.stop();
+        match.start();
+    }
+
+    @Test
+    public void stop_whenCalled_stopsMatch() {
+        Match match = LogicTestUtil.makeDefaultMatch();
+        match.start();
+        match.stop();
+
+        MatchStatus expected = MatchStatus.FINISHED;
+        MatchStatus actual = match.getStatus();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void stop_matchSetup_throwsException() {
+        expectedException.expect(IllegalStateException.class);
+
+        Match match = LogicTestUtil.makeDefaultMatch();
+        match.stop();
+    }
+
+    @Test
+    public void stop_matchFinished_throwsException() {
+        expectedException.expect(IllegalStateException.class);
+
+        Match match = LogicTestUtil.makeDefaultMatch();
+        match.start();
+        match.stop();
+        match.stop();
+    }
+
+    @Test
     public void addGoal_nullGoal_throwsException() {
         expectedException.expect(NullPointerException.class);
 
@@ -165,6 +225,16 @@ public class MatchTest {
 
         boolean result = match1.hashCode() == match2.hashCode();
         assertTrue(result);
+    }
+
+    @Test
+    public void getStatus_byDefault_returnsSetup() {
+        Match match = LogicTestUtil.makeDefaultMatch();
+
+        MatchStatus expected = MatchStatus.SETUP;
+        MatchStatus actual = match.getStatus();
+
+        assertEquals(expected, actual);
     }
 
     @Test
