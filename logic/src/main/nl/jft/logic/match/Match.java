@@ -7,7 +7,6 @@ import nl.jft.logic.match.event.impl.MatchStatusChangedEvent;
 import nl.jft.logic.participant.Participant;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -222,9 +221,13 @@ public class Match {
      * @return A {@link List} containing all {@code Goals} added to this {@code Match}.
      */
     public List<Goal> getGoals() {
+        List<Goal> list = new ArrayList<>();
+
         synchronized (goals) {
-            return Collections.unmodifiableList(goals);
+            list.addAll(goals);
         }
+
+        return list;
     }
 
     /**
@@ -233,9 +236,13 @@ public class Match {
      * @return A {@link List} containing all {@code Rules} added to this {@code Match}.
      */
     public List<Rule> getRules() {
+        List<Rule> list = new ArrayList<>();
+
         synchronized (rules) {
-            return Collections.unmodifiableList(rules);
+            list.addAll(rules);
         }
+
+        return list;
     }
 
     /**
