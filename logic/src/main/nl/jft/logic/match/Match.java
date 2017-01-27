@@ -1,5 +1,9 @@
 package nl.jft.logic.match;
 
+import nl.jft.logic.match.event.MatchListener;
+import nl.jft.logic.match.event.impl.GoalRemovedEvent;
+import nl.jft.logic.match.event.impl.GoalScoredEvent;
+import nl.jft.logic.match.event.impl.MatchStatusChangedEvent;
 import nl.jft.logic.participant.Participant;
 
 import java.util.ArrayList;
@@ -14,6 +18,8 @@ import java.util.Objects;
  * @author Lesley
  */
 public class Match {
+
+    private final List<MatchListener> listeners = new ArrayList<>();
 
     private final List<Goal> goals = new ArrayList<>();
     private final List<Rule> rules = new ArrayList<>();
@@ -51,7 +57,18 @@ public class Match {
             throw new IllegalStateException("This match has already finished.");
         }
 
+        MatchStatus oldStatus = status;
         status = MatchStatus.IN_PROGRESS;
+
+        fireMatchStatusChanged(oldStatus, status);
+    }
+
+    private void fireMatchStatusChanged(MatchStatus oldStatus, MatchStatus newStatus) {
+        MatchStatusChangedEvent event = new MatchStatusChangedEvent(this, oldStatus, newStatus);
+
+        synchronized (listeners) {
+            listeners.forEach(l -> l.onMatchStatusChanged(event));
+        }
     }
 
     /**
@@ -69,7 +86,36 @@ public class Match {
             throw new IllegalStateException("This match has already finished.");
         }
 
+        MatchStatus oldStatus = status;
         status = MatchStatus.FINISHED;
+
+        fireMatchStatusChanged(oldStatus, status);
+    }
+
+    public void addListener(MatchListener listener) {
+        Objects.requireNonNull(listener);
+
+        synchronized (listeners) {
+            listeners.add(listener);
+        }
+    }
+
+    public void removeListener(MatchListener listener) {
+        Objects.requireNonNull(listener);
+
+        synchronized (listeners) {
+            listeners.remove(listener);
+        }
+    }
+
+    public List<MatchListener> getListeners() {
+        List<MatchListener> list = new ArrayList<>();
+
+        synchronized (listeners) {
+            list.addAll(listeners);
+        }
+
+        return list;
     }
 
     /**
@@ -79,8 +125,16 @@ public class Match {
      * @throws NullPointerException If the specified {@code Goal} is {@code null}.
      */
     public void addGoal(Goal goal) {
+        Objects.requireNonNull(goal);
+
         synchronized (goals) {
-            goals.add(Objects.requireNonNull(goal));
+            goals.add(goal);
+        }
+
+        GoalScoredEvent event = new GoalScoredEvent(this, goal);
+
+        synchronized (listeners) {
+            listeners.forEach(l -> l.onGoalScored(event));
         }
     }
 
@@ -91,8 +145,16 @@ public class Match {
      * @throws NullPointerException If the specified {@code Goal} is {@code null}.
      */
     public void removeGoal(Goal goal) {
+        Objects.requireNonNull(goal);
+
         synchronized (goals) {
-            goals.remove(Objects.requireNonNull(goal));
+            goals.remove(goal);
+        }
+
+        GoalRemovedEvent event = new GoalRemovedEvent(this, goal);
+
+        synchronized (listeners) {
+            listeners.forEach(l -> l.onGoalRemoved(event));
         }
     }
 
@@ -103,8 +165,10 @@ public class Match {
      * @throws NullPointerException If the specified {@code Rule} is {@code null}.
      */
     public void addRule(Rule rule) {
+        Objects.requireNonNull(rule);
+
         synchronized (rules) {
-            rules.add(Objects.requireNonNull(rule));
+            rules.add(rule);
         }
     }
 
@@ -115,8 +179,10 @@ public class Match {
      * @throws NullPointerException If the specified {@code Rule} is {@code null}.
      */
     public void removeRule(Rule rule) {
+        Objects.requireNonNull(rule);
+
         synchronized (rules) {
-            rules.remove(Objects.requireNonNull(rule));
+            rules.remove(rule);
         }
     }
 
