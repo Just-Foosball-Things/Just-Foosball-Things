@@ -3,7 +3,6 @@ package nl.jft.logic.match;
 import nl.jft.logic.match.event.MatchListener;
 import nl.jft.logic.participant.Participant;
 import nl.jft.logic.util.LogicTestUtil;
-import nl.jft.logic.util.MockMatchListener;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
@@ -12,6 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author Lesley
@@ -46,11 +48,11 @@ public class MatchTest {
     @Test
     public void addListener_whenCalled_addsListener() {
         Match match = LogicTestUtil.makeDefaultMatch();
-        MockMatchListener listener = new MockMatchListener();
+        MatchListener stubListener = mock(MatchListener.class);
 
-        match.addListener(listener);
+        match.addListener(stubListener);
 
-        List<MatchListener> expected = Arrays.asList(listener);
+        List<MatchListener> expected = Arrays.asList(stubListener);
         List<MatchListener> actual = match.getListeners();
 
         assertEquals(expected, actual);
@@ -68,10 +70,10 @@ public class MatchTest {
     @Test
     public void removeListener_whenCalled_removesListener() {
         Match match = LogicTestUtil.makeDefaultMatch();
-        MockMatchListener listener = new MockMatchListener();
+        MatchListener stubListener = mock(MatchListener.class);
 
-        match.addListener(listener);
-        match.removeListener(listener);
+        match.addListener(stubListener);
+        match.removeListener(stubListener);
 
         List<MatchListener> expected = new ArrayList<>();
         List<MatchListener> actual = match.getListeners();
@@ -93,44 +95,28 @@ public class MatchTest {
     @Test
     public void start_whenCalled_callsListener() {
         Match match = LogicTestUtil.makeDefaultMatch();
-        MockMatchListener listener = new MockMatchListener();
+        MatchListener mockListener = mock(MatchListener.class);
 
-        match.addListener(listener);
+        match.addListener(mockListener);
         match.start();
 
-        Match expectedMatch = match;
-        Match actualMatch = listener.lastMatchStatusChangedEvent.getMatch();
-        assertEquals(expectedMatch, actualMatch);
-
-        MatchStatus expected = MatchStatus.IN_PROGRESS;
-        MatchStatus actual = listener.lastMatchStatusChangedEvent.getNewStatus();
-        assertEquals(expected, actual);
-
-        expected = MatchStatus.SETUP;
-        actual = listener.lastMatchStatusChangedEvent.getOldStatus();
-        assertEquals(expected, actual);
+        verify(mockListener).onMatchStatusChanged(argThat(e -> e.getMatch() == match
+                && e.getNewStatus() == MatchStatus.IN_PROGRESS
+                && e.getOldStatus() == MatchStatus.SETUP));
     }
 
     @Test
     public void stop_whenCalled_callsListener() {
         Match match = LogicTestUtil.makeDefaultMatch();
-        MockMatchListener listener = new MockMatchListener();
+        MatchListener mockListener = mock(MatchListener.class);
 
-        match.addListener(listener);
+        match.addListener(mockListener);
         match.start();
         match.stop();
 
-        Match expectedMatch = match;
-        Match actualMatch = listener.lastMatchStatusChangedEvent.getMatch();
-        assertEquals(expectedMatch, actualMatch);
-
-        MatchStatus expected = MatchStatus.FINISHED;
-        MatchStatus actual = listener.lastMatchStatusChangedEvent.getNewStatus();
-        assertEquals(expected, actual);
-
-        expected = MatchStatus.IN_PROGRESS;
-        actual = listener.lastMatchStatusChangedEvent.getOldStatus();
-        assertEquals(expected, actual);
+        verify(mockListener).onMatchStatusChanged(argThat(e -> e.getMatch() == match
+                && e.getNewStatus() == MatchStatus.FINISHED
+                && e.getOldStatus() == MatchStatus.IN_PROGRESS));
     }
 
     @Test
@@ -209,18 +195,12 @@ public class MatchTest {
     public void addGoal_whenCalled_callsListener() {
         Match match = LogicTestUtil.makeDefaultMatch();
         Goal goal = LogicTestUtil.makeGoalWithUser();
-        MockMatchListener listener = new MockMatchListener();
+        MatchListener mockListener = mock(MatchListener.class);
 
-        match.addListener(listener);
+        match.addListener(mockListener);
         match.addGoal(goal);
 
-        Match expectedMatch = match;
-        Match actualMatch = listener.lastGoalScoredEvent.getMatch();
-        assertEquals(expectedMatch, actualMatch);
-
-        Goal expected = LogicTestUtil.makeGoalWithUser();
-        Goal actual = listener.lastGoalScoredEvent.getGoal();
-        assertEquals(expected, actual);
+        verify(mockListener).onGoalScored(argThat(e -> e.getMatch() == match && e.getGoal() == goal));
     }
 
     @Test
@@ -249,19 +229,13 @@ public class MatchTest {
     public void removeGoal_whenCalled_callsListener() {
         Match match = LogicTestUtil.makeDefaultMatch();
         Goal goal = LogicTestUtil.makeGoalWithUser();
-        MockMatchListener listener = new MockMatchListener();
+        MatchListener mockListener = mock(MatchListener.class);
 
-        match.addListener(listener);
+        match.addListener(mockListener);
         match.addGoal(goal);
         match.removeGoal(goal);
 
-        Match expectedMatch = match;
-        Match actualMatch = listener.lastGoalRemovedEvent.getMatch();
-        assertEquals(expectedMatch, actualMatch);
-
-        Goal expected = LogicTestUtil.makeGoalWithUser();
-        Goal actual = listener.lastGoalRemovedEvent.getGoal();
-        assertEquals(expected, actual);
+        verify(mockListener).onGoalRemoved(argThat(e -> e.getMatch() == match && e.getGoal() == goal));
     }
 
     @Test
