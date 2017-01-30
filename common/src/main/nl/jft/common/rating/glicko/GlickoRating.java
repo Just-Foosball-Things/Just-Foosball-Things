@@ -1,5 +1,6 @@
-package nl.jft.common.glicko;
+package nl.jft.common.rating.glicko;
 
+import nl.jft.common.rating.Rating;
 import nl.jft.common.util.Arguments;
 import nl.jft.common.util.Numbers;
 
@@ -12,7 +13,7 @@ import nl.jft.common.util.Numbers;
  *
  * @author Oscar de Leeuw
  */
-public class GlickoRating {
+public class GlickoRating implements Rating {
 
     private final double rating;
     private final double deviation;
@@ -37,7 +38,8 @@ public class GlickoRating {
      *
      * @return A {@code double} that represents the rating of the player.
      */
-    public double getRating() {
+    @Override
+    public double getValue() {
         return rating;
     }
 

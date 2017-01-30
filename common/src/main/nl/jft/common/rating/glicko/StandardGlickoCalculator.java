@@ -1,4 +1,4 @@
-package nl.jft.common.glicko;
+package nl.jft.common.rating.glicko;
 
 /**
  * The {@code StandardGlickoCalculator} is an implementation of the {@code GlickoCalculator}.
@@ -263,17 +263,17 @@ public class StandardGlickoCalculator implements GlickoCalculator {
     /**
      * Calculates a new {@code GlickoRating} for a player with the given score of a game.
      *
-     * @param player      The current {@code GlickoRating} of a player.
-     * @param opponent    The current {@code GlickoRating} of the opposing player.
+     * @param playerRating      The current {@code GlickoRating} of a player.
+     * @param opponentRating    The current {@code GlickoRating} of the opposing player.
      * @param actualScore The actual score of the match in respect to the player.
      * @return a {@code GlickoRating} that represents the new rating of the player.
      */
-    public GlickoRating getNewRating(GlickoRating player, GlickoRating opponent, double actualScore) {
-        double rating = player.getRating();
-        double deviation = player.getDeviation();
-        double ratingJ = opponent.getRating();
-        double deviationJ = opponent.getDeviation();
-        double volatility = player.getVolatility();
+    public GlickoRating getNewRating(GlickoRating playerRating, GlickoRating opponentRating, double actualScore) {
+        double rating = playerRating.getValue();
+        double deviation = playerRating.getDeviation();
+        double ratingJ = opponentRating.getValue();
+        double deviationJ = opponentRating.getDeviation();
+        double volatility = playerRating.getVolatility();
         double s = actualScore;
 
         //step 2

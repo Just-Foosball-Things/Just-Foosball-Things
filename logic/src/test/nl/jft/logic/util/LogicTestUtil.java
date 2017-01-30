@@ -1,18 +1,19 @@
 package nl.jft.logic.util;
 
+import nl.jft.common.rating.Rating;
+import nl.jft.common.rating.glicko.GlickoRating;
 import nl.jft.logic.match.Goal;
 import nl.jft.logic.match.Match;
 import nl.jft.logic.match.MatchResult;
 import nl.jft.logic.match.Rule;
-import nl.jft.logic.participant.Elo;
 import nl.jft.logic.participant.Participant;
 import nl.jft.logic.participant.ParticipantType;
 import nl.jft.logic.participant.Title;
 import nl.jft.logic.participant.impl.Team;
 import nl.jft.logic.participant.impl.User;
 import nl.jft.logic.statistic.StatisticCollection;
-import nl.jft.logic.statistic.impl.EloStatistic;
 import nl.jft.logic.statistic.impl.MatchStatistic;
+import nl.jft.logic.statistic.impl.RatingStatistic;
 import nl.jft.logic.statistic.impl.TitleStatistic;
 import nl.jft.logic.tournament.Tournament;
 import nl.jft.logic.tournament.TournamentType;
@@ -37,30 +38,30 @@ public final class LogicTestUtil {
      * <li>
      * <ul>Id: -1</ul>
      * <ul>Username: "username"</ul>
-     * <ul>Elo: {@link #makeDefaultElo()}</ul>
+     * <ul>Rating: {@link #makeDefaultRating()} ()}</ul>
      * <ul>Title: {@link #makeDefaultTitle()}</ul>
      * </li>
      *
      * @return A {@code User} object.
      */
     public static User makeDefaultUser() {
-        return makeUser("username", makeDefaultElo(), makeDefaultTitle());
+        return makeUser("username", makeDefaultRating(), makeDefaultTitle());
     }
 
     public static User makeDefaultUser2() {
-        return makeUser("username2", makeDefaultElo(), makeDefaultTitle());
+        return makeUser("username2", makeDefaultRating(), makeDefaultTitle());
     }
 
     public static User makeDefaultUser3() {
-        return makeUser("username3", makeDefaultElo(), makeDefaultTitle());
+        return makeUser("username3", makeDefaultRating(), makeDefaultTitle());
     }
 
-    public static User makeUser(int id, String username, Elo elo, Title title) {
-        return new User(id, username, elo, title);
+    public static User makeUser(int id, String username, Rating rating, Title title) {
+        return new User(id, username, rating, title);
     }
 
-    public static User makeUser(String username, Elo elo, Title title) {
-        return new User(username, elo, title);
+    public static User makeUser(String username, Rating rating, Title title) {
+        return new User(username, rating, title);
     }
 
     /**
@@ -202,8 +203,8 @@ public final class LogicTestUtil {
         return new MatchStatistic();
     }
 
-    public static EloStatistic makeDefaultEloStatistic() {
-        return new EloStatistic();
+    public static RatingStatistic makeDefaultRatingStatistic() {
+        return new RatingStatistic();
     }
 
     /**
@@ -245,25 +246,21 @@ public final class LogicTestUtil {
     }
 
     /**
-     * Makes a {@code Elo} with the following properties:
+     * Makes a {@link nl.jft.common.rating.glicko.GlickoRating} with the following properties:
      * <li>
-     * <ul>Id: -1</ul>
      * <ul>Rating: 1500</ul>
-     * <ul>Time: {@link #makeDefaultLocalDateTime()}</ul>
+     * <ul>Deviation: 350</ul>
+     * <ul>Volatility: 0.06</ul>
      * </li>
      *
      * @return A {@code Elo} object.
      */
-    public static Elo makeDefaultElo() {
-        return makeElo(1500d);
+    public static Rating makeDefaultRating() {
+        return new GlickoRating(1500, 350, 0.06);
     }
 
-    public static Elo makeElo(double rating) {
-        return new Elo(rating);
-    }
-
-    public static Elo makeElo(int id, double rating, LocalDateTime time) {
-        return new Elo(id, rating, time);
+    public static Rating makeRating(double rating) {
+        return new GlickoRating(rating, 350, 0.06);
     }
 
     public static StatisticCollection makeDefaultStatisticCollection() {

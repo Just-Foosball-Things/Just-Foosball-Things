@@ -1,7 +1,7 @@
 package nl.jft.logic.participant.impl;
 
+import nl.jft.common.rating.Rating;
 import nl.jft.logic.LogicConstants;
-import nl.jft.logic.participant.Elo;
 import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -141,15 +141,15 @@ public class TeamTest {
 
     @Test
     public void getElo_whenCalled_returnsElo() {
-        Elo firstElo = LogicTestUtil.makeElo(1500);
-        Elo secondElo = LogicTestUtil.makeElo(2000);
+        Rating firstElo = LogicTestUtil.makeRating(1500);
+        Rating secondElo = LogicTestUtil.makeRating(2000);
 
         User firstUser = LogicTestUtil.makeUser("user1", firstElo, LogicTestUtil.makeDefaultTitle());
         User secondUser = LogicTestUtil.makeUser("user2", secondElo, LogicTestUtil.makeDefaultTitle());
         Team team = LogicTestUtil.makeTeam("team", firstUser, secondUser);
 
-        Elo expected = LogicTestUtil.makeElo(1750);
-        Elo actual = team.getElo();
+        Rating expected = LogicTestUtil.makeRating(1750);
+        Rating actual = team.getRating();
 
         assertEquals(expected, actual);
     }

@@ -1,10 +1,9 @@
 package nl.jft.logic.participant.impl;
 
+import nl.jft.common.rating.Rating;
 import nl.jft.common.util.Arguments;
 import nl.jft.logic.LogicConstants;
-import nl.jft.logic.participant.Elo;
 import nl.jft.logic.participant.Participant;
-import nl.jft.logic.util.EloUtil;
 
 import java.util.Objects;
 
@@ -92,8 +91,8 @@ public class Team implements Participant {
     }
 
     @Override
-    public Elo getElo() {
-        return EloUtil.calculateCombinedElo(firstUser.getElo(), secondUser.getElo());
+    public Rating getRating() {
+        return null;
     }
 
 }

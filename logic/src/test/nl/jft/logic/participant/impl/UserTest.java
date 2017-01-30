@@ -1,7 +1,7 @@
 package nl.jft.logic.participant.impl;
 
+import nl.jft.common.rating.Rating;
 import nl.jft.logic.LogicConstants;
-import nl.jft.logic.participant.Elo;
 import nl.jft.logic.participant.Title;
 import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Rule;
@@ -22,18 +22,18 @@ public class UserTest {
     public void construct_nullUsername_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        User user = LogicTestUtil.makeUser(LogicConstants.INTERNAL_ID, null, LogicTestUtil.makeDefaultElo(), LogicTestUtil.makeDefaultTitle());
+        User user = LogicTestUtil.makeUser(LogicConstants.INTERNAL_ID, null, LogicTestUtil.makeDefaultRating(), LogicTestUtil.makeDefaultTitle());
     }
 
     @Test
     public void construct_emptyUsername_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
-        User user = LogicTestUtil.makeUser(LogicConstants.INTERNAL_ID, "", LogicTestUtil.makeDefaultElo(), LogicTestUtil.makeDefaultTitle());
+        User user = LogicTestUtil.makeUser(LogicConstants.INTERNAL_ID, "", LogicTestUtil.makeDefaultRating(), LogicTestUtil.makeDefaultTitle());
     }
 
     @Test
-    public void construct_nullElo_throwsException() {
+    public void construct_nullRating_throwsException() {
         expectedException.expect(NullPointerException.class);
 
         User user = LogicTestUtil.makeUser(LogicConstants.INTERNAL_ID, "username", null, LogicTestUtil.makeDefaultTitle());
@@ -43,7 +43,7 @@ public class UserTest {
     public void construct_nullTitle_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        User user = LogicTestUtil.makeUser(LogicConstants.INTERNAL_ID, "username", LogicTestUtil.makeDefaultElo(), null);
+        User user = LogicTestUtil.makeUser(LogicConstants.INTERNAL_ID, "username", LogicTestUtil.makeDefaultRating(), null);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class UserTest {
     @Test
     public void equals_otherUser_returnsFalse() throws Exception {
         User user1 = LogicTestUtil.makeDefaultUser();
-        User user2 = LogicTestUtil.makeUser(LogicConstants.INTERNAL_ID, "Henk", LogicTestUtil.makeDefaultElo(), LogicTestUtil.makeDefaultTitle());
+        User user2 = LogicTestUtil.makeUser(LogicConstants.INTERNAL_ID, "Henk", LogicTestUtil.makeDefaultRating(), LogicTestUtil.makeDefaultTitle());
 
         boolean result = user1.equals(user2);
         assertFalse(result);
@@ -112,11 +112,11 @@ public class UserTest {
     }
 
     @Test
-    public void getElo_whenCalled_returnsElo() {
+    public void getRating_whenCalled_returnsRating() {
         User user = LogicTestUtil.makeDefaultUser();
 
-        Elo expected = LogicTestUtil.makeDefaultElo();
-        Elo actual = user.getElo();
+        Rating expected = LogicTestUtil.makeDefaultRating();
+        Rating actual = user.getRating();
 
         assertEquals(expected, actual);
     }

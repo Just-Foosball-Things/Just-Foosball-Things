@@ -1,6 +1,6 @@
 package nl.jft.logic.statistic;
 
-import nl.jft.logic.statistic.impl.EloStatistic;
+import nl.jft.logic.statistic.impl.RatingStatistic;
 import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,12 +27,12 @@ public class StatisticCollectionTest {
     @Test
     public void addStatistic_whenCalled_addsStatistic() {
         StatisticCollection collection = LogicTestUtil.makeDefaultStatisticCollection();
-        EloStatistic statistic = LogicTestUtil.makeDefaultEloStatistic();
+        RatingStatistic statistic = LogicTestUtil.makeDefaultRatingStatistic();
 
         collection.addStatistic(statistic);
 
-        EloStatistic expected = statistic;
-        EloStatistic actual = collection.getStatistic(EloStatistic.class);
+        RatingStatistic expected = statistic;
+        RatingStatistic actual = collection.getStatistic(RatingStatistic.class);
 
         assertEquals(expected, actual);
     }
@@ -43,8 +43,8 @@ public class StatisticCollectionTest {
 
         StatisticCollection collection = LogicTestUtil.makeDefaultStatisticCollection();
 
-        collection.addStatistic(LogicTestUtil.makeDefaultEloStatistic());
-        collection.addStatistic(LogicTestUtil.makeDefaultEloStatistic());
+        collection.addStatistic(LogicTestUtil.makeDefaultRatingStatistic());
+        collection.addStatistic(LogicTestUtil.makeDefaultRatingStatistic());
     }
 
     @Test
@@ -60,7 +60,7 @@ public class StatisticCollectionTest {
         expectedException.expect(IllegalArgumentException.class);
 
         StatisticCollection collection = LogicTestUtil.makeDefaultStatisticCollection();
-        collection.getStatistic(EloStatistic.class);
+        collection.getStatistic(RatingStatistic.class);
     }
 
 }

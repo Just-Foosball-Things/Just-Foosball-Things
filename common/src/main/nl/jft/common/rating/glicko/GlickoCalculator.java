@@ -1,4 +1,4 @@
-package nl.jft.common.glicko;
+package nl.jft.common.rating.glicko;
 
 /**
  * The {@code GlickoCalculator} calculates new {@link GlickoRating GlickoRatings} based on a {@link GlickoResult}.
