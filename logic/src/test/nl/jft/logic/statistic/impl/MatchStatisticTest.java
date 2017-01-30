@@ -2,7 +2,6 @@ package nl.jft.logic.statistic.impl;
 
 import nl.jft.logic.match.MatchResult;
 import nl.jft.logic.statistic.Statistic;
-import nl.jft.logic.util.LogicTestUtil;
 import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -43,11 +42,11 @@ public class MatchStatisticTest {
     @Test
     public void addMatchResult_whenCalled_addsMatchResult() {
         MatchStatistic statistic = ObjectBuilder.Statistic.match().build();
-        MatchResult result = LogicTestUtil.makeDefaultMatchResult();
+        MatchResult result = ObjectBuilder.matchResult().build();
 
         statistic.addMatchResult(result);
 
-        List<MatchResult> expected = Arrays.asList(LogicTestUtil.makeDefaultMatchResult());
+        List<MatchResult> expected = Arrays.asList(ObjectBuilder.matchResult().build());
         List<MatchResult> actual = statistic.getValues();
 
         assertEquals(expected, actual);
@@ -64,7 +63,7 @@ public class MatchStatisticTest {
     @Test
     public void removeMatchResult_whenCalled_removesMatchResult() {
         MatchStatistic statistic = ObjectBuilder.Statistic.match().build();
-        MatchResult result = LogicTestUtil.makeDefaultMatchResult();
+        MatchResult result = ObjectBuilder.matchResult().build();
 
         statistic.addMatchResult(result);
         statistic.removeMatchResult(result);

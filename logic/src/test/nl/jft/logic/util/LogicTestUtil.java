@@ -2,8 +2,6 @@ package nl.jft.logic.util;
 
 import nl.jft.common.rating.Rating;
 import nl.jft.common.rating.glicko.GlickoRating;
-import nl.jft.logic.match.Match;
-import nl.jft.logic.match.MatchResult;
 import nl.jft.logic.participant.ParticipantType;
 import nl.jft.logic.statistic.StatisticCollection;
 import nl.jft.logic.tournament.Tournament;
@@ -19,27 +17,6 @@ public final class LogicTestUtil {
 
     private LogicTestUtil() {
         throw new UnsupportedOperationException("Should not be called.");
-    }
-
-    /**
-     * Makes a {@code MatchResult} with the following properties:
-     * <lu>
-     * <ul>Id: -1</ul>
-     * <ul>Match: {@link #makeDefaultMatch()}</ul>
-     * </lu>
-     *
-     * @return A {@code MatchResult} object.
-     */
-    public static MatchResult makeDefaultMatchResult() {
-        return makeMatchResult(makeDefaultMatch());
-    }
-
-    public static MatchResult makeMatchResult(int id, Match match) {
-        return new MatchResult(id, match);
-    }
-
-    public static MatchResult makeMatchResult(Match match) {
-        return new MatchResult(match);
     }
 
     /**

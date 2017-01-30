@@ -2,6 +2,7 @@ package nl.jft.logic.statistic;
 
 import nl.jft.logic.statistic.impl.RatingStatistic;
 import nl.jft.logic.util.LogicTestUtil;
+import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -27,7 +28,7 @@ public class StatisticCollectionTest {
     @Test
     public void addStatistic_whenCalled_addsStatistic() {
         StatisticCollection collection = LogicTestUtil.makeDefaultStatisticCollection();
-        RatingStatistic statistic = LogicTestUtil.makeDefaultRatingStatistic();
+        RatingStatistic statistic = ObjectBuilder.Statistic.rating().build();
 
         collection.addStatistic(statistic);
 
@@ -43,8 +44,8 @@ public class StatisticCollectionTest {
 
         StatisticCollection collection = LogicTestUtil.makeDefaultStatisticCollection();
 
-        collection.addStatistic(LogicTestUtil.makeDefaultRatingStatistic());
-        collection.addStatistic(LogicTestUtil.makeDefaultRatingStatistic());
+        collection.addStatistic(ObjectBuilder.Statistic.match().build());
+        collection.addStatistic(ObjectBuilder.Statistic.match().build());
     }
 
     @Test
