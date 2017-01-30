@@ -1,7 +1,6 @@
 package nl.jft.logic.statistic;
 
 import nl.jft.logic.statistic.impl.RatingStatistic;
-import nl.jft.logic.util.LogicTestUtil;
 import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -21,13 +20,13 @@ public class StatisticCollectionTest {
     public void addStatistic_nullStatistic_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        StatisticCollection collection = LogicTestUtil.makeDefaultStatisticCollection();
+        StatisticCollection collection = ObjectBuilder.Statistic.collection().build();
         collection.addStatistic(null);
     }
 
     @Test
     public void addStatistic_whenCalled_addsStatistic() {
-        StatisticCollection collection = LogicTestUtil.makeDefaultStatisticCollection();
+        StatisticCollection collection = ObjectBuilder.Statistic.collection().build();
         RatingStatistic statistic = ObjectBuilder.Statistic.rating().build();
 
         collection.addStatistic(statistic);
@@ -42,7 +41,7 @@ public class StatisticCollectionTest {
     public void addStatistic_duplicateStatistic_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
-        StatisticCollection collection = LogicTestUtil.makeDefaultStatisticCollection();
+        StatisticCollection collection = ObjectBuilder.Statistic.collection().build();
 
         collection.addStatistic(ObjectBuilder.Statistic.match().build());
         collection.addStatistic(ObjectBuilder.Statistic.match().build());
@@ -52,7 +51,7 @@ public class StatisticCollectionTest {
     public void getStatistic_nullType_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        StatisticCollection collection = LogicTestUtil.makeDefaultStatisticCollection();
+        StatisticCollection collection = ObjectBuilder.Statistic.collection().build();
         collection.getStatistic(null);
     }
 
@@ -60,7 +59,7 @@ public class StatisticCollectionTest {
     public void getStatistic_nonExistentStatistic_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
-        StatisticCollection collection = LogicTestUtil.makeDefaultStatisticCollection();
+        StatisticCollection collection = ObjectBuilder.Statistic.collection().build();
         collection.getStatistic(RatingStatistic.class);
     }
 

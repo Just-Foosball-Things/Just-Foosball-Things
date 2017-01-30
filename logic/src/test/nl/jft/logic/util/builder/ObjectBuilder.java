@@ -39,6 +39,10 @@ public final class ObjectBuilder {
 
     public static class Statistic {
 
+        public static StatisticCollectionBuilder collection() {
+            return new StatisticCollectionBuilder();
+        }
+
         public static TitleStatisticBuilder title() {
             return new TitleStatisticBuilder();
         }

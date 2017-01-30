@@ -1,7 +1,6 @@
 package nl.jft.logic.util;
 
 import nl.jft.logic.participant.ParticipantType;
-import nl.jft.logic.statistic.StatisticCollection;
 import nl.jft.logic.tournament.Tournament;
 import nl.jft.logic.tournament.TournamentType;
 
@@ -15,10 +14,6 @@ public final class LogicTestUtil {
 
     private LogicTestUtil() {
         throw new UnsupportedOperationException("Should not be called.");
-    }
-
-    public static StatisticCollection makeDefaultStatisticCollection() {
-        return new StatisticCollection();
     }
 
     /**
