@@ -9,8 +9,6 @@ import nl.jft.logic.match.Rule;
 import nl.jft.logic.participant.Participant;
 import nl.jft.logic.participant.ParticipantType;
 import nl.jft.logic.participant.Title;
-import nl.jft.logic.participant.impl.Team;
-import nl.jft.logic.participant.impl.User;
 import nl.jft.logic.statistic.StatisticCollection;
 import nl.jft.logic.statistic.impl.MatchStatistic;
 import nl.jft.logic.statistic.impl.RatingStatistic;
@@ -31,58 +29,6 @@ public final class LogicTestUtil {
 
     private LogicTestUtil() {
         throw new UnsupportedOperationException("Should not be called.");
-    }
-
-    /**
-     * Makes a {@code User} with the following properties:
-     * <li>
-     * <ul>Id: -1</ul>
-     * <ul>Username: "username"</ul>
-     * <ul>Rating: {@link #makeDefaultRating()} ()}</ul>
-     * <ul>Title: {@link #makeDefaultTitle()}</ul>
-     * </li>
-     *
-     * @return A {@code User} object.
-     */
-    public static User makeDefaultUser() {
-        return makeUser("username", makeDefaultRating(), makeDefaultTitle());
-    }
-
-    public static User makeDefaultUser2() {
-        return makeUser("username2", makeDefaultRating(), makeDefaultTitle());
-    }
-
-    public static User makeDefaultUser3() {
-        return makeUser("username3", makeDefaultRating(), makeDefaultTitle());
-    }
-
-    public static User makeUser(int id, String username, Rating rating, Title title) {
-        return new User(id, username, rating, title);
-    }
-
-    public static User makeUser(String username, Rating rating, Title title) {
-        return new User(username, rating, title);
-    }
-
-    /**
-     * Makes a {@code Team} with the following properties:
-     * <li>
-     * <ul>Id: -1</ul>
-     * <ul>Name: "team"</ul>
-     * </li>
-     *
-     * @return A {@code Team} object.
-     */
-    public static Team makeDefaultTeam() {
-        return makeTeam("team", makeDefaultRating(), makeDefaultUser(), makeDefaultUser2());
-    }
-
-    public static Team makeTeam(int id, String teamName, Rating rating, User firstUser, User secondUser) {
-        return new Team(id, teamName, rating, firstUser, secondUser);
-    }
-
-    public static Team makeTeam(String teamName, Rating rating, User firstUser, User secondUser) {
-        return new Team(teamName, rating, firstUser, secondUser);
     }
 
     /**
@@ -135,7 +81,7 @@ public final class LogicTestUtil {
      * Makes a {@code Goal} with the following properties:
      * <li>
      * <ul>Id: -1</ul>
-     * <ul>Participant: {@link #makeDefaultTeam()} ()}</ul>
+     * <ul>Participant: {@link nl.jft.logic.util.builder.ObjectBuilder#()} ()}</ul>
      * <ul>Time: {@link #makeDefaultLocalDateTime()}</ul>
      * </li>
      *

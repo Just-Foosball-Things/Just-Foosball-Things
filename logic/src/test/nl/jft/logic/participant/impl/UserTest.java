@@ -4,6 +4,7 @@ import nl.jft.common.rating.Rating;
 import nl.jft.logic.LogicConstants;
 import nl.jft.logic.participant.Title;
 import nl.jft.logic.util.LogicTestUtil;
+import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -22,34 +23,34 @@ public class UserTest {
     public void construct_nullUsername_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        User user = LogicTestUtil.makeUser(LogicConstants.INTERNAL_ID, null, LogicTestUtil.makeDefaultRating(), LogicTestUtil.makeDefaultTitle());
+        User user = ObjectBuilder.user().withUsername(null).build();
     }
 
     @Test
     public void construct_emptyUsername_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
-        User user = LogicTestUtil.makeUser(LogicConstants.INTERNAL_ID, "", LogicTestUtil.makeDefaultRating(), LogicTestUtil.makeDefaultTitle());
+        User user = ObjectBuilder.user().withUsername("").build();
     }
 
     @Test
     public void construct_nullRating_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        User user = LogicTestUtil.makeUser(LogicConstants.INTERNAL_ID, "username", null, LogicTestUtil.makeDefaultTitle());
+        User user = ObjectBuilder.user().withRating(null).build();
     }
 
     @Test
     public void construct_nullTitle_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        User user = LogicTestUtil.makeUser(LogicConstants.INTERNAL_ID, "username", LogicTestUtil.makeDefaultRating(), null);
+        User user = ObjectBuilder.user().withTitle(null).build();
     }
 
     @Test
     public void equals_sameObjects_returnsTrue() {
-        User user1 = LogicTestUtil.makeDefaultUser();
-        User user2 = LogicTestUtil.makeDefaultUser();
+        User user1 = ObjectBuilder.user().build();
+        User user2 = ObjectBuilder.user().build();
 
         boolean result = user1.equals(user2);
         assertTrue(result);
@@ -57,17 +58,8 @@ public class UserTest {
 
     @Test
     public void equals_otherUser_returnsFalse() throws Exception {
-        User user1 = LogicTestUtil.makeDefaultUser();
-        User user2 = LogicTestUtil.makeUser(LogicConstants.INTERNAL_ID, "Henk", LogicTestUtil.makeDefaultRating(), LogicTestUtil.makeDefaultTitle());
-
-        boolean result = user1.equals(user2);
-        assertFalse(result);
-    }
-
-    @Test
-    public void equals_otherObject_returnsFalse() {
-        User user1 = LogicTestUtil.makeDefaultUser();
-        String user2 = "user2";
+        User user1 = ObjectBuilder.user().withUsername("user1").build();
+        User user2 = ObjectBuilder.user().withUsername("user2").build();
 
         boolean result = user1.equals(user2);
         assertFalse(result);
@@ -75,7 +67,7 @@ public class UserTest {
 
     @Test
     public void equals_nullObject_returnsFalse() {
-        User user1 = LogicTestUtil.makeDefaultUser();
+        User user1 = ObjectBuilder.user().build();
         User user2 = null;
 
         boolean result = user1.equals(user2);
@@ -84,8 +76,8 @@ public class UserTest {
 
     @Test
     public void hashCode_whenCalled_returnsHashCode() {
-        User user1 = LogicTestUtil.makeDefaultUser();
-        User user2 = LogicTestUtil.makeDefaultUser();
+        User user1 = ObjectBuilder.user().build();
+        User user2 = ObjectBuilder.user().build();
 
         boolean result = user1.hashCode() == user2.hashCode();
         assertTrue(result);
@@ -93,7 +85,7 @@ public class UserTest {
 
     @Test
     public void getId_whenCalled_returnsId() throws Exception {
-        User user = LogicTestUtil.makeDefaultUser(); //Default id = -1.
+        User user = ObjectBuilder.user().withId(LogicConstants.INTERNAL_ID).build();
 
         int expected = LogicConstants.INTERNAL_ID;
         int actual = user.getId();
@@ -103,7 +95,7 @@ public class UserTest {
 
     @Test
     public void getUsername_whenCalled_returnsUsername() {
-        User user = LogicTestUtil.makeDefaultUser(); // Default username = "username".
+        User user = ObjectBuilder.user().withUsername("username").build();
 
         String expected = "username";
         String actual = user.getName();
@@ -113,7 +105,7 @@ public class UserTest {
 
     @Test
     public void getRating_whenCalled_returnsRating() {
-        User user = LogicTestUtil.makeDefaultUser();
+        User user = ObjectBuilder.user().withRating(LogicTestUtil.makeDefaultRating()).build();
 
         Rating expected = LogicTestUtil.makeDefaultRating();
         Rating actual = user.getRating();
@@ -123,7 +115,7 @@ public class UserTest {
 
     @Test
     public void getTitle_whenCalled_returnsTitle() {
-        User user = LogicTestUtil.makeDefaultUser();
+        User user = ObjectBuilder.user().withTitle(LogicTestUtil.makeDefaultTitle()).build();
 
         Title expected = LogicTestUtil.makeDefaultTitle();
         Title actual = user.getActiveTitle();

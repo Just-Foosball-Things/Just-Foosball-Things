@@ -2,6 +2,7 @@ package nl.jft.logic.util;
 
 import nl.jft.logic.participant.Participant;
 import nl.jft.logic.participant.ParticipantType;
+import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -43,7 +44,7 @@ public class ParticipantUtilTest {
 
     @Test
     public void getParticipantType_userParticipant_returnsSolo() {
-        Participant participant = LogicTestUtil.makeDefaultUser();
+        Participant participant = ObjectBuilder.user().build();
 
         ParticipantType expected = ParticipantType.SOLO;
         ParticipantType actual = ParticipantUtil.getParticipantType(participant);
@@ -53,7 +54,7 @@ public class ParticipantUtilTest {
 
     @Test
     public void getParticipantType_teamParticipant_returnsTeam() {
-        Participant participant = LogicTestUtil.makeDefaultTeam();
+        Participant participant = null;
 
         ParticipantType expected = ParticipantType.TEAM;
         ParticipantType actual = ParticipantUtil.getParticipantType(participant);

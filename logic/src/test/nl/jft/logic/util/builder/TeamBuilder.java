@@ -1,9 +1,10 @@
-package nl.jft.logic.util;
+package nl.jft.logic.util.builder;
 
 import nl.jft.common.rating.Rating;
 import nl.jft.logic.LogicConstants;
 import nl.jft.logic.participant.impl.Team;
 import nl.jft.logic.participant.impl.User;
+import nl.jft.logic.util.LogicTestUtil;
 
 /**
  * @author Lesley
@@ -20,8 +21,8 @@ public final class TeamBuilder {
         id = LogicConstants.INTERNAL_ID;
         teamName = "name";
         rating = LogicTestUtil.makeDefaultRating();
-        firstUser = LogicTestUtil.makeDefaultUser();
-        secondUser = LogicTestUtil.makeDefaultUser2();
+        firstUser = ObjectBuilder.user().withUsername("user1").build();
+        secondUser = ObjectBuilder.user().withUsername("user2").build();
     }
 
     public TeamBuilder withId(int id) {

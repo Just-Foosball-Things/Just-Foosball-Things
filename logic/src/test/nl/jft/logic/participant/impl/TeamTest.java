@@ -40,7 +40,6 @@ public class TeamTest {
         Team team = ObjectBuilder.team().withRating(null).build();
     }
 
-
     @Test
     public void construct_nullFirstUser_throwsException() {
         expectedException.expect(NullPointerException.class);
@@ -59,8 +58,8 @@ public class TeamTest {
     public void construct_sameUsers_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
-        User user1 = LogicTestUtil.makeDefaultUser();
-        User user2 = LogicTestUtil.makeDefaultUser();
+        User user1 = ObjectBuilder.user().build();
+        User user2 = ObjectBuilder.user().build();
 
         Team team = ObjectBuilder.team().withFirstUser(user1).withSecondUser(user2).build();
     }
@@ -103,8 +102,12 @@ public class TeamTest {
 
     @Test
     public void equals_differentFirstUser_returnsFalse() {
-        Team team1 = ObjectBuilder.team().withFirstUser(LogicTestUtil.makeDefaultUser()).withSecondUser(LogicTestUtil.makeDefaultUser3()).build();
-        Team team2 = ObjectBuilder.team().withFirstUser(LogicTestUtil.makeDefaultUser2()).withSecondUser(LogicTestUtil.makeDefaultUser3()).build();
+        User user1 = ObjectBuilder.user().withUsername("user1").build();
+        User user2 = ObjectBuilder.user().withUsername("user2").build();
+        User user3 = ObjectBuilder.user().withUsername("user3").build();
+
+        Team team1 = ObjectBuilder.team().withFirstUser(user1).withSecondUser(user3).build();
+        Team team2 = ObjectBuilder.team().withFirstUser(user2).withSecondUser(user3).build();
 
         boolean result = team1.equals(team2);
         assertFalse(result);
@@ -112,8 +115,12 @@ public class TeamTest {
 
     @Test
     public void equals_differentSecondUser_returnsFalse() {
-        Team team1 = ObjectBuilder.team().withFirstUser(LogicTestUtil.makeDefaultUser()).withSecondUser(LogicTestUtil.makeDefaultUser2()).build();
-        Team team2 = ObjectBuilder.team().withFirstUser(LogicTestUtil.makeDefaultUser()).withSecondUser(LogicTestUtil.makeDefaultUser3()).build();
+        User user1 = ObjectBuilder.user().withUsername("user1").build();
+        User user2 = ObjectBuilder.user().withUsername("user2").build();
+        User user3 = ObjectBuilder.user().withUsername("user3").build();
+
+        Team team1 = ObjectBuilder.team().withFirstUser(user1).withSecondUser(user2).build();
+        Team team2 = ObjectBuilder.team().withFirstUser(user1).withSecondUser(user3).build();
 
         boolean result = team1.equals(team2);
         assertFalse(result);
@@ -130,7 +137,7 @@ public class TeamTest {
 
     @Test
     public void getName_withDefaultName_returnsName() {
-        Team team = ObjectBuilder.team().build();
+        Team team = ObjectBuilder.team().withTeamName("name").build();
 
         String expected = "name";
         String actual = team.getName();
@@ -140,7 +147,7 @@ public class TeamTest {
 
     @Test
     public void getId_withDefaultId_returnsId() {
-        Team team = ObjectBuilder.team().build();
+        Team team = ObjectBuilder.team().withId(LogicConstants.INTERNAL_ID).build();
 
         int expected = LogicConstants.INTERNAL_ID;
         int actual = team.getId();
