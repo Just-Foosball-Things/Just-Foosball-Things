@@ -20,7 +20,7 @@ public final class UserBuilder {
         id = LogicConstants.INTERNAL_ID;
         username = "username";
         rating = LogicTestUtil.makeDefaultRating();
-        title = LogicTestUtil.makeDefaultTitle();
+        title = ObjectBuilder.title().build();
     }
 
     public UserBuilder withId(int id) {

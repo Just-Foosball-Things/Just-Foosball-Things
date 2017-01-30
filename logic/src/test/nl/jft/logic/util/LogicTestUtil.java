@@ -5,7 +5,6 @@ import nl.jft.common.rating.glicko.GlickoRating;
 import nl.jft.logic.match.Match;
 import nl.jft.logic.match.MatchResult;
 import nl.jft.logic.participant.ParticipantType;
-import nl.jft.logic.participant.Title;
 import nl.jft.logic.statistic.StatisticCollection;
 import nl.jft.logic.statistic.impl.MatchStatistic;
 import nl.jft.logic.statistic.impl.RatingStatistic;
@@ -23,27 +22,6 @@ public final class LogicTestUtil {
 
     private LogicTestUtil() {
         throw new UnsupportedOperationException("Should not be called.");
-    }
-
-    /**
-     * Makes a {@code Title} with the following properties:
-     * <li>
-     * <ul>Id: -1</ul>
-     * <ul>Name: "name"</ul>
-     * </li>
-     *
-     * @return A {@code Title} object.
-     */
-    public static Title makeDefaultTitle() {
-        return makeTitle("name");
-    }
-
-    public static Title makeTitle(int id, String name) {
-        return new Title(id, name);
-    }
-
-    public static Title makeTitle(String name) {
-        return new Title(name);
     }
 
     public static TitleStatistic makeDefaultTitleStatistic() {

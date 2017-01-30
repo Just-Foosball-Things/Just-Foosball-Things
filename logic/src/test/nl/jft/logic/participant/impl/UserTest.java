@@ -115,9 +115,9 @@ public class UserTest {
 
     @Test
     public void getTitle_whenCalled_returnsTitle() {
-        User user = ObjectBuilder.user().withTitle(LogicTestUtil.makeDefaultTitle()).build();
+        User user = ObjectBuilder.user().withTitle(ObjectBuilder.title().build()).build();
 
-        Title expected = LogicTestUtil.makeDefaultTitle();
+        Title expected = ObjectBuilder.title().build();
         Title actual = user.getActiveTitle();
 
         assertEquals(expected, actual);

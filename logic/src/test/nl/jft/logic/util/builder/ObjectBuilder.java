@@ -29,4 +29,8 @@ public final class ObjectBuilder {
         return new RuleBuilder();
     }
 
+    public static TitleBuilder title() {
+        return new TitleBuilder();
+    }
+
 }
