@@ -2,7 +2,7 @@ package nl.jft.logic.match.event.impl;
 
 import nl.jft.logic.match.Match;
 import nl.jft.logic.match.MatchStatus;
-import nl.jft.logic.util.LogicTestUtil;
+import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -28,7 +28,7 @@ public class MatchStatusChangedEventTest {
     public void construct_nullOldStatus_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         MatchStatusChangedEvent event = new MatchStatusChangedEvent(match, null, MatchStatus.IN_PROGRESS);
     }
 
@@ -36,16 +36,16 @@ public class MatchStatusChangedEventTest {
     public void construct_nullNewStatus_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         MatchStatusChangedEvent event = new MatchStatusChangedEvent(match, MatchStatus.SETUP, null);
     }
 
     @Test
     public void getMatch_whenCalled_returnsMatch() {
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         MatchStatusChangedEvent event = new MatchStatusChangedEvent(match, MatchStatus.SETUP, MatchStatus.IN_PROGRESS);
 
-        Match expected = LogicTestUtil.makeDefaultMatch();
+        Match expected = ObjectBuilder.match().build();
         Match actual = event.getMatch();
 
         assertEquals(expected, actual);
@@ -53,7 +53,7 @@ public class MatchStatusChangedEventTest {
 
     @Test
     public void getOldStatus_whenCalled_returnsMatch() {
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         MatchStatusChangedEvent event = new MatchStatusChangedEvent(match, MatchStatus.SETUP, MatchStatus.IN_PROGRESS);
 
         MatchStatus expected = MatchStatus.SETUP;
@@ -64,7 +64,7 @@ public class MatchStatusChangedEventTest {
 
     @Test
     public void getNewStatus_whenCalled_returnsMatch() {
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         MatchStatusChangedEvent event = new MatchStatusChangedEvent(match, MatchStatus.SETUP, MatchStatus.IN_PROGRESS);
 
         MatchStatus expected = MatchStatus.IN_PROGRESS;

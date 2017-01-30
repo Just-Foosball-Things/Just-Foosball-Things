@@ -54,7 +54,7 @@ public class ParticipantUtilTest {
 
     @Test
     public void getParticipantType_teamParticipant_returnsTeam() {
-        Participant participant = null;
+        Participant participant = ObjectBuilder.team().build();
 
         ParticipantType expected = ParticipantType.TEAM;
         ParticipantType actual = ParticipantUtil.getParticipantType(participant);
