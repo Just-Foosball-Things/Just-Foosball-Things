@@ -3,6 +3,7 @@ package nl.jft.logic.statistic.impl;
 import nl.jft.common.rating.Rating;
 import nl.jft.logic.statistic.Statistic;
 import nl.jft.logic.util.LogicTestUtil;
+import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -23,7 +24,7 @@ public class RatingStatisticTest {
 
     @Test
     public void getType_whenCalled_returnsSameClass() {
-        RatingStatistic statistic = LogicTestUtil.makeDefaultRatingStatistic();
+        RatingStatistic statistic = ObjectBuilder.Statistic.rating().build();
 
         Class<? extends Statistic> expected = RatingStatistic.class;
         Class<? extends Statistic> actual = statistic.getType();
@@ -35,13 +36,13 @@ public class RatingStatisticTest {
     public void addMatchResult_nullMatchResult_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        RatingStatistic statistic = LogicTestUtil.makeDefaultRatingStatistic();
+        RatingStatistic statistic = ObjectBuilder.Statistic.rating().build();
         statistic.addRating(null);
     }
 
     @Test
     public void addMatchResult_whenCalled_addsMatchResult() {
-        RatingStatistic statistic = LogicTestUtil.makeDefaultRatingStatistic();
+        RatingStatistic statistic = ObjectBuilder.Statistic.rating().build();
         Rating rating = LogicTestUtil.makeDefaultRating();
 
         statistic.addRating(rating);
@@ -56,13 +57,13 @@ public class RatingStatisticTest {
     public void removeMatchResult_nullMatchResult_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        RatingStatistic statistic = LogicTestUtil.makeDefaultRatingStatistic();
+        RatingStatistic statistic = ObjectBuilder.Statistic.rating().build();
         statistic.removeRating(null);
     }
 
     @Test
     public void removeMatchResult_whenCalled_removesMatchResult() {
-        RatingStatistic statistic = LogicTestUtil.makeDefaultRatingStatistic();
+        RatingStatistic statistic = ObjectBuilder.Statistic.rating().build();
         Rating rating = LogicTestUtil.makeDefaultRating();
 
         statistic.addRating(rating);
@@ -76,7 +77,7 @@ public class RatingStatisticTest {
 
     @Test
     public void getValues_byDefault_returnsEmptyList() {
-        RatingStatistic statistic = LogicTestUtil.makeDefaultRatingStatistic();
+        RatingStatistic statistic = ObjectBuilder.Statistic.rating().build();
 
         List<Rating> expected = new ArrayList<>();
         List<Rating> actual = statistic.getValues();

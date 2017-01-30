@@ -43,6 +43,10 @@ public final class ObjectBuilder {
             return new MatchStatisticBuilder();
         }
 
+        public static RatingStatisticBuilder rating() {
+            return new RatingStatisticBuilder();
+        }
+
     }
 
 }

@@ -6,7 +6,6 @@ import nl.jft.logic.match.Match;
 import nl.jft.logic.match.MatchResult;
 import nl.jft.logic.participant.ParticipantType;
 import nl.jft.logic.statistic.StatisticCollection;
-import nl.jft.logic.statistic.impl.RatingStatistic;
 import nl.jft.logic.tournament.Tournament;
 import nl.jft.logic.tournament.TournamentType;
 
@@ -20,10 +19,6 @@ public final class LogicTestUtil {
 
     private LogicTestUtil() {
         throw new UnsupportedOperationException("Should not be called.");
-    }
-
-    public static RatingStatistic makeDefaultRatingStatistic() {
-        return new RatingStatistic();
     }
 
     /**
