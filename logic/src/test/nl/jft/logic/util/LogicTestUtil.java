@@ -4,7 +4,6 @@ import nl.jft.common.rating.Rating;
 import nl.jft.common.rating.glicko.GlickoRating;
 import nl.jft.logic.match.Match;
 import nl.jft.logic.match.MatchResult;
-import nl.jft.logic.match.Rule;
 import nl.jft.logic.participant.ParticipantType;
 import nl.jft.logic.participant.Title;
 import nl.jft.logic.statistic.StatisticCollection;
@@ -13,9 +12,6 @@ import nl.jft.logic.statistic.impl.RatingStatistic;
 import nl.jft.logic.statistic.impl.TitleStatistic;
 import nl.jft.logic.tournament.Tournament;
 import nl.jft.logic.tournament.TournamentType;
-
-import java.time.LocalDateTime;
-import java.time.Month;
 
 /**
  * Test utilities for unit testing the Logic module of the JFT project.
@@ -27,44 +23,6 @@ public final class LogicTestUtil {
 
     private LogicTestUtil() {
         throw new UnsupportedOperationException("Should not be called.");
-    }
-
-    /**
-     * Makes a {@code LocalDateTime} with the following properties:
-     * <li>
-     * <ul>Year: 2017</ul>
-     * <ul>Month: {@link Month#JANUARY}</ul>
-     * <ul>Day: 1</ul>
-     * <ul>Hour: 12</ul>
-     * <ul>Minute: 1</ul>
-     * <ul>Second: 1</ul>
-     * </li>
-     *
-     * @return A {@code LocalDateTime} object.
-     */
-    public static LocalDateTime makeDefaultLocalDateTime() {
-        return LocalDateTime.of(2017, Month.JANUARY, 1, 12, 1, 1);
-    }
-
-    /**
-     * Makes a {@code Rule} with the following properties:
-     * <li>
-     * <ul>Id: -1</ul>
-     * <ul>Description: "description"</ul>
-     * </li>
-     *
-     * @return A {@code Rule} object.
-     */
-    public static Rule makeDefaultRule() {
-        return makeRule("description");
-    }
-
-    public static Rule makeRule(int id, String description) {
-        return new Rule(id, description);
-    }
-
-    public static Rule makeRule(String description) {
-        return new Rule(description);
     }
 
     /**

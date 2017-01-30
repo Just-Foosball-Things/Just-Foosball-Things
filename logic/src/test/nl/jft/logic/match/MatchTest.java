@@ -2,7 +2,6 @@ package nl.jft.logic.match;
 
 import nl.jft.logic.match.event.MatchListener;
 import nl.jft.logic.participant.Participant;
-import nl.jft.logic.util.LogicTestUtil;
 import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -250,7 +249,7 @@ public class MatchTest {
     @Test
     public void addRule_whenCalled_addsRule() {
         Match match = ObjectBuilder.match().build();
-        Rule rule = LogicTestUtil.makeDefaultRule();
+        Rule rule = ObjectBuilder.rule().build();
 
         match.addRule(rule);
 
@@ -273,7 +272,7 @@ public class MatchTest {
     @Test
     public void removeRule_whenCalled_removesRule() {
         Match match = ObjectBuilder.match().build();
-        Rule rule = LogicTestUtil.makeDefaultRule();
+        Rule rule = ObjectBuilder.rule().build();
 
         match.addRule(rule);
         match.removeRule(rule);

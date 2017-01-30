@@ -25,4 +25,8 @@ public final class ObjectBuilder {
         return new MatchBuilder();
     }
 
+    public static RuleBuilder rule() {
+        return new RuleBuilder();
+    }
+
 }
