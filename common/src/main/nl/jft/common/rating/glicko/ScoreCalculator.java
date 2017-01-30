@@ -1,4 +1,4 @@
-package nl.jft.common.glicko;
+package nl.jft.common.rating.glicko;
 
 /**
  * The {@code ScoreCalculator} maps the outcome of a {@link GlickoResult} to a value between 0 and 1.

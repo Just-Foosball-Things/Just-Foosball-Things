@@ -1,4 +1,4 @@
-package nl.jft.common.glicko;
+package nl.jft.common.rating.glicko;
 
 import nl.jft.common.util.util.CommonTestUtil;
 import org.junit.Rule;
@@ -69,7 +69,7 @@ public class GlickoRatingTest {
         GlickoRating glickoRating = CommonTestUtil.getDefaultRating(); //GlickoRating = 1500
 
         double expected = 1500d;
-        double actual = glickoRating.getRating();
+        double actual = glickoRating.getValue();
 
         assertEquals(expected, actual, 0.00001d);
     }

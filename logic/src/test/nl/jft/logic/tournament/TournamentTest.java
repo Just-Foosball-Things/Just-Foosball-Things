@@ -2,12 +2,13 @@ package nl.jft.logic.tournament;
 
 import nl.jft.logic.participant.Participant;
 import nl.jft.logic.participant.ParticipantType;
-import nl.jft.logic.util.LogicTestUtil;
+import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,19 +26,19 @@ public class TournamentTest {
     public void construct_nullTournamentType_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Tournament tournament = LogicTestUtil.makeTournament(null, ParticipantType.SOLO);
+        Tournament tournament = ObjectBuilder.tournament().withTournamentType(null).build();
     }
 
     @Test
     public void construct_nullParticipantType_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Tournament tournament = LogicTestUtil.makeTournament(TournamentType.KNOCKOUT, null);
+        Tournament tournament = ObjectBuilder.tournament().withParticipantType(null).build();
     }
 
     @Test
     public void start_whenCalled_startsTournament() {
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
+        Tournament tournament = ObjectBuilder.tournament().build();
         tournament.start();
 
         TournamentStatus expected = TournamentStatus.IN_PROGRESS;
@@ -50,7 +51,7 @@ public class TournamentTest {
     public void start_tournamentInProgress_throwsException() {
         expectedException.expect(IllegalStateException.class);
 
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
+        Tournament tournament = ObjectBuilder.tournament().build();
         tournament.start();
         tournament.start();
     }
@@ -59,7 +60,7 @@ public class TournamentTest {
     public void start_tournamentFinished_throwsException() {
         expectedException.expect(IllegalStateException.class);
 
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
+        Tournament tournament = ObjectBuilder.tournament().build();
         tournament.start();
         tournament.stop();
         tournament.start();
@@ -67,7 +68,7 @@ public class TournamentTest {
 
     @Test
     public void stop_whenCalled_stopsTournament() {
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
+        Tournament tournament = ObjectBuilder.tournament().build();
         tournament.start();
         tournament.stop();
 
@@ -81,7 +82,7 @@ public class TournamentTest {
     public void stop_tournamentSetup_throwsException() {
         expectedException.expect(IllegalStateException.class);
 
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
+        Tournament tournament = ObjectBuilder.tournament().build();
         tournament.stop();
     }
 
@@ -89,7 +90,7 @@ public class TournamentTest {
     public void stop_tournamentFinished_throwsException() {
         expectedException.expect(IllegalStateException.class);
 
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
+        Tournament tournament = ObjectBuilder.tournament().build();
         tournament.start();
         tournament.stop();
         tournament.stop();
@@ -99,7 +100,7 @@ public class TournamentTest {
     public void addParticipant_nullParticipant_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
+        Tournament tournament = ObjectBuilder.tournament().build();
         tournament.addParticipant(null);
     }
 
@@ -107,8 +108,8 @@ public class TournamentTest {
     public void addParticipant_userOnTeamTournament_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
-        Tournament tournament = LogicTestUtil.makeTournament(TournamentType.KNOCKOUT, ParticipantType.TEAM);
-        Participant participant = LogicTestUtil.makeDefaultUser();
+        Tournament tournament = ObjectBuilder.tournament().withParticipantType(ParticipantType.TEAM).build();
+        Participant participant = ObjectBuilder.user().build();
 
         tournament.addParticipant(participant);
     }
@@ -117,8 +118,8 @@ public class TournamentTest {
     public void addParticipant_teamOnSoloTournament_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
-        Tournament tournament = LogicTestUtil.makeTournament(TournamentType.KNOCKOUT, ParticipantType.SOLO);
-        Participant participant = LogicTestUtil.makeDefaultTeam();
+        Tournament tournament = ObjectBuilder.tournament().withParticipantType(ParticipantType.SOLO).build();
+        Participant participant = ObjectBuilder.team().build();
 
         tournament.addParticipant(participant);
     }
@@ -127,8 +128,8 @@ public class TournamentTest {
     public void addParticipant_tournamentInProgress_throwsException() {
         expectedException.expect(IllegalStateException.class);
 
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
-        Participant participant = LogicTestUtil.makeDefaultUser();
+        Tournament tournament = ObjectBuilder.tournament().build();
+        Participant participant = ObjectBuilder.user().build();
 
         tournament.start();
         tournament.addParticipant(participant);
@@ -138,8 +139,8 @@ public class TournamentTest {
     public void addParticipant_tournamentFinished_throwsException() {
         expectedException.expect(IllegalStateException.class);
 
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
-        Participant participant = LogicTestUtil.makeDefaultUser();
+        Tournament tournament = ObjectBuilder.tournament().build();
+        Participant participant = ObjectBuilder.user().build();
 
         tournament.start();
         tournament.stop();
@@ -148,14 +149,12 @@ public class TournamentTest {
 
     @Test
     public void addParticipant_userOnSoloTournament_addsParticipant() {
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
-        Participant participant = LogicTestUtil.makeDefaultUser();
+        Tournament tournament = ObjectBuilder.tournament().build();
+        Participant participant = ObjectBuilder.user().build();
 
         tournament.addParticipant(participant);
 
-        List<Participant> expected = new ArrayList<Participant>() {{
-            add(LogicTestUtil.makeDefaultUser());
-        }};
+        List<Participant> expected = Arrays.asList(ObjectBuilder.user().build());
         List<Participant> actual = tournament.getParticipants();
 
         assertEquals(expected, actual);
@@ -163,14 +162,12 @@ public class TournamentTest {
 
     @Test
     public void addParticipant_teamOnTeamTournament_addsParticipant() {
-        Tournament tournament = LogicTestUtil.makeTournament(TournamentType.KNOCKOUT, ParticipantType.TEAM);
-        Participant participant = LogicTestUtil.makeDefaultTeam();
+        Tournament tournament = ObjectBuilder.tournament().withParticipantType(ParticipantType.TEAM).build();
+        Participant participant = ObjectBuilder.team().build();
 
         tournament.addParticipant(participant);
 
-        List<Participant> expected = new ArrayList<Participant>() {{
-            add(LogicTestUtil.makeDefaultTeam());
-        }};
+        List<Participant> expected = Arrays.asList(ObjectBuilder.team().build());
         List<Participant> actual = tournament.getParticipants();
 
         assertEquals(expected, actual);
@@ -181,7 +178,7 @@ public class TournamentTest {
         expectedException.expect(NullPointerException.class);
 
 
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
+        Tournament tournament = ObjectBuilder.tournament().build();
         tournament.removeParticipant(null);
     }
 
@@ -189,8 +186,8 @@ public class TournamentTest {
     public void removeParticipant_userOnTeamTournament_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
-        Tournament tournament = LogicTestUtil.makeTournament(TournamentType.KNOCKOUT, ParticipantType.TEAM);
-        Participant participant = LogicTestUtil.makeDefaultUser();
+        Tournament tournament = ObjectBuilder.tournament().withParticipantType(ParticipantType.TEAM).build();
+        Participant participant = ObjectBuilder.user().build();
 
         tournament.removeParticipant(participant);
     }
@@ -199,8 +196,8 @@ public class TournamentTest {
     public void removeParticipant_teamOnSoloTournament_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
-        Tournament tournament = LogicTestUtil.makeTournament(TournamentType.KNOCKOUT, ParticipantType.SOLO);
-        Participant participant = LogicTestUtil.makeDefaultTeam();
+        Tournament tournament = ObjectBuilder.tournament().withParticipantType(ParticipantType.SOLO).build();
+        Participant participant = ObjectBuilder.team().build();
 
         tournament.removeParticipant(participant);
     }
@@ -209,8 +206,8 @@ public class TournamentTest {
     public void removeParticipant_tournamentInProgress_throwsException() {
         expectedException.expect(IllegalStateException.class);
 
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
-        Participant participant = LogicTestUtil.makeDefaultUser();
+        Tournament tournament = ObjectBuilder.tournament().build();
+        Participant participant = ObjectBuilder.user().build();
 
         tournament.start();
         tournament.removeParticipant(participant);
@@ -220,8 +217,8 @@ public class TournamentTest {
     public void removeParticipant_tournamentFinished_throwsException() {
         expectedException.expect(IllegalStateException.class);
 
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
-        Participant participant = LogicTestUtil.makeDefaultUser();
+        Tournament tournament = ObjectBuilder.tournament().build();
+        Participant participant = ObjectBuilder.user().build();
 
         tournament.start();
         tournament.stop();
@@ -230,8 +227,8 @@ public class TournamentTest {
 
     @Test
     public void removeParticipant_whenCalled_throwsException() {
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
-        Participant participant = LogicTestUtil.makeDefaultUser();
+        Tournament tournament = ObjectBuilder.tournament().build();
+        Participant participant = ObjectBuilder.user().build();
 
         tournament.addParticipant(participant);
         tournament.removeParticipant(participant);
@@ -244,7 +241,7 @@ public class TournamentTest {
 
     @Test
     public void getWinner_byDefault_returnsSetup() {
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
+        Tournament tournament = ObjectBuilder.tournament().build();
 
         TournamentStatus expected = TournamentStatus.SETUP;
         TournamentStatus actual = tournament.getStatus();
@@ -254,7 +251,7 @@ public class TournamentTest {
 
     @Test
     public void getWinner_byDefault_isEmpty() {
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
+        Tournament tournament = ObjectBuilder.tournament().build();
 
         Optional<Participant> expected = Optional.empty();
         Optional<Participant> actual = tournament.getWinner();
@@ -264,7 +261,7 @@ public class TournamentTest {
 
     @Test
     public void getParticipants_byDefault_returnsEmptyList() {
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
+        Tournament tournament = ObjectBuilder.tournament().build();
 
         List<Participant> expected = new ArrayList<>();
         List<Participant> actual = tournament.getParticipants();
@@ -274,7 +271,7 @@ public class TournamentTest {
 
     @Test
     public void getTournamentType_whenCalled_returnsTournamentType() {
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
+        Tournament tournament = ObjectBuilder.tournament().withTournamentType(TournamentType.KNOCKOUT).build();
 
         TournamentType expected = TournamentType.KNOCKOUT;
         TournamentType actual = tournament.getTournamentType();
@@ -284,7 +281,7 @@ public class TournamentTest {
 
     @Test
     public void getParticipantType_whenCalled_returnsParticipantType() {
-        Tournament tournament = LogicTestUtil.makeDefaultTournament();
+        Tournament tournament = ObjectBuilder.tournament().withParticipantType(ParticipantType.SOLO).build();
 
         ParticipantType expected = ParticipantType.SOLO;
         ParticipantType actual = tournament.getParticipantType();

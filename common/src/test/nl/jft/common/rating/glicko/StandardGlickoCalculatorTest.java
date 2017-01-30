@@ -1,4 +1,4 @@
-package nl.jft.common.glicko;
+package nl.jft.common.rating.glicko;
 
 import nl.jft.common.util.util.CommonTestUtil;
 import org.junit.Before;
@@ -576,7 +576,7 @@ public class StandardGlickoCalculatorTest {
 
         GlickoRating rating = calculator.getNewRating(winner, loser, 1);
 
-        assertEquals(1403.8210, rating.getRating(), 0.001d);
+        assertEquals(1403.8210, rating.getValue(), 0.001d);
         assertEquals(31.657, rating.getDeviation(), 0.001d);
         assertEquals(0.060007343, rating.getVolatility(), 0.00000001d);
     }
@@ -588,7 +588,7 @@ public class StandardGlickoCalculatorTest {
 
         GlickoRating rating = calculator.getNewRating(loser, winner, 0);
 
-        assertEquals(1511.9412, rating.getRating(), 0.001d);
+        assertEquals(1511.9412, rating.getValue(), 0.001d);
         assertEquals(97.2262, rating.getDeviation(), 0.001d);
         assertEquals(0.06000711, rating.getVolatility(), 0.00000001d);
     }
@@ -600,7 +600,7 @@ public class StandardGlickoCalculatorTest {
 
         GlickoRating rating = calculator.getNewRating(winner, loser, 0.6);
 
-        assertEquals(1644.3946, rating.getRating(), 0.001d);
+        assertEquals(1644.3946, rating.getValue(), 0.001d);
         assertEquals(251.4019, rating.getDeviation(), 0.001d);
         assertEquals(0.059998, rating.getVolatility(), 0.000001d);
     }
@@ -612,7 +612,7 @@ public class StandardGlickoCalculatorTest {
 
         GlickoRating rating = calculator.getNewRating(loser, winner, 0.4);
 
-        assertEquals(1699.9609, rating.getRating(), 0.001d);
+        assertEquals(1699.9609, rating.getValue(), 0.001d);
         assertEquals(186.9439, rating.getDeviation(), 0.001d);
         assertEquals(0.059998, rating.getVolatility(), 0.000001d);
     }

@@ -1,8 +1,8 @@
 package nl.jft.logic.participant.impl;
 
+import nl.jft.common.rating.Rating;
 import nl.jft.logic.LogicConstants;
-import nl.jft.logic.participant.Elo;
-import nl.jft.logic.util.LogicTestUtil;
+import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,44 +22,51 @@ public class TeamTest {
     public void construct_nullTeamName_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Team team = LogicTestUtil.makeTeam(LogicConstants.INTERNAL_ID, null, LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser());
+        Team team = ObjectBuilder.team().withTeamName(null).build();
     }
 
     @Test
     public void construct_emptyTeamName_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
-        Team team = LogicTestUtil.makeTeam(LogicConstants.INTERNAL_ID, "", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser());
+        Team team = ObjectBuilder.team().withTeamName("").build();
+    }
+
+    @Test
+    public void construct_nullRating_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Team team = ObjectBuilder.team().withRating(null).build();
     }
 
     @Test
     public void construct_nullFirstUser_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Team team = LogicTestUtil.makeTeam("team", null, LogicTestUtil.makeDefaultUser());
+        Team team = ObjectBuilder.team().withFirstUser(null).build();
     }
 
     @Test
     public void construct_nullSecondUser_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Team team = LogicTestUtil.makeTeam("team", LogicTestUtil.makeDefaultUser(), null);
+        Team team = ObjectBuilder.team().withSecondUser(null).build();
     }
 
     @Test
     public void construct_sameUsers_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
-        User user1 = LogicTestUtil.makeDefaultUser();
-        User user2 = LogicTestUtil.makeDefaultUser();
+        User user1 = ObjectBuilder.user().build();
+        User user2 = ObjectBuilder.user().build();
 
-        Team team = LogicTestUtil.makeTeam("team", user1, user2);
+        Team team = ObjectBuilder.team().withFirstUser(user1).withSecondUser(user2).build();
     }
 
     @Test
     public void equals_sameObjects_returnsTrue() {
-        Team team1 = LogicTestUtil.makeDefaultTeam();
-        Team team2 = LogicTestUtil.makeDefaultTeam();
+        Team team1 = ObjectBuilder.team().build();
+        Team team2 = ObjectBuilder.team().build();
 
         boolean result = team1.equals(team2);
         assertTrue(result);
@@ -67,7 +74,7 @@ public class TeamTest {
 
     @Test
     public void equals_otherInstance_returnsFalse() {
-        Team team1 = LogicTestUtil.makeDefaultTeam();
+        Team team1 = ObjectBuilder.team().build();
         Team team2 = null;
 
         boolean result = team1.equals(team2);
@@ -76,8 +83,8 @@ public class TeamTest {
 
     @Test
     public void equals_differentIds_returnsFalse() {
-        Team team1 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
-        Team team2 = LogicTestUtil.makeTeam(2, "team", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
+        Team team1 = ObjectBuilder.team().withId(1).build();
+        Team team2 = ObjectBuilder.team().withId(2).build();
 
         boolean result = team1.equals(team2);
         assertFalse(result);
@@ -85,8 +92,8 @@ public class TeamTest {
 
     @Test
     public void equals_differentTeamNames_returnsFalse() {
-        Team team1 = LogicTestUtil.makeTeam(1, "team1", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
-        Team team2 = LogicTestUtil.makeTeam(1, "team2s", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
+        Team team1 = ObjectBuilder.team().withTeamName("team1").build();
+        Team team2 = ObjectBuilder.team().withTeamName("team2").build();
 
         boolean result = team1.equals(team2);
         assertFalse(result);
@@ -94,8 +101,12 @@ public class TeamTest {
 
     @Test
     public void equals_differentFirstUser_returnsFalse() {
-        Team team1 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser3());
-        Team team2 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultUser2(), LogicTestUtil.makeDefaultUser3());
+        User user1 = ObjectBuilder.user().withUsername("user1").build();
+        User user2 = ObjectBuilder.user().withUsername("user2").build();
+        User user3 = ObjectBuilder.user().withUsername("user3").build();
+
+        Team team1 = ObjectBuilder.team().withFirstUser(user1).withSecondUser(user3).build();
+        Team team2 = ObjectBuilder.team().withFirstUser(user2).withSecondUser(user3).build();
 
         boolean result = team1.equals(team2);
         assertFalse(result);
@@ -103,8 +114,12 @@ public class TeamTest {
 
     @Test
     public void equals_differentSecondUser_returnsFalse() {
-        Team team1 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
-        Team team2 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser3());
+        User user1 = ObjectBuilder.user().withUsername("user1").build();
+        User user2 = ObjectBuilder.user().withUsername("user2").build();
+        User user3 = ObjectBuilder.user().withUsername("user3").build();
+
+        Team team1 = ObjectBuilder.team().withFirstUser(user1).withSecondUser(user2).build();
+        Team team2 = ObjectBuilder.team().withFirstUser(user1).withSecondUser(user3).build();
 
         boolean result = team1.equals(team2);
         assertFalse(result);
@@ -112,8 +127,8 @@ public class TeamTest {
 
     @Test
     public void hashCode_whenCalled_returnsHashCode() {
-        Team team1 = LogicTestUtil.makeDefaultTeam();
-        Team team2 = LogicTestUtil.makeDefaultTeam();
+        Team team1 = ObjectBuilder.team().build();
+        Team team2 = ObjectBuilder.team().build();
 
         boolean result = team1.hashCode() == team2.hashCode();
         assertTrue(result);
@@ -121,9 +136,9 @@ public class TeamTest {
 
     @Test
     public void getName_withDefaultName_returnsName() {
-        Team team = LogicTestUtil.makeDefaultTeam(); // default name is "team".
+        Team team = ObjectBuilder.team().withTeamName("name").build();
 
-        String expected = "team";
+        String expected = "name";
         String actual = team.getName();
 
         Assert.assertEquals(expected, actual);
@@ -131,7 +146,7 @@ public class TeamTest {
 
     @Test
     public void getId_withDefaultId_returnsId() {
-        Team team = LogicTestUtil.makeDefaultTeam(); // default id is -1.
+        Team team = ObjectBuilder.team().withId(LogicConstants.INTERNAL_ID).build();
 
         int expected = LogicConstants.INTERNAL_ID;
         int actual = team.getId();
@@ -140,16 +155,11 @@ public class TeamTest {
     }
 
     @Test
-    public void getElo_whenCalled_returnsElo() {
-        Elo firstElo = LogicTestUtil.makeElo(1500);
-        Elo secondElo = LogicTestUtil.makeElo(2000);
+    public void getRating_whenCalled_returnsRating() {
+        Team team = ObjectBuilder.team().withRating(ObjectBuilder.Rating.glickoRating().build()).build();
 
-        User firstUser = LogicTestUtil.makeUser("user1", firstElo, LogicTestUtil.makeDefaultTitle());
-        User secondUser = LogicTestUtil.makeUser("user2", secondElo, LogicTestUtil.makeDefaultTitle());
-        Team team = LogicTestUtil.makeTeam("team", firstUser, secondUser);
-
-        Elo expected = LogicTestUtil.makeElo(1750);
-        Elo actual = team.getElo();
+        Rating expected = ObjectBuilder.Rating.glickoRating().build();
+        Rating actual = team.getRating();
 
         assertEquals(expected, actual);
     }

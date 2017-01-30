@@ -1,9 +1,7 @@
 package nl.jft.logic.participant;
 
 import nl.jft.logic.LogicConstants;
-import nl.jft.logic.participant.impl.Team;
-import nl.jft.logic.participant.impl.User;
-import nl.jft.logic.util.LogicTestUtil;
+import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -19,47 +17,23 @@ public class TitleTest {
     public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
-    public void construct_nullNameOnly_throwsException() {
-        expectedException.expect(NullPointerException.class);
-
-        Title title = LogicTestUtil.makeTitle(null);
-    }
-
-    @Test
-    public void construct_emptyNameOnly_throwsException() {
-        expectedException.expect(IllegalArgumentException.class);
-
-        Title title = LogicTestUtil.makeTitle("");
-    }
-
-    @Test
     public void construct_nullName_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Title title = LogicTestUtil.makeTitle(LogicConstants.INTERNAL_ID, null);
+        Title title = ObjectBuilder.title().withName(null).build();
     }
 
     @Test
     public void construct_emptyName_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
-        Title title = LogicTestUtil.makeTitle(LogicConstants.INTERNAL_ID, "");
-    }
-
-    @Test
-    public void construct_sameUsers_throwsException() {
-        expectedException.expect(IllegalArgumentException.class);
-
-        User user1 = LogicTestUtil.makeDefaultUser();
-        User user2 = LogicTestUtil.makeDefaultUser();
-
-        Team team = LogicTestUtil.makeTeam("team", user1, user2);
+        Title title = ObjectBuilder.title().withName("").build();
     }
 
     @Test
     public void equals_sameObjects_returnsTrue() {
-        Title title1 = LogicTestUtil.makeDefaultTitle();
-        Title title2 = LogicTestUtil.makeDefaultTitle();
+        Title title1 = ObjectBuilder.title().build();
+        Title title2 = ObjectBuilder.title().build();
 
         boolean result = title1.equals(title2);
         assertTrue(result);
@@ -67,7 +41,7 @@ public class TitleTest {
 
     @Test
     public void equals_otherInstance_returnsFalse() {
-        Title title1 = LogicTestUtil.makeDefaultTitle();
+        Title title1 = ObjectBuilder.title().build();
         Title title2 = null;
 
         boolean result = title1.equals(title2);
@@ -76,8 +50,8 @@ public class TitleTest {
 
     @Test
     public void equals_differentIds_returnsFalse() {
-        Title title1 = LogicTestUtil.makeTitle(1, "title");
-        Title title2 = LogicTestUtil.makeTitle(2, "title");
+        Title title1 = ObjectBuilder.title().withId(1).build();
+        Title title2 = ObjectBuilder.title().withId(2).build();
 
         boolean result = title1.equals(title2);
         assertFalse(result);
@@ -85,8 +59,8 @@ public class TitleTest {
 
     @Test
     public void equals_differentNames_returnsFalse() {
-        Title title1 = LogicTestUtil.makeTitle(1, "title1");
-        Title title2 = LogicTestUtil.makeTitle(1, "title2");
+        Title title1 = ObjectBuilder.title().withName("title1").build();
+        Title title2 = ObjectBuilder.title().withName("title2").build();
 
         boolean result = title1.equals(title2);
         assertFalse(result);
@@ -94,8 +68,8 @@ public class TitleTest {
 
     @Test
     public void hashCode_whenCalled_returnsHashCode() {
-        Title title1 = LogicTestUtil.makeDefaultTitle();
-        Title title2 = LogicTestUtil.makeDefaultTitle();
+        Title title1 = ObjectBuilder.title().build();
+        Title title2 = ObjectBuilder.title().build();
 
         boolean result = title1.hashCode() == title2.hashCode();
         assertTrue(result);
@@ -103,7 +77,7 @@ public class TitleTest {
 
     @Test
     public void getId_whenCalled_returnsId() {
-        Title title = LogicTestUtil.makeDefaultTitle();
+        Title title = ObjectBuilder.title().withId(LogicConstants.INTERNAL_ID).build();
 
         int expected = LogicConstants.INTERNAL_ID;
         int actual = title.getId();
@@ -113,7 +87,7 @@ public class TitleTest {
 
     @Test
     public void getName_whenCalled_returnsName() {
-        Title title = LogicTestUtil.makeDefaultTitle();
+        Title title = ObjectBuilder.title().withName("name").build();
 
         String expected = "name";
         String actual = title.getName();

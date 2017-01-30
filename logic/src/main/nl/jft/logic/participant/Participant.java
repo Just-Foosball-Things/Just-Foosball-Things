@@ -1,6 +1,7 @@
 package nl.jft.logic.participant;
 
 import nl.jft.common.Identifiable;
+import nl.jft.common.rating.Rating;
 
 /**
  * The {@code Participant} interface defines a participant that can partake in {@link nl.jft.logic.match.Match Matches} and {@link nl.jft.logic.tournament.Tournament Tournamements}.
@@ -19,10 +20,10 @@ public interface Participant extends Identifiable {
     String getName();
 
     /**
-     * Gets the {@code Elo}-rating of the {@code Participant}.
+     * Gets the {@link Rating} of the {@code Participant}.
      *
-     * @return A {@code Elo} containing the rating of the {@code Participant}.
+     * @return A {@code Rating} containing the rating of the {@code Participant}.
      */
-    Elo getElo();
+    Rating getRating();
 
 }

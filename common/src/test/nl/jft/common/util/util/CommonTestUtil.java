@@ -1,8 +1,8 @@
 package nl.jft.common.util.util;
 
-import nl.jft.common.glicko.GlickoCalculationResult;
-import nl.jft.common.glicko.GlickoRating;
-import nl.jft.common.glicko.GlickoResult;
+import nl.jft.common.rating.glicko.GlickoCalculationResult;
+import nl.jft.common.rating.glicko.GlickoRating;
+import nl.jft.common.rating.glicko.GlickoResult;
 import nl.jft.common.util.elo.EloExpectation;
 import nl.jft.common.util.elo.EloExpectationResult;
 import nl.jft.common.util.util.mocks.MockScoreCalculator;

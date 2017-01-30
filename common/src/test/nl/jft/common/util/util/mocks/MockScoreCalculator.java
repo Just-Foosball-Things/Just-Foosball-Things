@@ -1,6 +1,6 @@
 package nl.jft.common.util.util.mocks;
 
-import nl.jft.common.glicko.ScoreCalculator;
+import nl.jft.common.rating.glicko.ScoreCalculator;
 
 /**
  * @author Oscar de Leeuw

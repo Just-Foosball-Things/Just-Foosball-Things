@@ -1,7 +1,8 @@
 package nl.jft.logic.match;
 
 import nl.jft.logic.LogicConstants;
-import nl.jft.logic.util.LogicTestUtil;
+import nl.jft.logic.participant.Participant;
+import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
@@ -15,23 +16,17 @@ public class MatchResultTest {
     @org.junit.Rule
     public final ExpectedException expectedException = ExpectedException.none();
 
-    public void construct_nullMatchOnly_throwsException() {
-        expectedException.expect(NullPointerException.class);
-
-        MatchResult result = LogicTestUtil.makeMatchResult(null);
-    }
-
     @Test
     public void construct_nullMatch_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        MatchResult result = LogicTestUtil.makeMatchResult(LogicConstants.INTERNAL_ID, null);
+        MatchResult result = ObjectBuilder.matchResult().withMatch(null).build();
     }
 
     @Test
     public void equals_sameObjects_returnsTrue() {
-        MatchResult result1 = LogicTestUtil.makeDefaultMatchResult();
-        MatchResult result2 = LogicTestUtil.makeDefaultMatchResult();
+        MatchResult result1 = ObjectBuilder.matchResult().build();
+        MatchResult result2 = ObjectBuilder.matchResult().build();
 
         boolean result = result1.equals(result2);
         assertTrue(result);
@@ -39,7 +34,7 @@ public class MatchResultTest {
 
     @Test
     public void equals_otherInstance_returnsFalse() {
-        MatchResult result1 = LogicTestUtil.makeDefaultMatchResult();
+        MatchResult result1 = ObjectBuilder.matchResult().build();
         MatchResult result2 = null;
 
         boolean result = result1.equals(result2);
@@ -48,8 +43,8 @@ public class MatchResultTest {
 
     @Test
     public void equals_differentIds_returnsFalse() {
-        MatchResult result1 = LogicTestUtil.makeMatchResult(1, LogicTestUtil.makeDefaultMatch());
-        MatchResult result2 = LogicTestUtil.makeMatchResult(2, LogicTestUtil.makeDefaultMatch());
+        MatchResult result1 = ObjectBuilder.matchResult().withId(1).build();
+        MatchResult result2 = ObjectBuilder.matchResult().withId(2).build();
 
         boolean result = result1.equals(result2);
         assertFalse(result);
@@ -57,11 +52,15 @@ public class MatchResultTest {
 
     @Test
     public void equals_differentMatches_returnsFalse() {
-        Match firstMatch = LogicTestUtil.makeMatch(LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
-        Match secondMatch = LogicTestUtil.makeMatch(LogicTestUtil.makeDefaultUser2(), LogicTestUtil.makeDefaultUser3());
+        Participant participant1 = ObjectBuilder.user().withUsername("user1").build();
+        Participant participant2 = ObjectBuilder.user().withUsername("user2").build();
+        Participant participant3 = ObjectBuilder.user().withUsername("user3").build();
 
-        MatchResult result1 = LogicTestUtil.makeMatchResult(1, firstMatch);
-        MatchResult result2 = LogicTestUtil.makeMatchResult(1, secondMatch);
+        Match firstMatch = ObjectBuilder.match().withFirstParticipant(participant1).withSecondParticipant(participant2).build();
+        Match secondMatch = ObjectBuilder.match().withFirstParticipant(participant1).withSecondParticipant(participant3).build();
+
+        MatchResult result1 = ObjectBuilder.matchResult().withMatch(firstMatch).build();
+        MatchResult result2 = ObjectBuilder.matchResult().withMatch(secondMatch).build();
 
         boolean result = result1.equals(result2);
         assertFalse(result);
@@ -69,8 +68,8 @@ public class MatchResultTest {
 
     @Test
     public void hashCode_whenCalled_returnsHashCode() {
-        MatchResult matchResult1 = LogicTestUtil.makeDefaultMatchResult();
-        MatchResult matchResult2 = LogicTestUtil.makeDefaultMatchResult();
+        MatchResult matchResult1 = ObjectBuilder.matchResult().build();
+        MatchResult matchResult2 = ObjectBuilder.matchResult().build();
 
         boolean result = matchResult1.hashCode() == matchResult2.hashCode();
         assertTrue(result);
@@ -78,7 +77,7 @@ public class MatchResultTest {
 
     @Test
     public void getId_whenCalled_returnsId() {
-        MatchResult result = LogicTestUtil.makeDefaultMatchResult();
+        MatchResult result = ObjectBuilder.matchResult().withId(LogicConstants.INTERNAL_ID).build();
 
         int expected = LogicConstants.INTERNAL_ID;
         int actual = result.getId();
@@ -88,9 +87,9 @@ public class MatchResultTest {
 
     @Test
     public void getMatch_whenCalled_returnsMatch() {
-        MatchResult result = LogicTestUtil.makeDefaultMatchResult();
+        MatchResult result = ObjectBuilder.matchResult().withMatch(ObjectBuilder.match().build()).build();
 
-        Match expected = LogicTestUtil.makeDefaultMatch();
+        Match expected = ObjectBuilder.match().build();
         Match actual = result.getMatch();
 
         assertEquals(expected, actual);
