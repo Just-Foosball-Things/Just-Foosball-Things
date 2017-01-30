@@ -33,4 +33,12 @@ public final class ObjectBuilder {
         return new TitleBuilder();
     }
 
+    public static class Statistic {
+
+        public static TitleStatisticBuilder title() {
+            return new TitleStatisticBuilder();
+        }
+
+    }
+
 }

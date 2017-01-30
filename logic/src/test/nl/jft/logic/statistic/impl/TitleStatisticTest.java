@@ -2,12 +2,13 @@ package nl.jft.logic.statistic.impl;
 
 import nl.jft.logic.participant.Title;
 import nl.jft.logic.statistic.Statistic;
-import nl.jft.logic.util.LogicTestUtil;
+import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -22,7 +23,7 @@ public class TitleStatisticTest {
 
     @Test
     public void getType_whenCalled_returnsSameClass() {
-        TitleStatistic statistic = LogicTestUtil.makeDefaultTitleStatistic();
+        TitleStatistic statistic = ObjectBuilder.Statistic.title().build();
 
         Class<? extends Statistic> expected = TitleStatistic.class;
         Class<? extends Statistic> actual = statistic.getType();
@@ -34,20 +35,18 @@ public class TitleStatisticTest {
     public void addTitle_nullTitle_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        TitleStatistic statistic = LogicTestUtil.makeDefaultTitleStatistic();
+        TitleStatistic statistic = ObjectBuilder.Statistic.title().build();
         statistic.addTitle(null);
     }
 
     @Test
     public void addTitle_whenCalled_addsTitle() {
-        TitleStatistic statistic = LogicTestUtil.makeDefaultTitleStatistic();
-        Title title = LogicTestUtil.makeDefaultTitle();
+        TitleStatistic statistic = ObjectBuilder.Statistic.title().build();
+        Title title = ObjectBuilder.title().build();
 
         statistic.addTitle(title);
 
-        List<Title> expected = new ArrayList<Title>() {{
-            add(title);
-        }};
+        List<Title> expected = Arrays.asList(title);
         List<Title> actual = statistic.getValues();
 
         assertEquals(expected, actual);
@@ -57,14 +56,14 @@ public class TitleStatisticTest {
     public void removeTitle_nullTitle_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        TitleStatistic statistic = LogicTestUtil.makeDefaultTitleStatistic();
+        TitleStatistic statistic = ObjectBuilder.Statistic.title().build();
         statistic.removeTitle(null);
     }
 
     @Test
     public void removeTitle_whenCalled_removesTitle() {
-        TitleStatistic statistic = LogicTestUtil.makeDefaultTitleStatistic();
-        Title title = LogicTestUtil.makeDefaultTitle();
+        TitleStatistic statistic = ObjectBuilder.Statistic.title().build();
+        Title title = ObjectBuilder.title().build();
 
         statistic.addTitle(title);
         statistic.removeTitle(title);
@@ -77,7 +76,7 @@ public class TitleStatisticTest {
 
     @Test
     public void getValues_byDefault_returnsEmptyList() {
-        TitleStatistic statistic = LogicTestUtil.makeDefaultTitleStatistic();
+        TitleStatistic statistic = ObjectBuilder.Statistic.title().build();
 
         List<Title> expected = new ArrayList<>();
         List<Title> actual = statistic.getValues();
