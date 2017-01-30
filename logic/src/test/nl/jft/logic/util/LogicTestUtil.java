@@ -1,7 +1,5 @@
 package nl.jft.logic.util;
 
-import nl.jft.common.rating.Rating;
-import nl.jft.common.rating.glicko.GlickoRating;
 import nl.jft.logic.participant.ParticipantType;
 import nl.jft.logic.statistic.StatisticCollection;
 import nl.jft.logic.tournament.Tournament;
@@ -17,24 +15,6 @@ public final class LogicTestUtil {
 
     private LogicTestUtil() {
         throw new UnsupportedOperationException("Should not be called.");
-    }
-
-    /**
-     * Makes a {@link nl.jft.common.rating.glicko.GlickoRating} with the following properties:
-     * <li>
-     * <ul>Rating: 1500</ul>
-     * <ul>Deviation: 350</ul>
-     * <ul>Volatility: 0.06</ul>
-     * </li>
-     *
-     * @return A {@code Elo} object.
-     */
-    public static Rating makeDefaultRating() {
-        return new GlickoRating(1500, 350, 0.06);
-    }
-
-    public static Rating makeRating(double rating) {
-        return new GlickoRating(rating, 350, 0.06);
     }
 
     public static StatisticCollection makeDefaultStatisticCollection() {

@@ -2,7 +2,6 @@ package nl.jft.logic.statistic.impl;
 
 import nl.jft.common.rating.Rating;
 import nl.jft.logic.statistic.Statistic;
-import nl.jft.logic.util.LogicTestUtil;
 import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -43,11 +42,11 @@ public class RatingStatisticTest {
     @Test
     public void addMatchResult_whenCalled_addsMatchResult() {
         RatingStatistic statistic = ObjectBuilder.Statistic.rating().build();
-        Rating rating = LogicTestUtil.makeDefaultRating();
+        Rating rating = ObjectBuilder.Rating.glickoRating().build();
 
         statistic.addRating(rating);
 
-        List<Rating> expected = Arrays.asList(LogicTestUtil.makeDefaultRating());
+        List<Rating> expected = Arrays.asList(ObjectBuilder.Rating.glickoRating().build());
         List<Rating> actual = statistic.getValues();
 
         assertEquals(expected, actual);
@@ -64,7 +63,7 @@ public class RatingStatisticTest {
     @Test
     public void removeMatchResult_whenCalled_removesMatchResult() {
         RatingStatistic statistic = ObjectBuilder.Statistic.rating().build();
-        Rating rating = LogicTestUtil.makeDefaultRating();
+        Rating rating = ObjectBuilder.Rating.glickoRating().build();
 
         statistic.addRating(rating);
         statistic.removeRating(rating);

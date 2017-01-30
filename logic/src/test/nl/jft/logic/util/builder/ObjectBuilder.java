@@ -53,4 +53,12 @@ public final class ObjectBuilder {
 
     }
 
+    public static class Rating {
+
+        public static GlickoRatingBuilder glickoRating() {
+            return new GlickoRatingBuilder();
+        }
+
+    }
+
 }

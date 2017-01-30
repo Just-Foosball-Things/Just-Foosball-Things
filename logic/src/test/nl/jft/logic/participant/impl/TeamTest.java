@@ -2,7 +2,6 @@ package nl.jft.logic.participant.impl;
 
 import nl.jft.common.rating.Rating;
 import nl.jft.logic.LogicConstants;
-import nl.jft.logic.util.LogicTestUtil;
 import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -157,9 +156,9 @@ public class TeamTest {
 
     @Test
     public void getRating_whenCalled_returnsRating() {
-        Team team = ObjectBuilder.team().withRating(LogicTestUtil.makeDefaultRating()).build();
+        Team team = ObjectBuilder.team().withRating(ObjectBuilder.Rating.glickoRating().build()).build();
 
-        Rating expected = LogicTestUtil.makeDefaultRating();
+        Rating expected = ObjectBuilder.Rating.glickoRating().build();
         Rating actual = team.getRating();
 
         assertEquals(expected, actual);

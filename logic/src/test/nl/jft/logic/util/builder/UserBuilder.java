@@ -4,7 +4,6 @@ import nl.jft.common.rating.Rating;
 import nl.jft.logic.LogicConstants;
 import nl.jft.logic.participant.Title;
 import nl.jft.logic.participant.impl.User;
-import nl.jft.logic.util.LogicTestUtil;
 
 /**
  * @author Lesley
@@ -19,7 +18,7 @@ public final class UserBuilder {
     public UserBuilder() {
         id = LogicConstants.INTERNAL_ID;
         username = "username";
-        rating = LogicTestUtil.makeDefaultRating();
+        rating = ObjectBuilder.Rating.glickoRating().build();
         title = ObjectBuilder.title().build();
     }
 

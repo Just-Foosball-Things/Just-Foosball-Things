@@ -3,7 +3,6 @@ package nl.jft.logic.participant.impl;
 import nl.jft.common.rating.Rating;
 import nl.jft.logic.LogicConstants;
 import nl.jft.logic.participant.Title;
-import nl.jft.logic.util.LogicTestUtil;
 import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Rule;
 import org.junit.Test;
@@ -105,9 +104,9 @@ public class UserTest {
 
     @Test
     public void getRating_whenCalled_returnsRating() {
-        User user = ObjectBuilder.user().withRating(LogicTestUtil.makeDefaultRating()).build();
+        User user = ObjectBuilder.user().withRating(ObjectBuilder.Rating.glickoRating().build()).build();
 
-        Rating expected = LogicTestUtil.makeDefaultRating();
+        Rating expected = ObjectBuilder.Rating.glickoRating().build();
         Rating actual = user.getRating();
 
         assertEquals(expected, actual);
