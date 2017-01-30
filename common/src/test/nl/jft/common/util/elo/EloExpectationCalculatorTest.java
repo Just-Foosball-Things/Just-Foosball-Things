@@ -25,51 +25,51 @@ public class EloExpectationCalculatorTest {
     public void construct_nullLoader_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        EloCalculationStrategy strategy = mock(EloCalculationStrategy.class);
+        EloCalculationStrategy stubStrategy = mock(EloCalculationStrategy.class);
 
-        EloExpectationCalculator calculator = new EloExpectationCalculator(null, strategy);
+        EloExpectationCalculator calculator = new EloExpectationCalculator(null, stubStrategy);
     }
 
     @Test
     public void construct_nullStrategy_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        EloExpectationLoader loader = mock(EloExpectationLoader.class);
+        EloExpectationLoader stubLoader = mock(EloExpectationLoader.class);
 
-        EloExpectationCalculator calculator = new EloExpectationCalculator(loader, null);
+        EloExpectationCalculator calculator = new EloExpectationCalculator(stubLoader, null);
     }
 
     @Test
     public void calculate_whenCalled_checksLoader() throws Exception {
-        EloExpectationLoader loader = mock(EloExpectationLoader.class);
-        EloCalculationStrategy strategy = mock(EloCalculationStrategy.class);
-        EloExpectationCalculator calculator = new EloExpectationCalculator(loader, strategy);
+        EloExpectationLoader mockLoader = mock(EloExpectationLoader.class);
+        EloCalculationStrategy stubStrategy = mock(EloCalculationStrategy.class);
+        EloExpectationCalculator calculator = new EloExpectationCalculator(mockLoader, stubStrategy);
 
         calculator.calculate();
 
-        verify(loader).load();
+        verify(mockLoader).load();
     }
 
     @Test
     public void calculate_whenCalled_checksStrategy() throws Exception {
-        EloExpectationLoader loader = mock(EloExpectationLoader.class);
-        EloCalculationStrategy strategy = mock(EloCalculationStrategy.class);
-        EloExpectationCalculator calculator = new EloExpectationCalculator(loader, strategy);
+        EloExpectationLoader stubLoader = mock(EloExpectationLoader.class);
+        EloCalculationStrategy mockStrategy = mock(EloCalculationStrategy.class);
+        EloExpectationCalculator calculator = new EloExpectationCalculator(stubLoader, mockStrategy);
 
-        when(loader.load()).thenReturn(new ArrayList<EloExpectation>() {{
+        when(stubLoader.load()).thenReturn(new ArrayList<EloExpectation>() {{
             add(CommonTestUtil.getDefaultExpectation());
         }});
 
         calculator.calculate();
 
-        verify(strategy, times(2)).calculateNewRating(anyDouble(), anyDouble(), anyInt(), anyInt(), anyInt());
+        verify(mockStrategy, times(2)).calculateNewRating(anyDouble(), anyDouble(), anyInt(), anyInt(), anyInt());
     }
 
     @Test
     public void calculate_whenCalled_returnsNonEmptyList() throws Exception {
-        EloExpectationLoader loader = mock(EloExpectationLoader.class);
-        EloCalculationStrategy strategy = mock(EloCalculationStrategy.class);
-        EloExpectationCalculator calculator = new EloExpectationCalculator(loader, strategy);
+        EloExpectationLoader stubLoader = mock(EloExpectationLoader.class);
+        EloCalculationStrategy stubStrategy = mock(EloCalculationStrategy.class);
+        EloExpectationCalculator calculator = new EloExpectationCalculator(stubLoader, stubStrategy);
 
         List<EloExpectationResult> results = calculator.calculate();
 

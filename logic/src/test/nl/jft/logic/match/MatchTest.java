@@ -48,11 +48,11 @@ public class MatchTest {
     @Test
     public void addListener_whenCalled_addsListener() {
         Match match = LogicTestUtil.makeDefaultMatch();
-        MatchListener listener = mock(MatchListener.class);
+        MatchListener stubListener = mock(MatchListener.class);
 
-        match.addListener(listener);
+        match.addListener(stubListener);
 
-        List<MatchListener> expected = Arrays.asList(listener);
+        List<MatchListener> expected = Arrays.asList(stubListener);
         List<MatchListener> actual = match.getListeners();
 
         assertEquals(expected, actual);
@@ -70,10 +70,10 @@ public class MatchTest {
     @Test
     public void removeListener_whenCalled_removesListener() {
         Match match = LogicTestUtil.makeDefaultMatch();
-        MatchListener listener = mock(MatchListener.class);
+        MatchListener stubListener = mock(MatchListener.class);
 
-        match.addListener(listener);
-        match.removeListener(listener);
+        match.addListener(stubListener);
+        match.removeListener(stubListener);
 
         List<MatchListener> expected = new ArrayList<>();
         List<MatchListener> actual = match.getListeners();
@@ -95,12 +95,12 @@ public class MatchTest {
     @Test
     public void start_whenCalled_callsListener() {
         Match match = LogicTestUtil.makeDefaultMatch();
-        MatchListener listener = mock(MatchListener.class);
+        MatchListener mockListener = mock(MatchListener.class);
 
-        match.addListener(listener);
+        match.addListener(mockListener);
         match.start();
 
-        verify(listener).onMatchStatusChanged(argThat(e -> e.getMatch() == match
+        verify(mockListener).onMatchStatusChanged(argThat(e -> e.getMatch() == match
                 && e.getNewStatus() == MatchStatus.IN_PROGRESS
                 && e.getOldStatus() == MatchStatus.SETUP));
     }
@@ -108,13 +108,13 @@ public class MatchTest {
     @Test
     public void stop_whenCalled_callsListener() {
         Match match = LogicTestUtil.makeDefaultMatch();
-        MatchListener listener = mock(MatchListener.class);
+        MatchListener mockListener = mock(MatchListener.class);
 
-        match.addListener(listener);
+        match.addListener(mockListener);
         match.start();
         match.stop();
 
-        verify(listener).onMatchStatusChanged(argThat(e -> e.getMatch() == match
+        verify(mockListener).onMatchStatusChanged(argThat(e -> e.getMatch() == match
                 && e.getNewStatus() == MatchStatus.FINISHED
                 && e.getOldStatus() == MatchStatus.IN_PROGRESS));
     }
@@ -195,12 +195,12 @@ public class MatchTest {
     public void addGoal_whenCalled_callsListener() {
         Match match = LogicTestUtil.makeDefaultMatch();
         Goal goal = LogicTestUtil.makeGoalWithUser();
-        MatchListener listener = mock(MatchListener.class);
+        MatchListener mockListener = mock(MatchListener.class);
 
-        match.addListener(listener);
+        match.addListener(mockListener);
         match.addGoal(goal);
 
-        verify(listener).onGoalScored(argThat(e -> e.getMatch() == match && e.getGoal() == goal));
+        verify(mockListener).onGoalScored(argThat(e -> e.getMatch() == match && e.getGoal() == goal));
     }
 
     @Test
@@ -229,13 +229,13 @@ public class MatchTest {
     public void removeGoal_whenCalled_callsListener() {
         Match match = LogicTestUtil.makeDefaultMatch();
         Goal goal = LogicTestUtil.makeGoalWithUser();
-        MatchListener listener = mock(MatchListener.class);
+        MatchListener mockListener = mock(MatchListener.class);
 
-        match.addListener(listener);
+        match.addListener(mockListener);
         match.addGoal(goal);
         match.removeGoal(goal);
 
-        verify(listener).onGoalRemoved(argThat(e -> e.getMatch() == match && e.getGoal() == goal));
+        verify(mockListener).onGoalRemoved(argThat(e -> e.getMatch() == match && e.getGoal() == goal));
     }
 
     @Test
