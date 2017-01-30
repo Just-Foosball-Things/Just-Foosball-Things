@@ -3,6 +3,7 @@ package nl.jft.logic.match;
 import nl.jft.logic.match.event.MatchListener;
 import nl.jft.logic.participant.Participant;
 import nl.jft.logic.util.LogicTestUtil;
+import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
@@ -27,27 +28,27 @@ public class MatchTest {
     public void construct_nullFirstParticipant_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Match match = LogicTestUtil.makeMatch(null, LogicTestUtil.makeDefaultUser());
+        Match match = ObjectBuilder.match().withFirstParticipant(null).build();
     }
 
     @Test
     public void construct_nullSecondParticipant_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Match match = LogicTestUtil.makeMatch(LogicTestUtil.makeDefaultUser(), null);
+        Match match = ObjectBuilder.match().withSecondParticipant(null).build();
     }
 
     @Test
     public void addListener_nullListener_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         match.addListener(null);
     }
 
     @Test
     public void addListener_whenCalled_addsListener() {
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         MatchListener stubListener = mock(MatchListener.class);
 
         match.addListener(stubListener);
@@ -62,14 +63,14 @@ public class MatchTest {
     public void removeListener_nullListener_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         match.removeListener(null);
     }
 
 
     @Test
     public void removeListener_whenCalled_removesListener() {
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         MatchListener stubListener = mock(MatchListener.class);
 
         match.addListener(stubListener);
@@ -83,7 +84,7 @@ public class MatchTest {
 
     @Test
     public void start_whenCalled_startsMatch() {
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         match.start();
 
         MatchStatus expected = MatchStatus.IN_PROGRESS;
@@ -94,7 +95,7 @@ public class MatchTest {
 
     @Test
     public void start_whenCalled_callsListener() {
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         MatchListener mockListener = mock(MatchListener.class);
 
         match.addListener(mockListener);
@@ -107,7 +108,7 @@ public class MatchTest {
 
     @Test
     public void stop_whenCalled_callsListener() {
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         MatchListener mockListener = mock(MatchListener.class);
 
         match.addListener(mockListener);
@@ -123,7 +124,7 @@ public class MatchTest {
     public void start_matchInProgress_throwsException() {
         expectedException.expect(IllegalStateException.class);
 
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         match.start();
         match.start();
     }
@@ -132,7 +133,7 @@ public class MatchTest {
     public void start_matchFinished_throwsException() {
         expectedException.expect(IllegalStateException.class);
 
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         match.start();
         match.stop();
         match.start();
@@ -140,7 +141,7 @@ public class MatchTest {
 
     @Test
     public void stop_whenCalled_stopsMatch() {
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         match.start();
         match.stop();
 
@@ -154,7 +155,7 @@ public class MatchTest {
     public void stop_matchSetup_throwsException() {
         expectedException.expect(IllegalStateException.class);
 
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         match.stop();
     }
 
@@ -162,7 +163,7 @@ public class MatchTest {
     public void stop_matchFinished_throwsException() {
         expectedException.expect(IllegalStateException.class);
 
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         match.start();
         match.stop();
         match.stop();
@@ -172,14 +173,14 @@ public class MatchTest {
     public void addGoal_nullGoal_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         match.addGoal(null);
     }
 
     @Test
     public void addGoal_whenCalled_addsGoal() {
-        Match match = LogicTestUtil.makeDefaultMatch();
-        Goal goal = LogicTestUtil.makeGoalWithUser();
+        Match match = ObjectBuilder.match().build();
+        Goal goal = ObjectBuilder.goal().build();
 
         match.addGoal(goal);
 
@@ -193,8 +194,8 @@ public class MatchTest {
 
     @Test
     public void addGoal_whenCalled_callsListener() {
-        Match match = LogicTestUtil.makeDefaultMatch();
-        Goal goal = LogicTestUtil.makeGoalWithUser();
+        Match match = ObjectBuilder.match().build();
+        Goal goal = ObjectBuilder.goal().build();
         MatchListener mockListener = mock(MatchListener.class);
 
         match.addListener(mockListener);
@@ -207,14 +208,14 @@ public class MatchTest {
     public void removeGoal_nullGoal_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         match.removeGoal(null);
     }
 
     @Test
     public void removeGoal_whenCalled_removesGoal() {
-        Match match = LogicTestUtil.makeDefaultMatch();
-        Goal goal = LogicTestUtil.makeGoalWithUser();
+        Match match = ObjectBuilder.match().build();
+        Goal goal = ObjectBuilder.goal().build();
 
         match.addGoal(goal);
         match.removeGoal(goal);
@@ -227,8 +228,8 @@ public class MatchTest {
 
     @Test
     public void removeGoal_whenCalled_callsListener() {
-        Match match = LogicTestUtil.makeDefaultMatch();
-        Goal goal = LogicTestUtil.makeGoalWithUser();
+        Match match = ObjectBuilder.match().build();
+        Goal goal = ObjectBuilder.goal().build();
         MatchListener mockListener = mock(MatchListener.class);
 
         match.addListener(mockListener);
@@ -242,13 +243,13 @@ public class MatchTest {
     public void addRule_nullRule_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         match.addRule(null);
     }
 
     @Test
     public void addRule_whenCalled_addsRule() {
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         Rule rule = LogicTestUtil.makeDefaultRule();
 
         match.addRule(rule);
@@ -265,13 +266,13 @@ public class MatchTest {
     public void removeRule_nullRule_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         match.removeRule(null);
     }
 
     @Test
     public void removeRule_whenCalled_removesRule() {
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         Rule rule = LogicTestUtil.makeDefaultRule();
 
         match.addRule(rule);
@@ -285,8 +286,8 @@ public class MatchTest {
 
     @Test
     public void equals_sameObjects_returnsTrue() {
-        Match match1 = LogicTestUtil.makeDefaultMatch();
-        Match match2 = LogicTestUtil.makeDefaultMatch();
+        Match match1 = ObjectBuilder.match().build();
+        Match match2 = ObjectBuilder.match().build();
 
         boolean result = match1.equals(match2);
         assertTrue(result);
@@ -294,17 +295,12 @@ public class MatchTest {
 
     @Test
     public void equals_otherMatch_returnsFalse() throws Exception {
-        Match match1 = LogicTestUtil.makeDefaultMatch();
-        Match match2 = LogicTestUtil.makeMatch(LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultTeam());
+        Participant participant1 = ObjectBuilder.user().withUsername("user1").build();
+        Participant participant2 = ObjectBuilder.user().withUsername("user2").build();
+        Participant participant3 = ObjectBuilder.user().withUsername("user3").build();
 
-        boolean result = match1.equals(match2);
-        assertFalse(result);
-    }
-
-    @Test
-    public void equals_otherObject_returnsFalse() {
-        Match match1 = LogicTestUtil.makeDefaultMatch();
-        String match2 = "match2";
+        Match match1 = ObjectBuilder.match().withFirstParticipant(participant1).withSecondParticipant(participant2).build();
+        Match match2 = ObjectBuilder.match().withFirstParticipant(participant2).withSecondParticipant(participant3).build();
 
         boolean result = match1.equals(match2);
         assertFalse(result);
@@ -312,7 +308,7 @@ public class MatchTest {
 
     @Test
     public void equals_nullObject_returnsFalse() {
-        Match match1 = LogicTestUtil.makeDefaultMatch();
+        Match match1 = ObjectBuilder.match().build();
         Match match2 = null;
 
         boolean result = match1.equals(match2);
@@ -321,8 +317,8 @@ public class MatchTest {
 
     @Test
     public void hashCode_whenCalled_returnsHashCode() {
-        Match match1 = LogicTestUtil.makeDefaultMatch();
-        Match match2 = LogicTestUtil.makeDefaultMatch();
+        Match match1 = ObjectBuilder.match().build();
+        Match match2 = ObjectBuilder.match().build();
 
         boolean result = match1.hashCode() == match2.hashCode();
         assertTrue(result);
@@ -330,7 +326,7 @@ public class MatchTest {
 
     @Test
     public void getStatus_byDefault_returnsSetup() {
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
 
         MatchStatus expected = MatchStatus.SETUP;
         MatchStatus actual = match.getStatus();
@@ -340,9 +336,9 @@ public class MatchTest {
 
     @Test
     public void getFirstParticipant_whenCalled_returnsFirstParticipant() {
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().withFirstParticipant(ObjectBuilder.user().build()).build();
 
-        Participant expected = LogicTestUtil.makeDefaultUser();
+        Participant expected = ObjectBuilder.user().build();
         Participant actual = match.getFirstParticipant();
 
         assertEquals(expected, actual);
@@ -350,9 +346,9 @@ public class MatchTest {
 
     @Test
     public void getSecondParticipant_whenCalled_returnsSecondParticipant() {
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().withSecondParticipant(ObjectBuilder.user().build()).build();
 
-        Participant expected = LogicTestUtil.makeDefaultUser();
+        Participant expected = ObjectBuilder.user().build();
         Participant actual = match.getSecondParticipant();
 
         assertEquals(expected, actual);

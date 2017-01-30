@@ -5,7 +5,6 @@ import nl.jft.common.rating.glicko.GlickoRating;
 import nl.jft.logic.match.Match;
 import nl.jft.logic.match.MatchResult;
 import nl.jft.logic.match.Rule;
-import nl.jft.logic.participant.Participant;
 import nl.jft.logic.participant.ParticipantType;
 import nl.jft.logic.participant.Title;
 import nl.jft.logic.statistic.StatisticCollection;
@@ -99,23 +98,6 @@ public final class LogicTestUtil {
 
     public static RatingStatistic makeDefaultRatingStatistic() {
         return new RatingStatistic();
-    }
-
-    /**
-     * Makes a {@code Match} with the following properties:
-     * <li>
-     * <ul>First Participant: {@link #makeDefaultUser()}</ul>
-     * <ul>Second Participant: {@link #makeDefaultUser()}</ul>
-     * </li>
-     *
-     * @return A {@code Match} object.
-     */
-    public static Match makeDefaultMatch() {
-        return makeMatch(makeDefaultUser(), makeDefaultUser());
-    }
-
-    public static Match makeMatch(Participant firstParticipant, Participant secondParticipant) {
-        return new Match(firstParticipant, secondParticipant);
     }
 
     /**

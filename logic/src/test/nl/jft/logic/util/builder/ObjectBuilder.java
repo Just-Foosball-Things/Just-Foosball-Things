@@ -21,4 +21,8 @@ public final class ObjectBuilder {
         return new GoalBuilder();
     }
 
+    public static MatchBuilder match() {
+        return new MatchBuilder();
+    }
+
 }
