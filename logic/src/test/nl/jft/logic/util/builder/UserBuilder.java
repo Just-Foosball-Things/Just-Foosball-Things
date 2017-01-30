@@ -1,8 +1,10 @@
 package nl.jft.logic.util.builder;
 
 import nl.jft.common.rating.Rating;
+import nl.jft.logic.LogicConstants;
 import nl.jft.logic.participant.Title;
 import nl.jft.logic.participant.impl.User;
+import nl.jft.logic.util.LogicTestUtil;
 
 /**
  * @author Lesley
@@ -13,6 +15,13 @@ public final class UserBuilder {
     private String username;
     private Rating rating;
     private Title title;
+
+    public UserBuilder() {
+        id = LogicConstants.INTERNAL_ID;
+        username = "username";
+        rating = LogicTestUtil.makeDefaultRating();
+        title = LogicTestUtil.makeDefaultTitle();
+    }
 
     public UserBuilder withId(int id) {
         this.id = id;
