@@ -140,12 +140,12 @@ public class TeamTest {
     }
 
     @Test
-    public void getElo_whenCalled_returnsElo() {
-        Rating firstElo = LogicTestUtil.makeRating(1500);
-        Rating secondElo = LogicTestUtil.makeRating(2000);
+    public void getRating_whenCalled_returnsRating() {
+        Rating firstRating = LogicTestUtil.makeRating(1500);
+        Rating secondRating = LogicTestUtil.makeRating(2000);
 
-        User firstUser = LogicTestUtil.makeUser("user1", firstElo, LogicTestUtil.makeDefaultTitle());
-        User secondUser = LogicTestUtil.makeUser("user2", secondElo, LogicTestUtil.makeDefaultTitle());
+        User firstUser = LogicTestUtil.makeUser("user1", firstRating, LogicTestUtil.makeDefaultTitle());
+        User secondUser = LogicTestUtil.makeUser("user2", secondRating, LogicTestUtil.makeDefaultTitle());
         Team team = LogicTestUtil.makeTeam("team", firstUser, secondUser);
 
         Rating expected = LogicTestUtil.makeRating(1750);
