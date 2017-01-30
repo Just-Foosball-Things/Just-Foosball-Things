@@ -39,6 +39,10 @@ public final class ObjectBuilder {
             return new TitleStatisticBuilder();
         }
 
+        public static MatchStatisticBuilder match() {
+            return new MatchStatisticBuilder();
+        }
+
     }
 
 }
