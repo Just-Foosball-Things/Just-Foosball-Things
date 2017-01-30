@@ -12,6 +12,7 @@
     <modules>
         <module>logic</module>
         <module>common</module>
+        <module>database</module>
     </modules>
 
     <dependencies>
