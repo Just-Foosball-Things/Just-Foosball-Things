@@ -22,28 +22,36 @@ public class TeamTest {
     public void construct_nullTeamName_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Team team = LogicTestUtil.makeTeam(LogicConstants.INTERNAL_ID, null, LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser());
+        Team team = LogicTestUtil.makeTeam(LogicConstants.INTERNAL_ID, null, LogicTestUtil.makeDefaultRating(), LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser());
     }
 
     @Test
     public void construct_emptyTeamName_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
-        Team team = LogicTestUtil.makeTeam(LogicConstants.INTERNAL_ID, "", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser());
+        Team team = LogicTestUtil.makeTeam(LogicConstants.INTERNAL_ID, "", LogicTestUtil.makeDefaultRating(), LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser());
     }
+
+    @Test
+    public void construct_nullRating_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Team team = LogicTestUtil.makeTeam(LogicConstants.INTERNAL_ID, "name", null, LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser());
+    }
+
 
     @Test
     public void construct_nullFirstUser_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Team team = LogicTestUtil.makeTeam("team", null, LogicTestUtil.makeDefaultUser());
+        Team team = LogicTestUtil.makeTeam("team", LogicTestUtil.makeDefaultRating(), null, LogicTestUtil.makeDefaultUser());
     }
 
     @Test
     public void construct_nullSecondUser_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Team team = LogicTestUtil.makeTeam("team", LogicTestUtil.makeDefaultUser(), null);
+        Team team = LogicTestUtil.makeTeam("team", LogicTestUtil.makeDefaultRating(), LogicTestUtil.makeDefaultUser(), null);
     }
 
     @Test
@@ -53,7 +61,7 @@ public class TeamTest {
         User user1 = LogicTestUtil.makeDefaultUser();
         User user2 = LogicTestUtil.makeDefaultUser();
 
-        Team team = LogicTestUtil.makeTeam("team", user1, user2);
+        Team team = LogicTestUtil.makeTeam("team", LogicTestUtil.makeDefaultRating(), user1, user2);
     }
 
     @Test
@@ -76,8 +84,8 @@ public class TeamTest {
 
     @Test
     public void equals_differentIds_returnsFalse() {
-        Team team1 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
-        Team team2 = LogicTestUtil.makeTeam(2, "team", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
+        Team team1 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultRating(), LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
+        Team team2 = LogicTestUtil.makeTeam(2, "team", LogicTestUtil.makeDefaultRating(), LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
 
         boolean result = team1.equals(team2);
         assertFalse(result);
@@ -85,8 +93,8 @@ public class TeamTest {
 
     @Test
     public void equals_differentTeamNames_returnsFalse() {
-        Team team1 = LogicTestUtil.makeTeam(1, "team1", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
-        Team team2 = LogicTestUtil.makeTeam(1, "team2s", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
+        Team team1 = LogicTestUtil.makeTeam(1, "team1", LogicTestUtil.makeDefaultRating(), LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
+        Team team2 = LogicTestUtil.makeTeam(1, "team2s", LogicTestUtil.makeDefaultRating(), LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
 
         boolean result = team1.equals(team2);
         assertFalse(result);
@@ -94,8 +102,8 @@ public class TeamTest {
 
     @Test
     public void equals_differentFirstUser_returnsFalse() {
-        Team team1 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser3());
-        Team team2 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultUser2(), LogicTestUtil.makeDefaultUser3());
+        Team team1 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultRating(), LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser3());
+        Team team2 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultRating(), LogicTestUtil.makeDefaultUser2(), LogicTestUtil.makeDefaultUser3());
 
         boolean result = team1.equals(team2);
         assertFalse(result);
@@ -103,8 +111,8 @@ public class TeamTest {
 
     @Test
     public void equals_differentSecondUser_returnsFalse() {
-        Team team1 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
-        Team team2 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser3());
+        Team team1 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultRating(), LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser2());
+        Team team2 = LogicTestUtil.makeTeam(1, "team", LogicTestUtil.makeDefaultRating(), LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultUser3());
 
         boolean result = team1.equals(team2);
         assertFalse(result);
@@ -146,9 +154,9 @@ public class TeamTest {
 
         User firstUser = LogicTestUtil.makeUser("user1", firstRating, LogicTestUtil.makeDefaultTitle());
         User secondUser = LogicTestUtil.makeUser("user2", secondRating, LogicTestUtil.makeDefaultTitle());
-        Team team = LogicTestUtil.makeTeam("team", firstUser, secondUser);
+        Team team = LogicTestUtil.makeTeam("team", LogicTestUtil.makeDefaultRating(), firstUser, secondUser);
 
-        Rating expected = LogicTestUtil.makeRating(1750);
+        Rating expected = LogicTestUtil.makeRating(1500);
         Rating actual = team.getRating();
 
         assertEquals(expected, actual);

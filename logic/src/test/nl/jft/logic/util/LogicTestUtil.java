@@ -74,15 +74,15 @@ public final class LogicTestUtil {
      * @return A {@code Team} object.
      */
     public static Team makeDefaultTeam() {
-        return makeTeam("team", makeDefaultUser(), makeDefaultUser2());
+        return makeTeam("team", makeDefaultRating(), makeDefaultUser(), makeDefaultUser2());
     }
 
-    public static Team makeTeam(int id, String teamName, User firstUser, User secondUser) {
-        return new Team(id, teamName, firstUser, secondUser);
+    public static Team makeTeam(int id, String teamName, Rating rating, User firstUser, User secondUser) {
+        return new Team(id, teamName, rating, firstUser, secondUser);
     }
 
-    public static Team makeTeam(String teamName, User firstUser, User secondUser) {
-        return new Team(teamName, firstUser, secondUser);
+    public static Team makeTeam(String teamName, Rating rating, User firstUser, User secondUser) {
+        return new Team(teamName, rating, firstUser, secondUser);
     }
 
     /**

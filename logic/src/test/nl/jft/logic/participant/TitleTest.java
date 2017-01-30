@@ -1,8 +1,6 @@
 package nl.jft.logic.participant;
 
 import nl.jft.logic.LogicConstants;
-import nl.jft.logic.participant.impl.Team;
-import nl.jft.logic.participant.impl.User;
 import nl.jft.logic.util.LogicTestUtil;
 import org.junit.Rule;
 import org.junit.Test;
@@ -44,16 +42,6 @@ public class TitleTest {
         expectedException.expect(IllegalArgumentException.class);
 
         Title title = LogicTestUtil.makeTitle(LogicConstants.INTERNAL_ID, "");
-    }
-
-    @Test
-    public void construct_sameUsers_throwsException() {
-        expectedException.expect(IllegalArgumentException.class);
-
-        User user1 = LogicTestUtil.makeDefaultUser();
-        User user2 = LogicTestUtil.makeDefaultUser();
-
-        Team team = LogicTestUtil.makeTeam("team", user1, user2);
     }
 
     @Test

@@ -20,21 +20,23 @@ public class Team implements Participant {
     private final int id;
     private final String teamName;
 
+    private final Rating rating;
     private final User firstUser;
     private final User secondUser;
 
     /**
-     * Creates a new {@code Team} by invoking an other constructor ({@link #Team(int, String, User, User)}.
+     * Creates a new {@code Team} by invoking an other constructor ({@link #Team(int, String, Rating, User, User)}.
      *
      * @param teamName   The {@code name} of the {@code Team}. Cannot be {@code null} or an empty {@code String}.
+     * @param rating     The {@code Rating} of this {@code Team}, should not be {@code null}.
      * @param firstUser  The first {@link User} in this {@code Team}, should be {@code null}.
      * @param secondUser The second {@code User} in this {@code Team}, should be {@code null}.
      * @throws NullPointerException     If {@code firstUser} is {@code null}.
      * @throws NullPointerException     If {@code secondUser} is {@code null}.
      * @throws IllegalArgumentException If given {@code Users} are the same.
      */
-    public Team(String teamName, User firstUser, User secondUser) {
-        this(LogicConstants.INTERNAL_ID, teamName, firstUser, secondUser);
+    public Team(String teamName, Rating rating, User firstUser, User secondUser) {
+        this(LogicConstants.INTERNAL_ID, teamName, rating, firstUser, secondUser);
     }
 
     /**
@@ -42,15 +44,17 @@ public class Team implements Participant {
      *
      * @param id         The {@code Id} of the {@code team} in the database.
      * @param teamName   The {@code name} of the {@code Team}. Cannot be {@code null} or an empty {@code String}.
+     * @param rating     The {@code Rating} of this {@code Team}, should not be {@code null}.
      * @param firstUser  The first {@link User} in this {@code Team}, should be {@code null}.
      * @param secondUser The second {@code User} in this {@code Team}, should be {@code null}.
      * @throws NullPointerException     If {@code firstUser} is {@code null}.
      * @throws NullPointerException     If {@code secondUser} is {@code null}.
      * @throws IllegalArgumentException If given {@code Users} are the same.
      */
-    public Team(int id, String teamName, User firstUser, User secondUser) {
+    public Team(int id, String teamName, Rating rating, User firstUser, User secondUser) {
         this.id = id;
         this.teamName = Arguments.requireNotEmpty(teamName);
+        this.rating = Objects.requireNonNull(rating);
         this.firstUser = Objects.requireNonNull(firstUser);
         this.secondUser = Objects.requireNonNull(secondUser);
 
@@ -92,7 +96,7 @@ public class Team implements Participant {
 
     @Override
     public Rating getRating() {
-        return null;
+        return rating;
     }
 
 }
