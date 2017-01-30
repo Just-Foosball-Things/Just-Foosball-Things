@@ -2,7 +2,6 @@ package nl.jft.logic.util;
 
 import nl.jft.common.rating.Rating;
 import nl.jft.common.rating.glicko.GlickoRating;
-import nl.jft.logic.match.Goal;
 import nl.jft.logic.match.Match;
 import nl.jft.logic.match.MatchResult;
 import nl.jft.logic.match.Rule;
@@ -46,57 +45,6 @@ public final class LogicTestUtil {
      */
     public static LocalDateTime makeDefaultLocalDateTime() {
         return LocalDateTime.of(2017, Month.JANUARY, 1, 12, 1, 1);
-    }
-
-    /**
-     * Makes a {@code Goal} with the following properties:
-     * <li>
-     * <ul>Id: -1</ul>
-     * <ul>Participant: {@code null}</ul>
-     * <ul>Time: {@link #makeDefaultLocalDateTime()}</ul>
-     * </li>
-     *
-     * @return A {@code Goal} object.
-     */
-    public static Goal makeGoalNoParticipant() {
-        return makeGoal(null, makeDefaultLocalDateTime());
-    }
-
-    /**
-     * Makes a {@code Goal} with the following properties:
-     * <li>
-     * <ul>Id: -1</ul>
-     * <ul>Participant: {@link #makeDefaultUser()}</ul>
-     * <ul>Time: {@link #makeDefaultLocalDateTime()}</ul>
-     * </li>
-     *
-     * @return A {@code Goal} object.
-     */
-    public static Goal makeGoalWithUser() {
-        return makeGoal(makeDefaultUser(), makeDefaultLocalDateTime());
-
-    }
-
-    /**
-     * Makes a {@code Goal} with the following properties:
-     * <li>
-     * <ul>Id: -1</ul>
-     * <ul>Participant: {@link nl.jft.logic.util.builder.ObjectBuilder#()} ()}</ul>
-     * <ul>Time: {@link #makeDefaultLocalDateTime()}</ul>
-     * </li>
-     *
-     * @return A {@code Goal} object.
-     */
-    public static Goal makeGoalWithTeam() {
-        return makeGoal(makeDefaultTeam(), makeDefaultLocalDateTime());
-    }
-
-    public static Goal makeGoal(int id, Participant participant, LocalDateTime time) {
-        return new Goal(id, participant, time);
-    }
-
-    public static Goal makeGoal(Participant participant, LocalDateTime time) {
-        return new Goal(participant, time);
     }
 
     /**

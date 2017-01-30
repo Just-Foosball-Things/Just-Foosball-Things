@@ -17,4 +17,8 @@ public final class ObjectBuilder {
         return new UserBuilder();
     }
 
+    public static GoalBuilder goal() {
+        return new GoalBuilder();
+    }
+
 }
