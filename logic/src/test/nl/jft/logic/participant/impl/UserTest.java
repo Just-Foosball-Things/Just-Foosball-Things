@@ -46,6 +46,35 @@ public class UserTest {
         User user = ObjectBuilder.user().withTitle(null).build();
     }
 
+
+    @Test
+    public void construct2_nullUsername_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        User user = ObjectBuilder.user().withUsername(null).build2(); // Second constructor
+    }
+
+    @Test
+    public void construct2_emptyUsername_throwsException() {
+        expectedException.expect(IllegalArgumentException.class);
+
+        User user = ObjectBuilder.user().withUsername("").build2();
+    }
+
+    @Test
+    public void construct2_nullRating_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        User user = ObjectBuilder.user().withRating(null).build2();
+    }
+
+    @Test
+    public void construct2_nullTitle_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        User user = ObjectBuilder.user().withTitle(null).build2();
+    }
+
     @Test
     public void equals_sameObjects_returnsTrue() {
         User user1 = ObjectBuilder.user().build();

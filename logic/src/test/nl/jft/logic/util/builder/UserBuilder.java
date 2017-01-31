@@ -46,4 +46,8 @@ public final class UserBuilder {
         return new User(id, username, rating, title);
     }
 
+    public User build2() {
+        return new User(username, rating, title);
+    }
+
 }
