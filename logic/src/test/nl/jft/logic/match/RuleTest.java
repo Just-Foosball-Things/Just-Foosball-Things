@@ -30,6 +30,20 @@ public class RuleTest {
     }
 
     @Test
+    public void construct2_nullDescription_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Rule rule = ObjectBuilder.rule().withDescription(null).build2();
+    }
+
+    @Test
+    public void construct2_emptyDescription_throwsException() {
+        expectedException.expect(IllegalArgumentException.class);
+
+        Rule rule = ObjectBuilder.rule().withDescription("").build2();
+    }
+
+    @Test
     public void equals_sameObjects_returnsTrue() {
         Rule rule1 = ObjectBuilder.rule().build();
         Rule rule2 = ObjectBuilder.rule().build();
