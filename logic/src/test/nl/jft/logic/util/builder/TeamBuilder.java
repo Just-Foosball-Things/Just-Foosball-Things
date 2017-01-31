@@ -53,4 +53,8 @@ public final class TeamBuilder {
         return new Team(id, teamName, rating, firstUser, secondUser);
     }
 
+    public Team build2() {
+        return new Team(teamName, rating, firstUser, secondUser);
+    }
+
 }

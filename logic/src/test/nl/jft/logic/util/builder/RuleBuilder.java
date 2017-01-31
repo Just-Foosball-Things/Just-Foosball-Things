@@ -30,4 +30,8 @@ public final class RuleBuilder {
         return new Rule(id, description);
     }
 
+    public Rule build2() {
+        return new Rule(description);
+    }
+
 }

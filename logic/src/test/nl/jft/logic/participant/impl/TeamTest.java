@@ -64,6 +64,51 @@ public class TeamTest {
     }
 
     @Test
+    public void construct2_nullTeamName_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Team team = ObjectBuilder.team().withTeamName(null).build2();
+    }
+
+    @Test
+    public void construct2_emptyTeamName_throwsException() {
+        expectedException.expect(IllegalArgumentException.class);
+
+        Team team = ObjectBuilder.team().withTeamName("").build2();
+    }
+
+    @Test
+    public void construct2_nullRating_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Team team = ObjectBuilder.team().withRating(null).build2();
+    }
+
+    @Test
+    public void construct2_nullFirstUser_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Team team = ObjectBuilder.team().withFirstUser(null).build2();
+    }
+
+    @Test
+    public void construct2_nullSecondUser_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Team team = ObjectBuilder.team().withSecondUser(null).build2();
+    }
+
+    @Test
+    public void construct2_sameUsers_throwsException() {
+        expectedException.expect(IllegalArgumentException.class);
+
+        User user1 = ObjectBuilder.user().build();
+        User user2 = ObjectBuilder.user().build();
+
+        Team team = ObjectBuilder.team().withFirstUser(user1).withSecondUser(user2).build2();
+    }
+
+    @Test
     public void equals_sameObjects_returnsTrue() {
         Team team1 = ObjectBuilder.team().build();
         Team team2 = ObjectBuilder.team().build();

@@ -31,4 +31,8 @@ public final class MatchResultBuilder {
         return new MatchResult(id, match);
     }
 
+    public MatchResult build2() {
+        return new MatchResult(match);
+    }
+
 }
