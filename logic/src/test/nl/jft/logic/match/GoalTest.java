@@ -35,8 +35,8 @@ public class GoalTest {
 
     @Test
     public void equals_sameObjects_returnsTrue() {
-        Goal goal1 = ObjectBuilder.goal().build();
-        Goal goal2 = ObjectBuilder.goal().build();
+        Goal goal1 = ObjectBuilder.goal().build2();
+        Goal goal2 = ObjectBuilder.goal().build2();
 
         boolean result = goal1.equals(goal2);
         assertTrue(result);

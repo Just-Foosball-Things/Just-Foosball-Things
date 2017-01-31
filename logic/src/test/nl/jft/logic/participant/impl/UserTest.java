@@ -77,8 +77,8 @@ public class UserTest {
 
     @Test
     public void equals_sameObjects_returnsTrue() {
-        User user1 = ObjectBuilder.user().build();
-        User user2 = ObjectBuilder.user().build();
+        User user1 = ObjectBuilder.user().build2();
+        User user2 = ObjectBuilder.user().build2();
 
         boolean result = user1.equals(user2);
         assertTrue(result);

@@ -46,8 +46,8 @@ public class TitleTest {
 
     @Test
     public void equals_sameObjects_returnsTrue() {
-        Title title1 = ObjectBuilder.title().build();
-        Title title2 = ObjectBuilder.title().build();
+        Title title1 = ObjectBuilder.title().build2();
+        Title title2 = ObjectBuilder.title().build2();
 
         boolean result = title1.equals(title2);
         assertTrue(result);

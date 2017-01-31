@@ -110,8 +110,8 @@ public class TeamTest {
 
     @Test
     public void equals_sameObjects_returnsTrue() {
-        Team team1 = ObjectBuilder.team().build();
-        Team team2 = ObjectBuilder.team().build();
+        Team team1 = ObjectBuilder.team().build2();
+        Team team2 = ObjectBuilder.team().build2();
 
         boolean result = team1.equals(team2);
         assertTrue(result);
