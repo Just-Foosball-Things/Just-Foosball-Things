@@ -1,7 +1,7 @@
 package nl.jft.logic.match;
 
 import nl.jft.logic.LogicConstants;
-import nl.jft.logic.util.LogicTestUtil;
+import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
@@ -16,37 +16,37 @@ public class RuleTest {
     public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
-    public void construct_nullDescriptionOnly_throwsException() {
-        expectedException.expect(NullPointerException.class);
-
-        Rule rule = LogicTestUtil.makeRule(null);
-    }
-
-    @Test
-    public void construct_emptyDescriptionOnly_throwsException() {
-        expectedException.expect(IllegalArgumentException.class);
-
-        Rule rule = LogicTestUtil.makeRule("");
-    }
-
-    @Test
     public void construct_nullDescription_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Rule rule = LogicTestUtil.makeRule(LogicConstants.INTERNAL_ID, null);
+        Rule rule = ObjectBuilder.rule().withDescription(null).build();
     }
 
     @Test
     public void construct_emptyDescription_throwsException() {
         expectedException.expect(IllegalArgumentException.class);
 
-        Rule rule = LogicTestUtil.makeRule(LogicConstants.INTERNAL_ID, "");
+        Rule rule = ObjectBuilder.rule().withDescription("").build();
+    }
+
+    @Test
+    public void construct2_nullDescription_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Rule rule = ObjectBuilder.rule().withDescription(null).build2();
+    }
+
+    @Test
+    public void construct2_emptyDescription_throwsException() {
+        expectedException.expect(IllegalArgumentException.class);
+
+        Rule rule = ObjectBuilder.rule().withDescription("").build2();
     }
 
     @Test
     public void equals_sameObjects_returnsTrue() {
-        Rule rule1 = LogicTestUtil.makeDefaultRule();
-        Rule rule2 = LogicTestUtil.makeDefaultRule();
+        Rule rule1 = ObjectBuilder.rule().build();
+        Rule rule2 = ObjectBuilder.rule().build();
 
         boolean result = rule1.equals(rule2);
         assertTrue(result);
@@ -54,7 +54,7 @@ public class RuleTest {
 
     @Test
     public void equals_otherInstance_returnsFalse() {
-        Rule rule1 = LogicTestUtil.makeDefaultRule();
+        Rule rule1 = ObjectBuilder.rule().build();
         Rule rule2 = null;
 
         boolean result = rule1.equals(rule2);
@@ -63,8 +63,8 @@ public class RuleTest {
 
     @Test
     public void equals_differentIds_returnsFalse() {
-        Rule rule1 = LogicTestUtil.makeRule(1, "description");
-        Rule rule2 = LogicTestUtil.makeRule(2, "description");
+        Rule rule1 = ObjectBuilder.rule().withId(1).build();
+        Rule rule2 = ObjectBuilder.rule().withId(2).build();
 
         boolean result = rule1.equals(rule2);
         assertFalse(result);
@@ -72,8 +72,8 @@ public class RuleTest {
 
     @Test
     public void equals_differentDescriptions_returnsFalse() {
-        Rule rule1 = LogicTestUtil.makeRule(1, "description1");
-        Rule rule2 = LogicTestUtil.makeRule(1, "description2");
+        Rule rule1 = ObjectBuilder.rule().withDescription("desc1").build();
+        Rule rule2 = ObjectBuilder.rule().withDescription("desc2").build();
 
         boolean result = rule1.equals(rule2);
         assertFalse(result);
@@ -81,8 +81,8 @@ public class RuleTest {
 
     @Test
     public void hashCode_whenCalled_returnsHashCode() {
-        Rule rule1 = LogicTestUtil.makeDefaultRule();
-        Rule rule2 = LogicTestUtil.makeDefaultRule();
+        Rule rule1 = ObjectBuilder.rule().build();
+        Rule rule2 = ObjectBuilder.rule().build();
 
         boolean result = rule1.hashCode() == rule2.hashCode();
         assertTrue(result);
@@ -90,7 +90,7 @@ public class RuleTest {
 
     @Test
     public void getId_whenCalled_returnsId() {
-        Rule rule = LogicTestUtil.makeDefaultRule();
+        Rule rule = ObjectBuilder.rule().withId(LogicConstants.INTERNAL_ID).build();
 
         int expected = LogicConstants.INTERNAL_ID;
         int actual = rule.getId();
@@ -100,9 +100,9 @@ public class RuleTest {
 
     @Test
     public void getDescription_whenCalled_returnsDescription() {
-        Rule rule = LogicTestUtil.makeDefaultRule();
+        Rule rule = ObjectBuilder.rule().withDescription("desc").build();
 
-        String expected = "description";
+        String expected = "desc";
         String actual = rule.getDescription();
 
         assertEquals(expected, actual);

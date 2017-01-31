@@ -1,8 +1,8 @@
 package nl.jft.logic.participant.impl;
 
+import nl.jft.common.rating.Rating;
 import nl.jft.common.util.Arguments;
 import nl.jft.logic.LogicConstants;
-import nl.jft.logic.participant.Elo;
 import nl.jft.logic.participant.Participant;
 import nl.jft.logic.participant.Title;
 
@@ -20,20 +20,20 @@ public class User implements Participant {
     private final int id;
     private final String username;
 
-    private final Elo elo;
+    private final Rating rating;
     private final Title title;
 
     /**
      * Initializes a new {@code User} by invoking an other constructor ({@link #User(int, String, Elo, Title)}.
      *
      * @param username The {@code username} of this {@code User}, should not be {@code null} or empty.
-     * @param elo      The {@code Elo}-rating of this {@code User}, should not be {@code null}.
+     * @param rating   The {@link Rating} of this {@code User}, should not be {@code null}.
      * @param title    The active {@code Title} of this {@code User}. Should not be {@code null}.
      * @throws NullPointerException     If the given {@code username} was null.
      * @throws IllegalArgumentException IF the given {@code username} was empty.
      */
-    public User(String username, Elo elo, Title title) {
-        this(LogicConstants.INTERNAL_ID, username, elo, title);
+    public User(String username, Rating rating, Title title) {
+        this(LogicConstants.INTERNAL_ID, username, rating, title);
     }
 
     /**
@@ -41,15 +41,15 @@ public class User implements Participant {
      *
      * @param id       The {@code id} of this {@code User}.
      * @param username The {@code username} of this {@code User}, should not be {@code null} or empty.
-     * @param elo      The {@code Elo}-rating of this {@code User}, should not be {@code null}.
+     * @param rating   The {@link Rating} of this {@code User}, should not be {@code null}.
      * @param title    The active {@code Title} of this {@code User}. Should not be {@code null}.
      * @throws NullPointerException     If the given {@code username} was null.
      * @throws IllegalArgumentException IF the given {@code username} was empty.
      */
-    public User(int id, String username, Elo elo, Title title) {
+    public User(int id, String username, Rating rating, Title title) {
         this.id = id;
         this.username = Arguments.requireNotEmpty(username);
-        this.elo = Objects.requireNonNull(elo);
+        this.rating = Objects.requireNonNull(rating);
         this.title = Objects.requireNonNull(title);
     }
 
@@ -76,8 +76,8 @@ public class User implements Participant {
     }
 
     @Override
-    public Elo getElo() {
-        return elo;
+    public Rating getRating() {
+        return rating;
     }
 
     @Override

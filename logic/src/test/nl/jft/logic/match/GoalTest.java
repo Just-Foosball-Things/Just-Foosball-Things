@@ -2,7 +2,7 @@ package nl.jft.logic.match;
 
 import nl.jft.logic.LogicConstants;
 import nl.jft.logic.participant.Participant;
-import nl.jft.logic.util.LogicTestUtil;
+import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -20,25 +20,23 @@ public class GoalTest {
     public final ExpectedException expectedException = ExpectedException.none();
 
     @Test
-    public void construct_nullTimeOnly_throwsException() {
-        expectedException.expect(NullPointerException.class);
-
-        Participant participant = LogicTestUtil.makeDefaultUser();
-        Goal goal = LogicTestUtil.makeGoal(participant, null);
-    }
-
-    @Test
     public void construct_nullTime_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Participant participant = LogicTestUtil.makeDefaultUser();
-        Goal goal = LogicTestUtil.makeGoal(LogicConstants.INTERNAL_ID, participant, null);
+        Goal goal = ObjectBuilder.goal().withTime(null).build();
+    }
+
+    @Test
+    public void construct2_nullTime_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Goal goal = ObjectBuilder.goal().withTime(null).build2();
     }
 
     @Test
     public void equals_sameObjects_returnsTrue() {
-        Goal goal1 = LogicTestUtil.makeGoalWithTeam();
-        Goal goal2 = LogicTestUtil.makeGoalWithTeam();
+        Goal goal1 = ObjectBuilder.goal().build();
+        Goal goal2 = ObjectBuilder.goal().build();
 
         boolean result = goal1.equals(goal2);
         assertTrue(result);
@@ -46,7 +44,7 @@ public class GoalTest {
 
     @Test
     public void equals_otherInstance_returnsFalse() {
-        Goal goal1 = LogicTestUtil.makeGoalWithTeam();
+        Goal goal1 = ObjectBuilder.goal().build();
         Goal goal2 = null;
 
         boolean result = goal1.equals(goal2);
@@ -55,8 +53,8 @@ public class GoalTest {
 
     @Test
     public void equals_nullFirstParticipant_returnsFalse() {
-        Goal goal1 = LogicTestUtil.makeGoalNoParticipant();
-        Goal goal2 = LogicTestUtil.makeGoalWithUser();
+        Goal goal1 = ObjectBuilder.goal().withParticipant(null).build();
+        Goal goal2 = ObjectBuilder.goal().withParticipant(ObjectBuilder.user().build()).build();
 
         boolean result = goal1.equals(goal2);
         assertFalse(result);
@@ -64,8 +62,8 @@ public class GoalTest {
 
     @Test
     public void equals_nullSecondParticipant_returnsFalse() {
-        Goal goal1 = LogicTestUtil.makeGoalWithUser();
-        Goal goal2 = LogicTestUtil.makeGoalNoParticipant();
+        Goal goal1 = ObjectBuilder.goal().withParticipant(ObjectBuilder.user().build()).build();
+        Goal goal2 = ObjectBuilder.goal().withParticipant(null).build();
 
         boolean result = goal1.equals(goal2);
         assertFalse(result);
@@ -73,8 +71,8 @@ public class GoalTest {
 
     @Test
     public void equals_nullBothParticipants_returnsTrue() {
-        Goal goal1 = LogicTestUtil.makeGoalNoParticipant();
-        Goal goal2 = LogicTestUtil.makeGoalNoParticipant();
+        Goal goal1 = ObjectBuilder.goal().withParticipant(null).build();
+        Goal goal2 = ObjectBuilder.goal().withParticipant(null).build();
 
         boolean result = goal1.equals(goal2);
         assertTrue(result);
@@ -82,8 +80,8 @@ public class GoalTest {
 
     @Test
     public void equals_differentIds_returnsFalse() {
-        Goal goal1 = LogicTestUtil.makeGoal(1, LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultLocalDateTime());
-        Goal goal2 = LogicTestUtil.makeGoal(2, LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultLocalDateTime());
+        Goal goal1 = ObjectBuilder.goal().withId(1).build();
+        Goal goal2 = ObjectBuilder.goal().withId(2).build();
 
         boolean result = goal1.equals(goal2);
         assertFalse(result);
@@ -91,8 +89,11 @@ public class GoalTest {
 
     @Test
     public void equals_differentParticipants_returnsFalse() {
-        Goal goal1 = LogicTestUtil.makeGoal(LogicTestUtil.makeDefaultUser(), LogicTestUtil.makeDefaultLocalDateTime());
-        Goal goal2 = LogicTestUtil.makeGoal(LogicTestUtil.makeDefaultUser2(), LogicTestUtil.makeDefaultLocalDateTime());
+        Participant participant1 = ObjectBuilder.user().withUsername("user1").build();
+        Participant participant2 = ObjectBuilder.user().withUsername("user2").build();
+
+        Goal goal1 = ObjectBuilder.goal().withParticipant(participant1).build();
+        Goal goal2 = ObjectBuilder.goal().withParticipant(participant2).build();
 
         boolean result = goal1.equals(goal2);
         assertFalse(result);
@@ -100,8 +101,8 @@ public class GoalTest {
 
     @Test
     public void equals_differentTimes_returnsFalse() {
-        Goal goal1 = LogicTestUtil.makeGoal(LogicTestUtil.makeDefaultUser(), LocalDateTime.MIN);
-        Goal goal2 = LogicTestUtil.makeGoal(LogicTestUtil.makeDefaultUser(), LocalDateTime.MAX);
+        Goal goal1 = ObjectBuilder.goal().withTime(LocalDateTime.MIN).build();
+        Goal goal2 = ObjectBuilder.goal().withTime(LocalDateTime.MAX).build();
 
         boolean result = goal1.equals(goal2);
         assertFalse(result);
@@ -109,8 +110,8 @@ public class GoalTest {
 
     @Test
     public void hashCode_whenCalled_returnsHashCode() {
-        Goal goal1 = LogicTestUtil.makeGoalWithUser();
-        Goal goal2 = LogicTestUtil.makeGoalWithUser();
+        Goal goal1 = ObjectBuilder.goal().build();
+        Goal goal2 = ObjectBuilder.goal().build();
 
         boolean result = goal1.hashCode() == goal2.hashCode();
         assertTrue(result);
@@ -118,8 +119,8 @@ public class GoalTest {
 
     @Test
     public void hashCode_nullParticipant_returnsHashCode() {
-        Goal goal1 = LogicTestUtil.makeGoalNoParticipant();
-        Goal goal2 = LogicTestUtil.makeGoalNoParticipant();
+        Goal goal1 = ObjectBuilder.goal().withParticipant(null).build();
+        Goal goal2 = ObjectBuilder.goal().withParticipant(null).build();
 
         boolean result = goal1.hashCode() == goal2.hashCode();
         assertTrue(result);
@@ -127,7 +128,7 @@ public class GoalTest {
 
     @Test
     public void getId_whenCalled_returnsId() {
-        Goal goal = LogicTestUtil.makeGoalWithUser(); // Default id = 0.
+        Goal goal = ObjectBuilder.goal().withId(LogicConstants.INTERNAL_ID).build();
 
         int expected = LogicConstants.INTERNAL_ID;
         int actual = goal.getId();
@@ -137,7 +138,7 @@ public class GoalTest {
 
     @Test
     public void getParticipant_nullParticipant_returnsNull() {
-        Goal goal = LogicTestUtil.makeGoalNoParticipant();
+        Goal goal = ObjectBuilder.goal().withParticipant(null).build();
 
         Participant expected = null;
         Participant actual = goal.getParticipant();
@@ -147,9 +148,9 @@ public class GoalTest {
 
     @Test
     public void getParticipant_userParticipant_returnsUser() {
-        Goal goal = LogicTestUtil.makeGoalWithUser();
+        Goal goal = ObjectBuilder.goal().withParticipant(ObjectBuilder.user().build()).build();
 
-        Participant expected = LogicTestUtil.makeDefaultUser();
+        Participant expected = ObjectBuilder.user().build();
         Participant actual = goal.getParticipant();
 
         assertEquals(expected, actual);
@@ -157,9 +158,9 @@ public class GoalTest {
 
     @Test
     public void getParticipant_teamParticipant_returnsTeam() {
-        Goal goal = LogicTestUtil.makeGoalWithTeam();
+        Goal goal = ObjectBuilder.goal().withParticipant(ObjectBuilder.team().build()).build();
 
-        Participant expected = LogicTestUtil.makeDefaultTeam();
+        Participant expected = ObjectBuilder.team().build();
         Participant actual = goal.getParticipant();
 
         assertEquals(expected, actual);
@@ -167,9 +168,9 @@ public class GoalTest {
 
     @Test
     public void getTime_whenCalled_returnsTime() {
-        Goal goal = LogicTestUtil.makeGoalNoParticipant();
+        Goal goal = ObjectBuilder.goal().withTime(LocalDateTime.MAX).build();
 
-        LocalDateTime expected = LogicTestUtil.makeDefaultLocalDateTime();
+        LocalDateTime expected = LocalDateTime.MAX;
         LocalDateTime actual = goal.getTime();
 
         assertEquals(expected, actual);

@@ -27,16 +27,19 @@ public class Match {
     private final Participant secondParticipant;
 
     private MatchStatus status;
+    private MatchType type;
 
     /**
      * Initializes a new {@code Match} with the given {@link Participant participants}.
      *
      * @param firstParticipant  The first {@code Participant} of this {@code Match}, should not be {@code null}.
      * @param secondParticipant The second {@code Participant} of this {@code Match}, should not be {@code null}.
+     * @param type              The type of {@code Match} that is being played, should not be {@code null}.
      */
-    public Match(Participant firstParticipant, Participant secondParticipant) {
+    public Match(Participant firstParticipant, Participant secondParticipant, MatchType type) {
         this.firstParticipant = Objects.requireNonNull(firstParticipant);
         this.secondParticipant = Objects.requireNonNull(secondParticipant);
+        this.type = Objects.requireNonNull(type);
 
         status = MatchStatus.SETUP;
     }
@@ -213,6 +216,15 @@ public class Match {
      */
     public MatchStatus getStatus() {
         return status;
+    }
+
+    /**
+     * Gets the current {@link MatchType} of this {@code Match}.
+     *
+     * @return The {@code MatchType} of this {@code Match}.
+     */
+    public MatchType getType() {
+        return type;
     }
 
     /**

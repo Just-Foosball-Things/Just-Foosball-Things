@@ -2,7 +2,7 @@ package nl.jft.logic.match.event.impl;
 
 import nl.jft.logic.match.Goal;
 import nl.jft.logic.match.Match;
-import nl.jft.logic.util.LogicTestUtil;
+import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -21,7 +21,7 @@ public class GoalScoredEventTest {
     public void construct_nullMatch_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Goal goal = LogicTestUtil.makeGoalWithUser();
+        Goal goal = ObjectBuilder.goal().build();
         GoalScoredEvent event = new GoalScoredEvent(null, goal);
     }
 
@@ -29,17 +29,17 @@ public class GoalScoredEventTest {
     public void construct_nullGoal_throwsException() {
         expectedException.expect(NullPointerException.class);
 
-        Match match = LogicTestUtil.makeDefaultMatch();
+        Match match = ObjectBuilder.match().build();
         GoalScoredEvent event = new GoalScoredEvent(match, null);
     }
 
     @Test
     public void getMatch_whenCalled_returnsGoal() {
-        Match match = LogicTestUtil.makeDefaultMatch();
-        Goal goal = LogicTestUtil.makeGoalWithUser();
+        Match match = ObjectBuilder.match().build();
+        Goal goal = ObjectBuilder.goal().build();
         GoalScoredEvent event = new GoalScoredEvent(match, goal);
 
-        Match expected = LogicTestUtil.makeDefaultMatch();
+        Match expected = ObjectBuilder.match().build();
         Match actual = event.getMatch();
 
         assertEquals(expected, actual);
@@ -47,11 +47,11 @@ public class GoalScoredEventTest {
 
     @Test
     public void getGoal_whenCalled_returnsGoal() {
-        Match match = LogicTestUtil.makeDefaultMatch();
-        Goal goal = LogicTestUtil.makeGoalWithUser();
+        Match match = ObjectBuilder.match().build();
+        Goal goal = ObjectBuilder.goal().build();
         GoalScoredEvent event = new GoalScoredEvent(match, goal);
 
-        Goal expected = LogicTestUtil.makeGoalWithUser();
+        Goal expected = ObjectBuilder.goal().build();
         Goal actual = event.getGoal();
 
         assertEquals(expected, actual);
