@@ -20,7 +20,7 @@ public class Test {
         Cluster cluster = null;
 
         try (InputStream isis = Test.class.getResourceAsStream("/database.config")) {
-            DatabaseConfigurationImpl config = new DatabaseConfigurationImpl(isis);
+            DatabaseConfiguration config = new DatabaseConfigurationImpl(isis);
 
             cluster = Cluster.buildFrom(new JftInitializer(config));
             Session session = cluster.connect(config.getKeyspace());

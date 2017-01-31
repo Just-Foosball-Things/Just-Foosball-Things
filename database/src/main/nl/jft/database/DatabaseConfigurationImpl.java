@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  *
  * @author Oscar de Leeuw
  */
-public class DatabaseConfigurationImpl {
+public class DatabaseConfigurationImpl implements DatabaseConfiguration {
 
     private static final Logger logger = Logger.getLogger(DatabaseConfigurationImpl.class.getName());
 
@@ -31,11 +31,7 @@ public class DatabaseConfigurationImpl {
         properties.load(is);
     }
 
-    /**
-     * Gets the address of the database.
-     *
-     * @return a {@code String} that represents the address of the database.
-     */
+    @Override
     public String getAddress() {
         try {
             return Objects.requireNonNull(properties.getProperty("address"));
@@ -46,11 +42,7 @@ public class DatabaseConfigurationImpl {
         return "localhost";
     }
 
-    /**
-     * Gets the port number of the database.
-     *
-     * @return a {@code int} that represents the port of the database.
-     */
+    @Override
     public int getPort() {
         try {
             String port = Objects.requireNonNull(properties.getProperty("port"));
@@ -62,11 +54,7 @@ public class DatabaseConfigurationImpl {
         return 9042;
     }
 
-    /**
-     * Gets the name of the Cassandra cluster.
-     *
-     * @return a {@code String} that represents the name of the Cassandra cluster.
-     */
+    @Override
     public String getClusterName() {
         try {
             return Objects.requireNonNull(properties.getProperty("cluster_name"));
@@ -77,11 +65,7 @@ public class DatabaseConfigurationImpl {
         return "jft_cluster";
     }
 
-    /**
-     * Gets the value of the keyspace used within the cluster.
-     *
-     * @return a {@code String} that represents the keyspace.
-     */
+    @Override
     public String getKeyspace() {
         try {
             return Objects.requireNonNull(properties.getProperty("keyspace"));
@@ -92,11 +76,7 @@ public class DatabaseConfigurationImpl {
         return "jft";
     }
 
-    /**
-     * Gets the username for the database.
-     *
-     * @return a {@code String} that represents the username.
-     */
+    @Override
     public String getUsername() {
         try {
             return Objects.requireNonNull(properties.getProperty("username"));
@@ -107,11 +87,7 @@ public class DatabaseConfigurationImpl {
         return "ZouJeWelWillenWeten";
     }
 
-    /**
-     * Gets the password for the database.
-     *
-     * @return a {@code String} that represents the password.
-     */
+    @Override
     public String getPassword() {
         try {
             return Objects.requireNonNull(properties.getProperty("password"));
