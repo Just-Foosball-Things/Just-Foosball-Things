@@ -3,10 +3,7 @@ package nl.jft.database;
 import com.datastax.driver.core.*;
 
 import java.net.InetSocketAddress;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * The {@code JftInitializer} is the Just-Football-Things implementation of the {@code Initializer} of the DataStax driver.
@@ -23,7 +20,7 @@ public class JftInitializer implements Cluster.Initializer {
      * @param config The {@code DatabaseConfiguration} from which properties can be queried.
      */
     public JftInitializer(DatabaseConfiguration config) {
-        this.config = config;
+        this.config = Objects.requireNonNull(config);
     }
 
     @Override
