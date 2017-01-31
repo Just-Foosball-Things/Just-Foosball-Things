@@ -53,7 +53,7 @@ public class DatabaseConfiguration {
      */
     public int getPort() {
         try {
-            String port = properties.getProperty("port");
+            String port = Objects.requireNonNull(properties.getProperty("port"));
             return Integer.parseInt(port);
         } catch (Exception e) {
             logger.log(Level.WARNING, ERROR_MSG.replace("%TYPE%", "port number"), e);
