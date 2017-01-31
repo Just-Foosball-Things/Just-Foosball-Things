@@ -45,8 +45,8 @@ public class RuleTest {
 
     @Test
     public void equals_sameObjects_returnsTrue() {
-        Rule rule1 = ObjectBuilder.rule().build();
-        Rule rule2 = ObjectBuilder.rule().build();
+        Rule rule1 = ObjectBuilder.rule().build2();
+        Rule rule2 = ObjectBuilder.rule().build2();
 
         boolean result = rule1.equals(rule2);
         assertTrue(result);
