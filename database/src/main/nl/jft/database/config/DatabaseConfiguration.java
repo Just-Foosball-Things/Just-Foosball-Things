@@ -1,7 +1,7 @@
 package nl.jft.database.config;
 
 /**
- * //TODO add documentation
+ * The {@code DatabaseConfiguration} interface specifies the different configuration information that the database layer needs in order to operate.
  *
  * @author Oscar de Leeuw
  */

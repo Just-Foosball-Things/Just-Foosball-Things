@@ -1,9 +1,9 @@
 package nl.jft.database.util.builder;
 
 import nl.jft.database.config.DatabaseConfigurationImpl;
+import nl.jft.database.config.PropertiesLoader;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import static org.mockito.Mockito.mock;
 
@@ -12,18 +12,18 @@ import static org.mockito.Mockito.mock;
  */
 public class DatabaseConfigBuilder {
 
-    private InputStream stream;
+    private PropertiesLoader loader;
 
     public DatabaseConfigBuilder() {
-        stream = mock(InputStream.class);
+        loader = mock(PropertiesLoader.class);
     }
 
-    public DatabaseConfigBuilder withStream(InputStream stream) {
-        this.stream = stream;
+    public DatabaseConfigBuilder withStream(PropertiesLoader loader) {
+        this.loader = loader;
         return this;
     }
 
     public DatabaseConfigurationImpl build() throws IOException {
-        return new DatabaseConfigurationImpl(stream);
+        return new DatabaseConfigurationImpl(loader);
     }
 }

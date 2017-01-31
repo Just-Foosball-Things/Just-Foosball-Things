@@ -5,6 +5,7 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import nl.jft.database.config.DatabaseConfiguration;
 import nl.jft.database.config.DatabaseConfigurationImpl;
+import nl.jft.database.config.FilePropertiesLoader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +23,7 @@ public class Test {
         Cluster cluster = null;
 
         try (InputStream isis = Test.class.getResourceAsStream("/database.config")) {
-            DatabaseConfiguration config = new DatabaseConfigurationImpl(isis);
+            DatabaseConfiguration config = new DatabaseConfigurationImpl(new FilePropertiesLoader());
 
             cluster = Cluster.buildFrom(new JftInitializer(config));
             Session session = cluster.connect(config.getKeyspace());

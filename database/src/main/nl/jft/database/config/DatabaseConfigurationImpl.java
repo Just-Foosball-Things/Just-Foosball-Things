@@ -1,7 +1,5 @@
 package nl.jft.database.config;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -21,18 +19,14 @@ public class DatabaseConfigurationImpl implements DatabaseConfiguration {
     private final Properties properties;
 
     /**
-     * Creates a new DatabaseConfigurationImpl.
-     *
-     * @param is An {@code InputStream} from which the properties can be read.
-     * @throws IOException When the properties cannot be loaded from the {@code InputStream}.
+     * Creates a new {@code }
      */
-    public DatabaseConfigurationImpl(InputStream is) throws IOException {
-        properties = new Properties();
-        properties.load(is);
+    public DatabaseConfigurationImpl(PropertiesLoader loader) {
+        properties = loader.load();
     }
 
     @Override
-    public String getAddress() {
+    public final String getAddress() {
         try {
             return Objects.requireNonNull(properties.getProperty("address"));
         } catch (Exception e) {
@@ -43,7 +37,7 @@ public class DatabaseConfigurationImpl implements DatabaseConfiguration {
     }
 
     @Override
-    public int getPort() {
+    public final int getPort() {
         try {
             String port = Objects.requireNonNull(properties.getProperty("port"));
             return Integer.parseInt(port);
@@ -55,7 +49,7 @@ public class DatabaseConfigurationImpl implements DatabaseConfiguration {
     }
 
     @Override
-    public String getClusterName() {
+    public final String getClusterName() {
         try {
             return Objects.requireNonNull(properties.getProperty("cluster_name"));
         } catch (Exception e) {
@@ -66,7 +60,7 @@ public class DatabaseConfigurationImpl implements DatabaseConfiguration {
     }
 
     @Override
-    public String getKeyspace() {
+    public final String getKeyspace() {
         try {
             return Objects.requireNonNull(properties.getProperty("keyspace"));
         } catch (Exception e) {
@@ -77,7 +71,7 @@ public class DatabaseConfigurationImpl implements DatabaseConfiguration {
     }
 
     @Override
-    public String getUsername() {
+    public final String getUsername() {
         try {
             return Objects.requireNonNull(properties.getProperty("username"));
         } catch (Exception e) {
@@ -88,7 +82,7 @@ public class DatabaseConfigurationImpl implements DatabaseConfiguration {
     }
 
     @Override
-    public String getPassword() {
+    public final String getPassword() {
         try {
             return Objects.requireNonNull(properties.getProperty("password"));
         } catch (Exception e) {
