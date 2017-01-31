@@ -24,6 +24,13 @@ public class MatchResultTest {
     }
 
     @Test
+    public void construct2_nullMatch_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        MatchResult result = ObjectBuilder.matchResult().withMatch(null).build2();
+    }
+
+    @Test
     public void equals_sameObjects_returnsTrue() {
         MatchResult result1 = ObjectBuilder.matchResult().build();
         MatchResult result2 = ObjectBuilder.matchResult().build();
