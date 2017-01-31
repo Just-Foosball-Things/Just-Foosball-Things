@@ -32,8 +32,8 @@ public class MatchResultTest {
 
     @Test
     public void equals_sameObjects_returnsTrue() {
-        MatchResult result1 = ObjectBuilder.matchResult().build();
-        MatchResult result2 = ObjectBuilder.matchResult().build();
+        MatchResult result1 = ObjectBuilder.matchResult().build2();
+        MatchResult result2 = ObjectBuilder.matchResult().build2();
 
         boolean result = result1.equals(result2);
         assertTrue(result);
