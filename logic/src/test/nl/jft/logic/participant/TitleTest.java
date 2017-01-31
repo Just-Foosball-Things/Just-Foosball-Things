@@ -31,6 +31,20 @@ public class TitleTest {
     }
 
     @Test
+    public void construct2_nullName_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Title title = ObjectBuilder.title().withName(null).build2();
+    }
+
+    @Test
+    public void construct2_emptyName_throwsException() {
+        expectedException.expect(IllegalArgumentException.class);
+
+        Title title = ObjectBuilder.title().withName("").build2();
+    }
+
+    @Test
     public void equals_sameObjects_returnsTrue() {
         Title title1 = ObjectBuilder.title().build();
         Title title2 = ObjectBuilder.title().build();

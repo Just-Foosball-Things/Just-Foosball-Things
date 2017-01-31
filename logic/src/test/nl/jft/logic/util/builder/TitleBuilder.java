@@ -30,4 +30,8 @@ public final class TitleBuilder {
         return new Title(id, name);
     }
 
+    public Title build2() {
+        return new Title(name);
+    }
+
 }
