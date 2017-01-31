@@ -1,4 +1,4 @@
-package nl.jft.database;
+package nl.jft.database.config;
 
 /**
  * //TODO add documentation

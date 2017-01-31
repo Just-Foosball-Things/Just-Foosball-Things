@@ -1,4 +1,4 @@
-package nl.jft.database;
+package nl.jft.database.config;
 
 import nl.jft.database.util.builder.ObjectBuilder;
 import org.junit.Before;

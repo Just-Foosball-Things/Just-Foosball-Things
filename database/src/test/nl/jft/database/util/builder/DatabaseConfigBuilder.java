@@ -1,6 +1,6 @@
 package nl.jft.database.util.builder;
 
-import nl.jft.database.DatabaseConfigurationImpl;
+import nl.jft.database.config.DatabaseConfigurationImpl;
 
 import java.io.IOException;
 import java.io.InputStream;

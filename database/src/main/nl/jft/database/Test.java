@@ -3,6 +3,8 @@ package nl.jft.database;
 import com.datastax.driver.core.*;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
+import nl.jft.database.config.DatabaseConfiguration;
+import nl.jft.database.config.DatabaseConfigurationImpl;
 
 import java.io.IOException;
 import java.io.InputStream;

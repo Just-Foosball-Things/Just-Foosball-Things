@@ -1,6 +1,7 @@
 package nl.jft.database;
 
 import com.datastax.driver.core.*;
+import nl.jft.database.config.DatabaseConfiguration;
 
 import java.net.InetSocketAddress;
 import java.util.*;

@@ -1,4 +1,4 @@
-package nl.jft.database;
+package nl.jft.database.config;
 
 import java.io.IOException;
 import java.io.InputStream;
