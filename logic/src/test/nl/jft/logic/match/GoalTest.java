@@ -27,6 +27,13 @@ public class GoalTest {
     }
 
     @Test
+    public void construct2_nullTime_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Goal goal = ObjectBuilder.goal().withTime(null).build2();
+    }
+
+    @Test
     public void equals_sameObjects_returnsTrue() {
         Goal goal1 = ObjectBuilder.goal().build();
         Goal goal2 = ObjectBuilder.goal().build();

@@ -40,4 +40,8 @@ public final class GoalBuilder {
         return new Goal(id, participant, time);
     }
 
+    public Goal build2() {
+        return new Goal(participant, time);
+    }
+
 }
