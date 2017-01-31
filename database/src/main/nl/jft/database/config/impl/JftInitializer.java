@@ -1,4 +1,4 @@
-package nl.jft.database;
+package nl.jft.database.config.impl;
 
 import com.datastax.driver.core.*;
 import nl.jft.database.config.DatabaseConfiguration;

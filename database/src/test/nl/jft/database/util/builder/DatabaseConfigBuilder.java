@@ -1,7 +1,7 @@
 package nl.jft.database.util.builder;
 
-import nl.jft.database.config.DatabaseConfigurationImpl;
 import nl.jft.database.config.PropertiesLoader;
+import nl.jft.database.config.impl.DatabaseConfigurationImpl;
 
 import java.io.IOException;
 

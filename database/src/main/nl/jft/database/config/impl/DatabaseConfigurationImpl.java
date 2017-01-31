@@ -1,4 +1,7 @@
-package nl.jft.database.config;
+package nl.jft.database.config.impl;
+
+import nl.jft.database.config.DatabaseConfiguration;
+import nl.jft.database.config.PropertiesLoader;
 
 import java.util.Objects;
 import java.util.Properties;

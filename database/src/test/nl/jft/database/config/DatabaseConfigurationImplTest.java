@@ -1,5 +1,6 @@
 package nl.jft.database.config;
 
+import nl.jft.database.config.impl.DatabaseConfigurationImpl;
 import nl.jft.database.util.builder.ObjectBuilder;
 import org.junit.Before;
 import org.junit.Rule;

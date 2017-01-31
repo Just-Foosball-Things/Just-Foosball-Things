@@ -2,6 +2,7 @@ package nl.jft.database;
 
 import com.datastax.driver.core.Configuration;
 import com.datastax.driver.core.PlainTextAuthProvider;
+import nl.jft.database.config.impl.JftInitializer;
 import nl.jft.database.util.builder.ObjectBuilder;
 import org.junit.Before;
 import org.junit.Rule;

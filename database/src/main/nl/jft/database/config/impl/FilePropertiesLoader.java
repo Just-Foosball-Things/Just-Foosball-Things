@@ -1,4 +1,6 @@
-package nl.jft.database.config;
+package nl.jft.database.config.impl;
+
+import nl.jft.database.config.PropertiesLoader;
 
 import java.io.File;
 import java.io.FileInputStream;
