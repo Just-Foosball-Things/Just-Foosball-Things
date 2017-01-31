@@ -38,6 +38,13 @@ public class MatchTest {
     }
 
     @Test
+    public void construct_nullMatchType_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        Match match = ObjectBuilder.match().withMatchType(null).build();
+    }
+
+    @Test
     public void addListener_nullListener_throwsException() {
         expectedException.expect(NullPointerException.class);
 
@@ -329,6 +336,16 @@ public class MatchTest {
 
         MatchStatus expected = MatchStatus.SETUP;
         MatchStatus actual = match.getStatus();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getType_whenCalled_returnsType() {
+        Match match = ObjectBuilder.match().withMatchType(MatchType.RATED).build();
+
+        MatchType expected = MatchType.RATED;
+        MatchType actual = match.getType();
 
         assertEquals(expected, actual);
     }
