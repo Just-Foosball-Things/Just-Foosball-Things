@@ -6,17 +6,21 @@ import com.google.common.util.concurrent.Futures;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Oscar de Leeuw
  */
 public class Test {
 
+    private final static Logger logger = Logger.getLogger(Test.class.getName());
+
     public static void main(String[] args) {
         Cluster cluster = null;
 
         try (InputStream isis = Test.class.getResourceAsStream("/database.config")) {
-            DatabaseConfiguration config = new DatabaseConfiguration(isis);
+            DatabaseConfigurationImpl config = new DatabaseConfigurationImpl(isis);
 
             cluster = Cluster.buildFrom(new JftInitializer(config));
             Session session = cluster.connect(config.getKeyspace());
@@ -45,7 +49,7 @@ public class Test {
 
             System.out.println("BIEM");
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.toString(), e);
         } finally {
             if (cluster != null) cluster.close();
         }

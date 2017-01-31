@@ -12,11 +12,11 @@ import static org.junit.Assert.assertNotNull;
 /**
  * @author Oscar de Leeuw
  */
-public class DatabaseConfigurationTest {
+public class DatabaseConfigurationImplTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
-    DatabaseConfiguration config;
+    DatabaseConfigurationImpl config;
 
     @Before
     public void setUp() throws Exception {
@@ -28,7 +28,7 @@ public class DatabaseConfigurationTest {
     public void constructor_withNullStream_throwsException() throws Exception {
         expectedException.expect(NullPointerException.class);
 
-        DatabaseConfiguration config = ObjectBuilder.databaseConfiguration().withStream(null).build();
+        DatabaseConfigurationImpl config = ObjectBuilder.databaseConfiguration().withStream(null).build();
     }
 
     @Test

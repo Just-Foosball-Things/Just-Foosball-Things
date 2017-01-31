@@ -12,14 +12,14 @@ import java.util.*;
  */
 public class JftInitializer implements Cluster.Initializer {
 
-    private final DatabaseConfiguration config;
+    private final DatabaseConfigurationImpl config;
 
     /**
      * Creates a new {@code JftInitializer}.
      *
-     * @param config The {@code DatabaseConfiguration} from which properties can be queried.
+     * @param config The {@code DatabaseConfigurationImpl} from which properties can be queried.
      */
-    public JftInitializer(DatabaseConfiguration config) {
+    public JftInitializer(DatabaseConfigurationImpl config) {
         this.config = Objects.requireNonNull(config);
     }
 

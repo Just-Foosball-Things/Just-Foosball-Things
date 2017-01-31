@@ -1,6 +1,6 @@
 package nl.jft.database.util.builder;
 
-import nl.jft.database.DatabaseConfiguration;
+import nl.jft.database.DatabaseConfigurationImpl;
 import nl.jft.database.JftInitializer;
 
 import java.io.IOException;
@@ -10,13 +10,13 @@ import java.io.IOException;
  */
 public class JftInitBuilder {
 
-    private DatabaseConfiguration config;
+    private DatabaseConfigurationImpl config;
 
     public JftInitBuilder() throws IOException {
         config = ObjectBuilder.databaseConfiguration().build();
     }
 
-    public JftInitBuilder withConfig(DatabaseConfiguration config) {
+    public JftInitBuilder withConfig(DatabaseConfigurationImpl config) {
         this.config = config;
         return this;
     }

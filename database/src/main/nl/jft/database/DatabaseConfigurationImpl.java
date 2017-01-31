@@ -8,25 +8,25 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The {@code DatabaseConfiguration} class loads database properties from an {@code InputStream}.
+ * The {@code DatabaseConfigurationImpl} class loads database properties from an {@code InputStream}.
  *
  * @author Oscar de Leeuw
  */
-public class DatabaseConfiguration {
+public class DatabaseConfigurationImpl {
 
-    private static final Logger logger = Logger.getLogger(DatabaseConfiguration.class.getName());
+    private static final Logger logger = Logger.getLogger(DatabaseConfigurationImpl.class.getName());
 
     private static final String ERROR_MSG = "An error occurred while fetching the %TYPE%.";
 
     private final Properties properties;
 
     /**
-     * Creates a new DatabaseConfiguration.
+     * Creates a new DatabaseConfigurationImpl.
      *
      * @param is An {@code InputStream} from which the properties can be read.
      * @throws IOException When the properties cannot be loaded from the {@code InputStream}.
      */
-    public DatabaseConfiguration(InputStream is) throws IOException {
+    public DatabaseConfigurationImpl(InputStream is) throws IOException {
         properties = new Properties();
         properties.load(is);
     }

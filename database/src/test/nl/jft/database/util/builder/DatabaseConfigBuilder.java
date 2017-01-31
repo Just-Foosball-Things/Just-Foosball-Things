@@ -1,6 +1,6 @@
 package nl.jft.database.util.builder;
 
-import nl.jft.database.DatabaseConfiguration;
+import nl.jft.database.DatabaseConfigurationImpl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,7 +23,7 @@ public class DatabaseConfigBuilder {
         return this;
     }
 
-    public DatabaseConfiguration build() throws IOException {
-        return new DatabaseConfiguration(stream);
+    public DatabaseConfigurationImpl build() throws IOException {
+        return new DatabaseConfigurationImpl(stream);
     }
 }
