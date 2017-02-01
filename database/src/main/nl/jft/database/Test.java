@@ -1,16 +1,18 @@
 package nl.jft.database;
 
-import com.datastax.driver.core.*;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
+import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.Session;
+import com.datastax.driver.core.querybuilder.QueryBuilder;
+import com.datastax.driver.core.querybuilder.Select;
 import nl.jft.database.config.DatabaseConfiguration;
 import nl.jft.database.config.impl.DatabaseConfigurationImpl;
 import nl.jft.database.config.impl.FilePropertiesLoader;
 import nl.jft.database.config.impl.JftInitializer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.data.cassandra.core.CassandraOperations;
+import org.springframework.data.cassandra.core.CassandraTemplate;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -20,11 +22,25 @@ public class Test {
 
     private final static Logger logger = Logger.getLogger(Test.class.getName());
 
-    public static void main(String[] args) {
-        Cluster cluster = null;
+    @Autowired
+    private Environment environment;
 
-        try (InputStream isis = Test.class.getResourceAsStream("/database.config")) {
-            DatabaseConfiguration config = new DatabaseConfigurationImpl(new FilePropertiesLoader());
+    public static void main(String[] args) {
+        DatabaseConfiguration config = new DatabaseConfigurationImpl(new FilePropertiesLoader());
+
+        Cluster cluster = Cluster.buildFrom(new JftInitializer(config));
+        Session session = cluster.connect(config.getKeyspace());
+
+        CassandraOperations ops = new CassandraTemplate(session);
+
+        Select selectStatement = QueryBuilder.select().from("model");
+        selectStatement.where(QueryBuilder.eq("id", 1));
+
+        ops.queryForObject(selectStatement, Model.class);
+
+
+        /*try (InputStream isis = Test.class.getResourceAsStream("/database.config")) {
+
 
             cluster = Cluster.buildFrom(new JftInitializer(config));
             Session session = cluster.connect(config.getKeyspace());
@@ -56,6 +72,6 @@ public class Test {
             logger.log(Level.SEVERE, e.toString(), e);
         } finally {
             if (cluster != null) cluster.close();
-        }
+        }*/
     }
 }
