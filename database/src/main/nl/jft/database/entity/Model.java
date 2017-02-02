@@ -1,7 +1,7 @@
-package nl.jft.database;
+package nl.jft.database.entity;
 
 import org.springframework.data.cassandra.mapping.Column;
-import org.springframework.data.cassandra.mapping.PrimaryKeyColumn;
+import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.Table;
 
 /**
@@ -10,18 +10,18 @@ import org.springframework.data.cassandra.mapping.Table;
 @Table
 public class Model {
 
-    @PrimaryKeyColumn
-    private int id;
+    @PrimaryKey
+    private long id;
 
     @Column
     private String value;
 
-    public Model(int id, String value) {
+    public Model(long id, String value) {
         this.id = id;
         this.value = value;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

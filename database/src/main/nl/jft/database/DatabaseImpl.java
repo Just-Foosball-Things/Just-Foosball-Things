@@ -3,9 +3,7 @@ package nl.jft.database;
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
 import nl.jft.database.config.DatabaseConfiguration;
-import nl.jft.database.query.Query;
 
-import java.util.Collection;
 import java.util.Objects;
 import java.util.logging.Logger;
 
@@ -74,16 +72,12 @@ public class DatabaseImpl implements Database {
     }
 
     @Override
-    public <T> void executeAsyncQuery(Query<T> query) {
-
+    public <T> boolean save(T object) {
+        return false;
     }
 
     @Override
-    public <T> Collection<T> executeQuery(Query<T> query) {
-        checkHealth();
-
-        session.execute(query.getStatement());
-
+    public <T> T getRepository(Class kip) {
         return null;
     }
 

@@ -1,9 +1,5 @@
 package nl.jft.database;
 
-import nl.jft.database.query.Query;
-
-import java.util.Collection;
-
 /**
  * //TODO add documentation.
  *
@@ -16,7 +12,7 @@ public interface Database {
 
     boolean isConnected();
 
-    <T> void executeAsyncQuery(Query<T> query);
+    <T> boolean save(T object);
 
-    <T> Collection<T> executeQuery(Query<T> query);
+    <T extends Object> T getRepository(Class kip);
 }
