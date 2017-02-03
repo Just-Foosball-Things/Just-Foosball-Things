@@ -1,5 +1,6 @@
 package nl.jft.network.util.mocks;
 
+import nl.jft.network.Connection;
 import nl.jft.network.message.MessageHandler;
 
 /**
@@ -8,12 +9,15 @@ import nl.jft.network.message.MessageHandler;
 public class FakeMessageHandler extends MessageHandler<FakeMessage> {
 
     public FakeMessage lastHandleFakeMessage;
+    public Connection lastHandleConnection;
+
     public int terminateMessageAfter = -1;
 
     private int currentTerminateCount = 0;
 
     @Override
-    public void handle(FakeMessage message) {
+    public void handle(Connection connection, FakeMessage message) {
+        lastHandleConnection = connection;
         lastHandleFakeMessage = message;
 
         if (terminateMessageAfter != -1 && ++currentTerminateCount >= terminateMessageAfter) {

@@ -1,8 +1,10 @@
 package nl.jft.network;
 
+import nl.jft.network.message.MessageHandlerChainSet;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.nustaq.serialization.FSTConfiguration;
 
 /**
  * @author Lesley
@@ -13,6 +15,22 @@ public abstract class EndPointTest<E extends EndPoint> {
     public final ExpectedException expectedException = ExpectedException.none();
 
     public abstract E makeEndPoint();
+
+    public abstract E makeEndPoint(FSTConfiguration serializer, MessageHandlerChainSet chainSet);
+
+    @Test
+    public final void construct_nullSerializer_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        E endPoint = makeEndPoint(null, new MessageHandlerChainSet());
+    }
+
+    @Test
+    public final void construct_nullChainSet_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        E endPoint = makeEndPoint(FSTConfiguration.getDefaultConfiguration(), null);
+    }
 
     @Test
     public final void addListener_nullListener_throwsException() {
