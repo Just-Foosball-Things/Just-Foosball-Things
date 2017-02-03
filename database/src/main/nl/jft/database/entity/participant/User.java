@@ -1,6 +1,6 @@
-package nl.jft.database.entity;
+package nl.jft.database.entity.participant;
 
-import nl.jft.database.converter.ModelConverter;
+import nl.jft.database.converter.DefaultJsonConverter;
 import org.springframework.cassandra.core.PrimaryKeyType;
 import org.springframework.data.cassandra.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.mapping.Table;
@@ -12,16 +12,13 @@ import org.springframework.data.cassandra.mapping.Table;
 @Table(value = "users")
 public class User {
 
-    private static ModelConverter modelConverter = new ModelConverter();
+    private static DefaultJsonConverter<Rating> ratingConverter = new DefaultJsonConverter<>();
 
     @PrimaryKeyColumn(type = PrimaryKeyType.PARTITIONED)
     private String username;
-    @PrimaryKeyColumn(type = PrimaryKeyType.CLUSTERED)
-    private String model;
 
-    public User(String username, Model model) {
+    public User(String username, Rating rating) {
         this.username = username;
-        this.model = modelConverter.convertToJson(model);
     }
 
     private User() {
@@ -30,9 +27,5 @@ public class User {
 
     public String getUsername() {
         return username;
-    }
-
-    public Model getModel() {
-        return modelConverter.convertFromJson(model);
     }
 }
