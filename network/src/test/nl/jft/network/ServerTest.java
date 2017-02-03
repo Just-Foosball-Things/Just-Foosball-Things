@@ -1,24 +1,17 @@
 package nl.jft.network;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  * @author Lesley
  */
-public abstract class ServerTest<T extends Server> {
-
-    @Rule
-    public final ExpectedException expectedException = ExpectedException.none();
-
-    protected abstract T makeServer();
+public abstract class ServerTest<E extends Server> extends EndPointTest<E> {
 
     @Test
     public final void bind_nullAddress_throwsException() throws Exception {
         expectedException.expect(NullPointerException.class);
 
-        T server = makeServer();
+        E server = makeEndPoint();
         server.bind(null);
     }
 

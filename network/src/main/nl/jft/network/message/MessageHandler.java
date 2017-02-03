@@ -1,5 +1,7 @@
 package nl.jft.network.message;
 
+import nl.jft.network.Connection;
+
 /**
  * A {@code MessageHandler} handles a {@link Message} received by an {@link nl.jft.network.EndPoint}.
  *
@@ -10,9 +12,10 @@ public abstract class MessageHandler<M extends Message> {
     /**
      * Handles a {@link Message} received by an {@link nl.jft.network.EndPoint}.
      *
-     * @param message The {@code Message} received by an {@code EndPoint}.
+     * @param connection The {@link Connection} that received the given {@code Message}, should not be {@code null}.
+     * @param message    The {@code Message} received by an {@code EndPoint}, should not be {@code null.}
      */
-    public abstract void handle(M message);
+    public abstract void handle(Connection connection, M message);
 
     /**
      * Gets the {@link Class} of the underlying {@link Message} that this {@code MessageHandler} handles.

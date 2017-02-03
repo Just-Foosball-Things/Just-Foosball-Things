@@ -1,5 +1,6 @@
 package nl.jft.network.message;
 
+import nl.jft.network.Connection;
 import nl.jft.network.util.mocks.FakeMessage;
 import nl.jft.network.util.mocks.FakeMessageHandler;
 import org.junit.Rule;
@@ -7,6 +8,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 /**
  * @author Lesley
@@ -54,43 +56,64 @@ public class MessageHandlerChainTest {
         expectedException.expect(NullPointerException.class);
 
         MessageHandlerChain<Message> chain = makeDefaultChain();
-        chain.notify(null);
+        Connection stubConnection = mock(Connection.class);
+
+        chain.notify(stubConnection, null);
+    }
+
+    @Test
+    public void notify_nullConnection_throwsException() {
+        expectedException.expect(NullPointerException.class);
+
+        MessageHandlerChain<Message> chain = makeDefaultChain();
+        Message stubMessage = new FakeMessage();
+
+        chain.notify(null, stubMessage);
     }
 
     @Test
     public void notify_removedHandler_doesNotNotify() {
         MessageHandlerChain<FakeMessage> chain = makeChain(FakeMessage.class);
+        Connection stubConnection = mock(Connection.class);
         FakeMessage stubMessage = new FakeMessage();
         FakeMessageHandler mockMessageHandler = new FakeMessageHandler();
 
         chain.addMessageHandler(mockMessageHandler);
         chain.removeMessageHandler(mockMessageHandler);
-        chain.notify(stubMessage);
+        chain.notify(stubConnection, stubMessage);
 
         Message expected = null;
         Message actual = mockMessageHandler.lastHandleFakeMessage;
-
         assertEquals(expected, actual);
+
+        Connection expectedConnection = null;
+        Connection actualConnection = mockMessageHandler.lastHandleConnection;
+        assertEquals(expectedConnection, actualConnection);
     }
 
     @Test
     public void notify_whenCalled_notifiesHandlers() {
         MessageHandlerChain<FakeMessage> chain = makeChain(FakeMessage.class);
+        Connection stubConnection = mock(Connection.class);
         FakeMessage stubMessage = new FakeMessage();
         FakeMessageHandler mockMessageHandler = new FakeMessageHandler();
 
         chain.addMessageHandler(mockMessageHandler);
-        chain.notify(stubMessage);
+        chain.notify(stubConnection, stubMessage);
 
         Message expected = stubMessage;
         Message actual = mockMessageHandler.lastHandleFakeMessage;
-
         assertEquals(expected, actual);
+
+        Connection expectedConnection = stubConnection;
+        Connection actualConnection = mockMessageHandler.lastHandleConnection;
+        assertEquals(expectedConnection, actualConnection);
     }
 
     @Test
     public void notify_whenCalledWithTerminatedMessage_notifiesOneHandler() {
         MessageHandlerChain<FakeMessage> chain = makeChain(FakeMessage.class);
+        Connection stubConnection = mock(Connection.class);
         FakeMessage stubMessage = new FakeMessage();
 
         FakeMessageHandler mockMessageHandler = new FakeMessageHandler();
@@ -100,17 +123,23 @@ public class MessageHandlerChainTest {
 
         chain.addMessageHandler(mockMessageHandler);
         chain.addMessageHandler(stubMessageHandler);
-        chain.notify(stubMessage);
+        chain.notify(stubConnection, stubMessage);
 
         Message expected = stubMessage;
         Message actual = mockMessageHandler.lastHandleFakeMessage;
-
         assertEquals(expected, actual);
+
+        Connection expectedConnection = stubConnection;
+        Connection actualConnection = mockMessageHandler.lastHandleConnection;
+        assertEquals(expectedConnection, actualConnection);
 
         expected = null;
         actual = stubMessageHandler.lastHandleFakeMessage;
-
         assertEquals(expected, actual);
+
+        expectedConnection = null;
+        actualConnection = stubMessageHandler.lastHandleConnection;
+        assertEquals(expectedConnection, actualConnection);
     }
 
     private MessageHandlerChain<Message> makeDefaultChain() {

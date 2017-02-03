@@ -1,5 +1,7 @@
 package nl.jft.network.message;
 
+import nl.jft.network.Connection;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -48,19 +50,22 @@ public final class MessageHandlerChainSet {
 
     /**
      * Notifies a tracked {@link MessageHandlerChain} of a received {@link Message}
-     * by invoking the {@link MessageHandlerChain#notify(Message)} method. That method, in turn, will notify
+     * by invoking the {@link MessageHandlerChain#notify(Connection, Message)} method. That method, in turn, will notify
      * all tracked {@link MessageHandler handlers}.
      *
-     * @param message The {@code Message} that was received by an {@link nl.jft.network.EndPoint}, should not be {@code null}.
-     * @param <M>     The {@code Message}-type.
+     * @param connection The {@link Connection} that received the given {@code Message}, should not be {@code null}.
+     * @param message    The {@code Message} that was received by an {@link nl.jft.network.EndPoint}, should not be {@code null}.
+     * @param <M>        The {@code Message}-type.
+     * @throws NullPointerException If the given {@code connection} is {@code null}.
      * @throws NullPointerException If the given {@code Message} is {@code null}.
      */
-    public <M extends Message> void notify(M message) {
+    public <M extends Message> void notify(Connection connection, M message) {
+        Objects.requireNonNull(connection);
         Objects.requireNonNull(message);
 
         synchronized (chains) {
             MessageHandlerChain<M> chain = (MessageHandlerChain<M>) chains.computeIfAbsent(message.getClass(), MessageHandlerChain::new);
-            chain.notify(message);
+            chain.notify(connection, message);
         }
     }
 

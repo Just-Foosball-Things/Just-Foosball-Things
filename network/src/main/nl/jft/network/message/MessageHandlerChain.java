@@ -1,5 +1,7 @@
 package nl.jft.network.message;
 
+import nl.jft.network.Connection;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -47,12 +49,16 @@ public final class MessageHandlerChain<M extends Message> {
 
     /**
      * Notifies all {@link MessageHandler handlers} that a {@link Message}
-     * has been received by an {@link nl.jft.network.EndPoint},and invokes the {@link MessageHandler#handle(Message)}
+     * has been received by an {@link nl.jft.network.EndPoint},and invokes the {@link MessageHandler#handle(Connection, Message)}
      * method on all {@code MessageHandlers}.
      *
-     * @param message The {@code Message} that was received by an {@code EndPoint}, should not be {@code null}.
+     * @param connection The {@link Connection} that received the given {@code Message}, should not be {@code null}.
+     * @param message    The {@code Message} that was received by an {@code EndPoint}, should not be {@code null}.
+     * @throws NullPointerException If the given {@code Connection} is {@code null}.
+     * @throws NullPointerException If the given {@code Message} is {@code null}.
      */
-    public void notify(M message) {
+    public void notify(Connection connection, M message) {
+        Objects.requireNonNull(connection);
         Objects.requireNonNull(message);
 
         synchronized (handlers) {
@@ -61,7 +67,7 @@ public final class MessageHandlerChain<M extends Message> {
                     break;
                 }
 
-                handler.handle(message);
+                handler.handle(connection, message);
             }
         }
     }
