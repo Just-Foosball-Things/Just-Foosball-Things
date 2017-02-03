@@ -5,6 +5,8 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.ssl.SslContext;
 
+import java.util.Objects;
+
 /**
  * A {@code NioServerInitializer} sets up the pipeline for a {@link NioServer} according to the Netty specification.
  *
@@ -15,9 +17,18 @@ final class NioServerInitializer extends ChannelInitializer<SocketChannel> {
     private final NioServer server;
     private final SslContext context;
 
+    /**
+     * Initializes this {@code NioServerInitializer} using the given {@link nl.jft.network.EndPoint} and {@link SslContext}.
+     *
+     * @param server  The {@link NioServer EndPoint} used to serialize {@link nl.jft.network.message.Message messages},
+     *                should not be {@code null}.
+     * @param context The {@code SslContext} used to encrypt {@code Messages}, should not be {@code null}.
+     * @throws NullPointerException If the given {@code NioServer} is {@code null}.
+     * @throws NullPointerException If the given {@code SslContext} is {@code null}.
+     */
     NioServerInitializer(NioServer server, SslContext context) {
-        this.server = server;
-        this.context = context;
+        this.server = Objects.requireNonNull(server);
+        this.context = Objects.requireNonNull(context);
     }
 
     @Override
