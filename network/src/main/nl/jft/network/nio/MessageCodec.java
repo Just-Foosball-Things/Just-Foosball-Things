@@ -7,16 +7,26 @@ import nl.jft.network.EndPoint;
 import nl.jft.network.message.Message;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
+ * A {@code MessageCodec} handles the encoding/decoding of a {@link Message} into a {@link ByteBuf}.
+ *
  * @author Lesley
  */
 final class MessageCodec extends ByteToMessageCodec<Message> {
 
     private final EndPoint endPoint;
 
+    /**
+     * Initializes this {@code MessageCodec} with the given {@link EndPoint}.
+     *
+     * @param endPoint The {@code EndPoint} that this {@code MessageCodec} uses
+     *                 to serialize {@code Messages}, should not be {@code null}.
+     * @throws NullPointerException If the given {@code EndPoint} is {@code null}.
+     */
     MessageCodec(EndPoint endPoint) {
-        this.endPoint = endPoint;
+        this.endPoint = Objects.requireNonNull(endPoint);
     }
 
     @Override
