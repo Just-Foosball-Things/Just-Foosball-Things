@@ -18,4 +18,8 @@ public final class ObjectBuilder {
     public static JftInitBuilder jftInitializer() throws IOException {
         return new JftInitBuilder();
     }
+
+    public static <T> DefaultJsonBuilder<T> jsonConverter() {
+        return new DefaultJsonBuilder<>();
+    }
 }
