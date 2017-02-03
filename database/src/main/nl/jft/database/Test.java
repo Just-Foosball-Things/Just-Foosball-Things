@@ -1,5 +1,6 @@
 package nl.jft.database;
 
+import com.datastax.driver.core.Cluster;
 import nl.jft.database.config.CassandraConfig;
 import nl.jft.database.entity.Model;
 import nl.jft.database.entity.User;
@@ -8,6 +9,7 @@ import nl.jft.database.repository.UserRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.Iterator;
 import java.util.logging.Logger;
 
 /**
@@ -20,23 +22,18 @@ public class Test {
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(CassandraConfig.class);
 
+        Cluster cluster = context.getBean(Cluster.class);
         ModelRepository modelRepository = context.getBean(ModelRepository.class);
         UserRepository userRepository = context.getBean(UserRepository.class);
 
-        User user = new User(60, "Oscar", new Model(5, "Henk"));
-
+        User user = new User("Oscar", new Model(6, "Henk"));
+        User user2 = new User("Oscar", new Model(7, "Piet"));
+        //
         userRepository.save(user);
-        /*User foundUser = userRepository.findOne(60L);
-        System.out.println();
-        System.out.println(modelRepository.findOne(5L).getValue());*/
-
-        //Model modelletje = new Model(506, "kippetje");
-        //repository.save(modelletje);
-        //Iterable<Model> models = repository.findByValue("henk");
-
-        /*for (Model model : models) {
-            System.out.println("Id: " + model.getId() + " Value: " + model.getValue());
-        }*/
+        userRepository.save(user2);
+        Iterator<User> foundUsers = userRepository.findAllByUsername("Oscar").iterator();
+        System.out.println("User : " + foundUsers.next().getModel().getId());
+        System.out.println("Model : " + foundUsers.next().getModel().getId());
 
         System.exit(0);
     }

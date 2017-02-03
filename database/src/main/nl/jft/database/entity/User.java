@@ -1,7 +1,8 @@
 package nl.jft.database.entity;
 
-import org.springframework.data.cassandra.mapping.Column;
-import org.springframework.data.cassandra.mapping.PrimaryKey;
+import nl.jft.database.converter.ModelConverter;
+import org.springframework.cassandra.core.PrimaryKeyType;
+import org.springframework.data.cassandra.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.mapping.Table;
 //import org.springframework.data.cassandra.mapping.
 
@@ -11,21 +12,20 @@ import org.springframework.data.cassandra.mapping.Table;
 @Table(value = "users")
 public class User {
 
-    @PrimaryKey
-    private int id;
-    @Column
-    private String username;
-    @Column
-    private Model model;
+    private static ModelConverter modelConverter = new ModelConverter();
 
-    public User(int id, String username, Model model) {
-        this.id = id;
+    @PrimaryKeyColumn(type = PrimaryKeyType.PARTITIONED)
+    private String username;
+    @PrimaryKeyColumn(type = PrimaryKeyType.CLUSTERED)
+    private String model;
+
+    public User(String username, Model model) {
         this.username = username;
-        this.model = model;
+        this.model = modelConverter.convertToJson(model);
     }
 
-    public int getId() {
-        return id;
+    private User() {
+
     }
 
     public String getUsername() {
@@ -33,6 +33,6 @@ public class User {
     }
 
     public Model getModel() {
-        return model;
+        return modelConverter.convertFromJson(model);
     }
 }

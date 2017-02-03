@@ -21,6 +21,10 @@ public class Model {
         this.value = value;
     }
 
+    private Model() {
+
+    }
+
     public long getId() {
         return id;
     }
