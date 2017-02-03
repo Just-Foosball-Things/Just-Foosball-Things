@@ -9,10 +9,14 @@ import nl.jft.network.Connection;
 import nl.jft.network.EndPoint;
 import nl.jft.network.message.Message;
 
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * A {@code NioHandler} takes care of all network related events occurred on {@link Channel}. It delegates the events
+ * to {@link nl.jft.network.listener.ConnectionListener listeners} and {@link nl.jft.network.message.MessageHandler handlers}.
+ *
  * @author Lesley
  */
 final class NioHandler extends ChannelInboundHandlerAdapter {
@@ -21,27 +25,19 @@ final class NioHandler extends ChannelInboundHandlerAdapter {
 
     private final EndPoint endPoint;
 
+    /**
+     * Initializes this {@code NioHandler} using the given {@link EndPoint}.
+     *
+     * @param endPoint The {@code EndPoint} that this {@code NioHandler} uses for certain meta-data properties, should not {@code null}.
+     */
     NioHandler(EndPoint endPoint) {
-        this.endPoint = endPoint;
+        this.endPoint = Objects.requireNonNull(endPoint);
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         SslHandler handler = ctx.pipeline().get(SslHandler.class);
-        handler.handshakeFuture().addListener(f -> {
-            if (!f.isSuccess()) {
-                return;
-            }
-
-            Channel channel = ctx.channel();
-            Connection connection = new NioConnection(channel);
-
-            channel.attr(NioConstants.ATTRIBUTE_CONNECTION).set(connection);
-            endPoint.getListeners().forEach(l -> l.connectionActive(connection));
-
-            String suite = handler.engine().getSession().getCipherSuite();
-            logger.log(Level.INFO, String.format("[%s] Connection (%s) active (Protected by %s).", getEndPointIdentifier(), channel, suite));
-        });
+        handler.handshakeFuture().addListener(new HandshakeFutureListener(endPoint, this, ctx));
     }
 
     @Override
@@ -64,15 +60,13 @@ final class NioHandler extends ChannelInboundHandlerAdapter {
             throw new IllegalArgumentException(String.format("Received incorrect object (%s).", object));
         }
 
+        Channel channel = ctx.channel();
+        Connection connection = channel.attr(NioConstants.ATTRIBUTE_CONNECTION).get();
+
         Message message = (Message) object;
-        endPoint.getMessageHandlers().notify(null, message);
+        endPoint.getMessageHandlers().notify(connection, message);
 
-        logger.log(Level.INFO, String.format("[%s] Connection (%s) received message (%s).", getEndPointIdentifier(), ctx.channel(), message));
-    }
-
-    @Override
-    public void userEventTriggered(ChannelHandlerContext ctx, Object object) throws Exception {
-
+        logger.log(Level.INFO, String.format("[%s] Connection (%s) received message (%s).", getEndPointIdentifier(), channel, message));
     }
 
     @Override
@@ -86,7 +80,13 @@ final class NioHandler extends ChannelInboundHandlerAdapter {
         logger.log(Level.INFO, String.format("[%s] An exception occurred on a connection (%s).", getEndPointIdentifier(), ctx.channel()), cause);
     }
 
-    private String getEndPointIdentifier() {
+    /**
+     * Returns a display-friendly {@link String} containing the name of the {@link EndPoint} backed up by this {@code NioHandler}.
+     *
+     * @return A {@link String} containing the name of the {@code EndPoint} this {@code NioHandler} uses.
+     */
+    public String getEndPointIdentifier() {
         return endPoint.getClass().getSimpleName();
     }
+
 }
