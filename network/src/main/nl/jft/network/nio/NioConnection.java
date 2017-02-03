@@ -8,12 +8,20 @@ import java.net.SocketAddress;
 import java.util.Objects;
 
 /**
+ * A {@code NioConnection} is a NIO-implementation of {@link Connection} using Netty.
+ *
  * @author Lesley
  */
 public final class NioConnection implements Connection {
 
     private final Channel channel;
 
+    /**
+     * Initializes this {@code NioConnection} using the given {@link Channel}.
+     *
+     * @param channel The {@code Channel} that Netty uses for communication, should not be {@code null}.
+     * @throws NullPointerException If the given {@code Channel} is {@code null}.
+     */
     NioConnection(Channel channel) {
         this.channel = Objects.requireNonNull(channel);
     }
