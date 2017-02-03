@@ -27,10 +27,16 @@ public final class NioClient extends AbstractEndPoint implements Client {
     private Channel channel;
     private EventLoopGroup group;
 
+    /**
+     * Initializes a {@code NioClient} using the default constructor in {@link AbstractEndPoint} ({@link AbstractEndPoint#AbstractEndPoint()}.
+     */
     public NioClient() {
         // Default constructor is allowed.
     }
 
+    /**
+     * Initializes a {@code NioClient} using the default constructor in {@link AbstractEndPoint} ({@link AbstractEndPoint#AbstractEndPoint(FSTConfiguration, MessageHandlerChainSet)}.
+     */
     public NioClient(FSTConfiguration serializer, MessageHandlerChainSet chainSet) {
         super(serializer, chainSet);
     }

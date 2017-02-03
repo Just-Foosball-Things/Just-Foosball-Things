@@ -18,6 +18,8 @@ import java.net.SocketAddress;
 import java.util.Objects;
 
 /**
+ * A {@code NioServer} is a non-blocking implementation of {@link nl.jft.network.Server} using Netty.
+ *
  * @author Lesley
  */
 public final class NioServer extends AbstractEndPoint implements Server {
@@ -26,10 +28,16 @@ public final class NioServer extends AbstractEndPoint implements Server {
     private EventLoopGroup parentGroup;
     private EventLoopGroup childGroup;
 
+    /**
+     * Initializes a {@code NioServer} using the default constructor in {@link AbstractEndPoint} ({@link AbstractEndPoint#AbstractEndPoint()}.
+     */
     public NioServer() {
         // Default constructor is allowed.
     }
 
+    /**
+     * Initializes a {@code NioServer} using the default constructor in {@link AbstractEndPoint} ({@link AbstractEndPoint#AbstractEndPoint(FSTConfiguration, MessageHandlerChainSet)}.
+     */
     public NioServer(FSTConfiguration serializer, MessageHandlerChainSet chainSet) {
         super(serializer, chainSet);
     }
