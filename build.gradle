@@ -1,0 +1,46 @@
+allprojects {
+    group = 'jft'
+    version = '0.0.1'
+    apply plugin: 'java'
+}
+
+subprojects {
+    apply plugin: 'jacoco'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    sourceSets {
+        main {
+            java {
+                srcDirs = ['src/main/java']
+            }
+        }
+
+        test {
+            java {
+                srcDirs = ['src/test/java']
+            }
+        }
+    }
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+        testCompile group: 'org.mockito', name: 'mockito-core', version: '2.6.9'
+    }
+
+    test {
+        jacoco {
+            append = true
+            destinationFile = file("../build/jacoco/test.exec")
+        }
+
+        reports.junitXml.destination = "../build/test-reports"
+    }
+
+    repositories {
+        mavenLocal()
+        maven { url "https://repo.maven.apache.org/maven2" }
+    }
+
+}
