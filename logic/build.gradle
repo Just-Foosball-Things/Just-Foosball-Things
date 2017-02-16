@@ -1,0 +1,5 @@
+description = 'logic'
+
+dependencies {
+    compile project(':common')
+}

@@ -1,0 +1,4 @@
+rootProject.name = 'nl.jft'
+include ':common'
+include ':logic'
+include ':network'
