@@ -8,6 +8,7 @@ import io.netty.util.concurrent.GenericFutureListener;
 import nl.jft.network.Connection;
 import nl.jft.network.EndPoint;
 
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,9 +24,9 @@ public final class HandshakeFutureListener implements GenericFutureListener<Futu
     private final ChannelHandlerContext ctx;
 
     public HandshakeFutureListener(EndPoint endPoint, NioHandler handler, ChannelHandlerContext ctx) {
-        this.endPoint = endPoint;
-        this.handler = handler;
-        this.ctx = ctx;
+        this.endPoint = Objects.requireNonNull(endPoint);
+        this.handler = Objects.requireNonNull(handler);
+        this.ctx = Objects.requireNonNull(ctx);
     }
 
     @Override
