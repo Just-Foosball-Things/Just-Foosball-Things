@@ -69,7 +69,9 @@ public class Match {
         MatchStatusChangedEvent event = new MatchStatusChangedEvent(this, oldStatus, newStatus);
 
         synchronized (listeners) {
-            listeners.forEach(l -> l.onMatchStatusChanged(event));
+            for (MatchListener listener : listeners) {
+                listener.onMatchStatusChanged(event);
+            }
         }
     }
 
@@ -136,7 +138,9 @@ public class Match {
         GoalScoredEvent event = new GoalScoredEvent(this, goal);
 
         synchronized (listeners) {
-            listeners.forEach(l -> l.onGoalScored(event));
+            for (MatchListener listener : listeners) {
+                listener.onGoalScored(event);
+            }
         }
     }
 
@@ -156,7 +160,9 @@ public class Match {
         GoalRemovedEvent event = new GoalRemovedEvent(this, goal);
 
         synchronized (listeners) {
-            listeners.forEach(l -> l.onGoalRemoved(event));
+            for (MatchListener listener : listeners) {
+                listener.onGoalRemoved(event);
+            }
         }
     }
 

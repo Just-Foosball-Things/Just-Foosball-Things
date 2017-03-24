@@ -27,9 +27,19 @@ public final class MessageHandlerChainSet {
         Objects.requireNonNull(handler);
 
         synchronized (chains) {
-            MessageHandlerChain<M> chain = (MessageHandlerChain<M>) chains.computeIfAbsent(handler.getType(), MessageHandlerChain::new);
+            MessageHandlerChain<M> chain = getMessageHandlerChain(handler.getType());
             chain.addMessageHandler(handler);
         }
+    }
+
+    private <M extends Message> MessageHandlerChain<M> getMessageHandlerChain(Class<M> type) {
+        MessageHandlerChain<M> chain = (MessageHandlerChain<M>) chains.get(type);
+        if (chain == null) {
+            chain = new MessageHandlerChain<>(type);
+            chains.put(type, chain);
+        }
+
+        return chain;
     }
 
     /**
@@ -43,7 +53,7 @@ public final class MessageHandlerChainSet {
         Objects.requireNonNull(handler);
 
         synchronized (chains) {
-            MessageHandlerChain<M> chain = (MessageHandlerChain<M>) chains.computeIfAbsent(handler.getType(), MessageHandlerChain::new);
+            MessageHandlerChain<M> chain = getMessageHandlerChain(handler.getType());
             chain.removeMessageHandler(handler);
         }
     }
@@ -64,7 +74,7 @@ public final class MessageHandlerChainSet {
         Objects.requireNonNull(message);
 
         synchronized (chains) {
-            MessageHandlerChain<M> chain = (MessageHandlerChain<M>) chains.computeIfAbsent(message.getClass(), MessageHandlerChain::new);
+            MessageHandlerChain<M> chain = (MessageHandlerChain<M>) getMessageHandlerChain(message.getClass());
             chain.notify(connection, message);
         }
     }

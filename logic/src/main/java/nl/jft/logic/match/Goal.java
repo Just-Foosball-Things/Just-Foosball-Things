@@ -4,7 +4,7 @@ import nl.jft.common.Identifiable;
 import nl.jft.logic.LogicConstants;
 import nl.jft.logic.participant.Participant;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -17,16 +17,16 @@ public class Goal implements Identifiable {
 
     private final int id;
     private final Participant participant;
-    private final LocalDateTime time;
+    private final Date time;
 
     /**
-     * Initializes a new {@code Goal} by invoking an other constructor ({@link #Goal(int, Participant, LocalDateTime)}.
+     * Initializes a new {@code Goal} by invoking an other constructor ({@link #Goal(int, Participant, Date)}.
      *
      * @param participant The {@code participant} who scored this {@code Goal}. Can be {@code null} to indicate the scorer is unknown.
      * @param time        The {@code time} at which this {@code Goal} was scored, should not be null.
      * @throws NullPointerException If {@code time} is {@code null}.
      */
-    public Goal(Participant participant, LocalDateTime time) {
+    public Goal(Participant participant, Date time) {
         this(LogicConstants.INTERNAL_ID, participant, time);
     }
 
@@ -38,7 +38,7 @@ public class Goal implements Identifiable {
      * @param time        The {@code time} at which this {@code Goal} was scored, should not be null.
      * @throws NullPointerException If {@code time} is {@code null}.
      */
-    public Goal(int id, Participant participant, LocalDateTime time) {
+    public Goal(int id, Participant participant, Date time) {
         this.id = id;
         this.participant = participant;
         this.time = Objects.requireNonNull(time);
@@ -91,7 +91,7 @@ public class Goal implements Identifiable {
      *
      * @return The {@code time} at which this {@code Goal} was scored.
      */
-    public LocalDateTime getTime() {
+    public Date getTime() {
         return time;
     }
 }

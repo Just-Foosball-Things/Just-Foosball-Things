@@ -46,7 +46,7 @@ public class RatingStatisticTest {
 
         statistic.addRating(rating);
 
-        List<Rating> expected = Arrays.asList(ObjectBuilder.Rating.glickoRating().build());
+        List<Rating> expected = Arrays.asList((Rating) ObjectBuilder.Rating.glickoRating().build());
         List<Rating> actual = statistic.getValues();
 
         assertEquals(expected, actual);

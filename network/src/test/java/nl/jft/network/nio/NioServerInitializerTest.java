@@ -1,5 +1,6 @@
 package nl.jft.network.nio;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.ssl.SslContext;
@@ -8,7 +9,10 @@ import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.mockito.ArgumentMatchers;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Lesley
@@ -42,7 +46,7 @@ public class NioServerInitializerTest extends NioInitializerTest<NioServerInitia
 
         initializer.initChannel(stubChannel);
 
-        verify(mockPipeline, times(3)).addLast(ArgumentMatchers.any());
+        verify(mockPipeline, times(3)).addLast(ArgumentMatchers.any(ChannelHandler.class));
     }
 
     private SslContext makeSslContext() throws Exception {

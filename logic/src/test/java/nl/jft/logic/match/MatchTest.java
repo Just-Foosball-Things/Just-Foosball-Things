@@ -1,18 +1,24 @@
 package nl.jft.logic.match;
 
 import nl.jft.logic.match.event.MatchListener;
+import nl.jft.logic.match.event.impl.GoalRemovedEvent;
+import nl.jft.logic.match.event.impl.GoalScoredEvent;
+import nl.jft.logic.match.event.impl.MatchStatusChangedEvent;
 import nl.jft.logic.participant.Participant;
 import nl.jft.logic.util.builder.ObjectBuilder;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.ArgumentCaptor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.argThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -107,9 +113,13 @@ public class MatchTest {
         match.addListener(mockListener);
         match.start();
 
-        verify(mockListener).onMatchStatusChanged(argThat(e -> e.getMatch() == match
-                && e.getNewStatus() == MatchStatus.IN_PROGRESS
-                && e.getOldStatus() == MatchStatus.SETUP));
+        ArgumentCaptor<MatchStatusChangedEvent> argument = ArgumentCaptor.forClass(MatchStatusChangedEvent.class);
+        verify(mockListener).onMatchStatusChanged(argument.capture());
+
+        MatchStatusChangedEvent actual = argument.getValue();
+        assertEquals(match, actual.getMatch());
+        assertEquals(MatchStatus.IN_PROGRESS, actual.getNewStatus());
+        assertEquals(MatchStatus.SETUP, actual.getOldStatus());
     }
 
     @Test
@@ -121,9 +131,13 @@ public class MatchTest {
         match.start();
         match.stop();
 
-        verify(mockListener).onMatchStatusChanged(argThat(e -> e.getMatch() == match
-                && e.getNewStatus() == MatchStatus.FINISHED
-                && e.getOldStatus() == MatchStatus.IN_PROGRESS));
+        ArgumentCaptor<MatchStatusChangedEvent> argument = ArgumentCaptor.forClass(MatchStatusChangedEvent.class);
+        verify(mockListener, times(2)).onMatchStatusChanged(argument.capture());
+
+        MatchStatusChangedEvent actual = argument.getValue();
+        assertEquals(match, actual.getMatch());
+        assertEquals(MatchStatus.FINISHED, actual.getNewStatus());
+        assertEquals(MatchStatus.IN_PROGRESS, actual.getOldStatus());
     }
 
     @Test
@@ -186,7 +200,7 @@ public class MatchTest {
     @Test
     public void addGoal_whenCalled_addsGoal() {
         Match match = ObjectBuilder.match().build();
-        Goal goal = ObjectBuilder.goal().build();
+        final Goal goal = ObjectBuilder.goal().build();
 
         match.addGoal(goal);
 
@@ -207,7 +221,12 @@ public class MatchTest {
         match.addListener(mockListener);
         match.addGoal(goal);
 
-        verify(mockListener).onGoalScored(argThat(e -> e.getMatch() == match && e.getGoal() == goal));
+        ArgumentCaptor<GoalScoredEvent> argument = ArgumentCaptor.forClass(GoalScoredEvent.class);
+        verify(mockListener).onGoalScored(argument.capture());
+
+        GoalScoredEvent actual = argument.getValue();
+        assertEquals(match, actual.getMatch());
+        assertEquals(goal, actual.getGoal());
     }
 
     @Test
@@ -242,7 +261,12 @@ public class MatchTest {
         match.addGoal(goal);
         match.removeGoal(goal);
 
-        verify(mockListener).onGoalRemoved(argThat(e -> e.getMatch() == match && e.getGoal() == goal));
+        ArgumentCaptor<GoalRemovedEvent> argument = ArgumentCaptor.forClass(GoalRemovedEvent.class);
+        verify(mockListener).onGoalRemoved(argument.capture());
+
+        GoalRemovedEvent actual = argument.getValue();
+        assertEquals(match, actual.getMatch());
+        assertEquals(goal, actual.getGoal());
     }
 
     @Test
@@ -256,7 +280,7 @@ public class MatchTest {
     @Test
     public void addRule_whenCalled_addsRule() {
         Match match = ObjectBuilder.match().build();
-        Rule rule = ObjectBuilder.rule().build();
+        final Rule rule = ObjectBuilder.rule().build();
 
         match.addRule(rule);
 

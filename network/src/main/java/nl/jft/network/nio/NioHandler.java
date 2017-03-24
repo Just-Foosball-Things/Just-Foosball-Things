@@ -7,6 +7,7 @@ import io.netty.handler.ssl.NotSslRecordException;
 import io.netty.handler.ssl.SslHandler;
 import nl.jft.network.Connection;
 import nl.jft.network.EndPoint;
+import nl.jft.network.listener.ConnectionListener;
 import nl.jft.network.message.Message;
 
 import java.util.Objects;
@@ -48,7 +49,9 @@ final class NioHandler extends ChannelInboundHandlerAdapter {
         if (connection != null) {
             connection.close();
 
-            endPoint.getListeners().forEach(l -> l.connectionInactive(connection));
+            for (ConnectionListener listener : endPoint.getListeners()) {
+                listener.connectionInactive(connection);
+            }
         }
 
         logger.log(Level.INFO, String.format("[%s] Connection (%s) inactive.", getEndPointIdentifier(), channel));

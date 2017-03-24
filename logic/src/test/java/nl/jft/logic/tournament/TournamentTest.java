@@ -154,7 +154,7 @@ public class TournamentTest {
 
         tournament.addParticipant(participant);
 
-        List<Participant> expected = Arrays.asList(ObjectBuilder.user().build());
+        List<Participant> expected = Arrays.asList((Participant) ObjectBuilder.user().build());
         List<Participant> actual = tournament.getParticipants();
 
         assertEquals(expected, actual);
@@ -167,7 +167,7 @@ public class TournamentTest {
 
         tournament.addParticipant(participant);
 
-        List<Participant> expected = Arrays.asList(ObjectBuilder.team().build());
+        List<Participant> expected = Arrays.asList((Participant) ObjectBuilder.team().build());
         List<Participant> actual = tournament.getParticipants();
 
         assertEquals(expected, actual);

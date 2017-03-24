@@ -65,9 +65,9 @@ public class GlickoRating implements Rating {
     @Override
     public int hashCode() {
         int result = 17;
-        result = 31 * result + Double.hashCode(rating);
-        result = 31 * result + Double.hashCode(deviation);
-        result = 31 * result + Double.hashCode(volatility);
+        result = 31 * result + Double.valueOf(rating).hashCode();
+        result = 31 * result + Double.valueOf(deviation).hashCode();
+        result = 31 * result + Double.valueOf(volatility).hashCode();
 
         return result;
     }
