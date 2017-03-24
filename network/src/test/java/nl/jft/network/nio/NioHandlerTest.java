@@ -7,6 +7,7 @@ import io.netty.handler.ssl.NotSslRecordException;
 import io.netty.handler.ssl.SslHandler;
 import io.netty.util.Attribute;
 import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.GenericFutureListener;
 import nl.jft.network.Connection;
 import nl.jft.network.EndPoint;
 import nl.jft.network.listener.ConnectionListener;
@@ -18,7 +19,9 @@ import org.junit.rules.ExpectedException;
 import org.mockito.ArgumentMatchers;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Lesley
@@ -52,7 +55,7 @@ public class NioHandlerTest {
 
         handler.channelActive(fakeCtx);
 
-        verify(mockFuture).addListener(ArgumentMatchers.any());
+        verify(mockFuture).addListener(ArgumentMatchers.any(GenericFutureListener.class));
     }
 
     @Test
@@ -60,7 +63,7 @@ public class NioHandlerTest {
         NioHandler handler = makeNioHandler();
 
         Attribute<Connection> mockAttribute = mock(Attribute.class);
-        when(mockAttribute.getAndSet(ArgumentMatchers.isNull())).thenReturn(null);
+        when(mockAttribute.getAndSet((Connection) ArgumentMatchers.isNull())).thenReturn(null);
 
         Channel stubChannel = mock(Channel.class);
         when(stubChannel.attr(NioConstants.ATTRIBUTE_CONNECTION)).thenReturn(mockAttribute);
@@ -70,7 +73,7 @@ public class NioHandlerTest {
 
         handler.channelInactive(fakeCtx);
 
-        verify(mockAttribute).getAndSet(ArgumentMatchers.isNull());
+        verify(mockAttribute).getAndSet((Connection) ArgumentMatchers.isNull());
     }
 
     @Test
@@ -80,7 +83,7 @@ public class NioHandlerTest {
         Connection stubConnection = mock(Connection.class);
 
         Attribute<Connection> mockAttribute = mock(Attribute.class);
-        when(mockAttribute.getAndSet(ArgumentMatchers.isNull())).thenReturn(stubConnection);
+        when(mockAttribute.getAndSet((Connection) ArgumentMatchers.isNull())).thenReturn(stubConnection);
 
         Channel stubChannel = mock(Channel.class);
         when(stubChannel.attr(NioConstants.ATTRIBUTE_CONNECTION)).thenReturn(mockAttribute);
@@ -90,7 +93,7 @@ public class NioHandlerTest {
 
         handler.channelInactive(fakeCtx);
 
-        verify(mockAttribute).getAndSet(ArgumentMatchers.isNull());
+        verify(mockAttribute).getAndSet((Connection) ArgumentMatchers.isNull());
     }
 
     @Test
@@ -100,7 +103,7 @@ public class NioHandlerTest {
         Connection mockConnection = mock(Connection.class);
 
         Attribute<Connection> stubAttribute = mock(Attribute.class);
-        when(stubAttribute.getAndSet(ArgumentMatchers.isNull())).thenReturn(mockConnection);
+        when(stubAttribute.getAndSet((Connection) ArgumentMatchers.isNull())).thenReturn(mockConnection);
 
         Channel stubChannel = mock(Channel.class);
         when(stubChannel.attr(NioConstants.ATTRIBUTE_CONNECTION)).thenReturn(stubAttribute);
@@ -124,7 +127,7 @@ public class NioHandlerTest {
         Connection stubConnection = mock(Connection.class);
 
         Attribute<Connection> mockAttribute = mock(Attribute.class);
-        when(mockAttribute.getAndSet(ArgumentMatchers.isNull())).thenReturn(stubConnection);
+        when(mockAttribute.getAndSet((Connection) ArgumentMatchers.isNull())).thenReturn(stubConnection);
 
         Channel stubChannel = mock(Channel.class);
         when(stubChannel.attr(NioConstants.ATTRIBUTE_CONNECTION)).thenReturn(mockAttribute);

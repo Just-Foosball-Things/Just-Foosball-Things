@@ -7,6 +7,7 @@ import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import nl.jft.network.Connection;
 import nl.jft.network.EndPoint;
+import nl.jft.network.listener.ConnectionListener;
 
 import java.util.Objects;
 import java.util.logging.Level;
@@ -39,7 +40,9 @@ public final class HandshakeFutureListener implements GenericFutureListener<Futu
         Connection connection = new NioConnection(channel);
 
         channel.attr(NioConstants.ATTRIBUTE_CONNECTION).set(connection);
-        endPoint.getListeners().forEach(l -> l.connectionActive(connection));
+        for (ConnectionListener listener : endPoint.getListeners()) {
+            listener.connectionActive(connection);
+        }
 
         SslHandler sslHandler = ctx.pipeline().get(SslHandler.class);
         String suite = sslHandler.engine().getSession().getCipherSuite();

@@ -4,7 +4,7 @@ import nl.jft.logic.LogicConstants;
 import nl.jft.logic.match.Goal;
 import nl.jft.logic.participant.Participant;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author Lesley
@@ -13,7 +13,7 @@ public final class GoalBuilder {
 
     private int id;
     private Participant participant;
-    private LocalDateTime time;
+    private Date time;
 
     public GoalBuilder() {
         id = LogicConstants.INTERNAL_ID;
@@ -31,7 +31,7 @@ public final class GoalBuilder {
         return this;
     }
 
-    public GoalBuilder withTime(LocalDateTime time) {
+    public GoalBuilder withTime(Date time) {
         this.time = time;
         return this;
     }

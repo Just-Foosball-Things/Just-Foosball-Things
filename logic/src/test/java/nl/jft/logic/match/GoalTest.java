@@ -7,9 +7,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Lesley
@@ -101,8 +103,8 @@ public class GoalTest {
 
     @Test
     public void equals_differentTimes_returnsFalse() {
-        Goal goal1 = ObjectBuilder.goal().withTime(LocalDateTime.MIN).build();
-        Goal goal2 = ObjectBuilder.goal().withTime(LocalDateTime.MAX).build();
+        Goal goal1 = ObjectBuilder.goal().withTime(new Date(Long.MIN_VALUE)).build();
+        Goal goal2 = ObjectBuilder.goal().withTime(new Date(Long.MAX_VALUE)).build();
 
         boolean result = goal1.equals(goal2);
         assertFalse(result);
@@ -168,10 +170,10 @@ public class GoalTest {
 
     @Test
     public void getTime_whenCalled_returnsTime() {
-        Goal goal = ObjectBuilder.goal().withTime(LocalDateTime.MAX).build();
+        Goal goal = ObjectBuilder.goal().withTime(new Date(Long.MAX_VALUE)).build();
 
-        LocalDateTime expected = LocalDateTime.MAX;
-        LocalDateTime actual = goal.getTime();
+        Date expected = new Date(Long.MAX_VALUE);
+        Date actual = goal.getTime();
 
         assertEquals(expected, actual);
     }
