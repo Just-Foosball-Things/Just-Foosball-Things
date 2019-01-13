@@ -9,5 +9,3 @@ JFT will be supported the following features:
  - Track solo statistics
  - Host a tournament and invite teams
  - Much more foosball stuff!
- 
-JFT is being developed by Lesley Vente and Oscar de Leeuw
